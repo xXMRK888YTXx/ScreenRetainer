@@ -36,7 +36,11 @@ object Themes {
             get() = Colors(
                 background = white,
                 statusBar = white,
-                navigationBar = white
+                navigationBar = white,
+                primaryFontColor = black,
+                secondFontColor = black.copy(0.6f),
+                iconsColor = black,
+                cardColor = cardWhite
             )
         override val typography: Typography
             get() = BaseValues.typography
@@ -52,7 +56,11 @@ object Themes {
             get() = Colors(
                 background = black,
                 statusBar = black,
-                navigationBar = black
+                navigationBar = black,
+                primaryFontColor = white,
+                secondFontColor = white.copy(0.6f),
+                iconsColor = white,
+                cardColor = cardBlack
             )
         override val typography: Typography
             get() = BaseValues.typography
