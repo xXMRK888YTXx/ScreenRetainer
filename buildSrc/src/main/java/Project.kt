@@ -5,4 +5,5 @@ object Project {
     const val AppListScreen = ":AppListScreen"
     const val PackageInfoProvider = ":PackageInfoProvider"
     const val AdminReceiver = ":AdminReceiver"
+    const val OpenAppChangedTrackerService = ":OpenAppChangedTrackerService"
 }

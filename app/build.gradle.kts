@@ -58,6 +58,7 @@ dependencies {
     implementation(project(Project.AppListScreen))
     implementation(project(Project.PackageInfoProvider))
     implementation(project(Project.AdminReceiver))
+    implementation(project(Project.OpenAppChangedTrackerService))
 
     //Dagger
     kapt(Deps.Dagger.DaggerKaptCompiler)
