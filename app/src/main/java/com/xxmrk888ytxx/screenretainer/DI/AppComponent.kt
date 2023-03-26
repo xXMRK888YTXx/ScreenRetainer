@@ -1,0 +1,22 @@
+package com.xxmrk888ytxx.screenretainer.DI
+
+import android.content.Context
+import com.xxmrk888ytxx.screenretainer.DI.modules.AppListProviderModule
+import com.xxmrk888ytxx.screenretainer.MainActivity
+import dagger.BindsInstance
+import dagger.Component
+
+@Component(
+    modules = [
+        AppListProviderModule::class
+    ]
+)
+@AppScope
+interface AppComponent {
+    fun inject(mainActivity: MainActivity)
+
+    @dagger.Component.Factory
+    interface Factory {
+        fun create(@BindsInstance context: Context) : AppComponent
+    }
+}
