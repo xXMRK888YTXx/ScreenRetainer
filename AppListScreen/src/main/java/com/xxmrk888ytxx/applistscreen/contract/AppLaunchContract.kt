@@ -1,5 +1,5 @@
 package com.xxmrk888ytxx.applistscreen.contract
 
-interface AppLaunchManager {
+interface AppLaunchContract {
     fun launchApp()
 }

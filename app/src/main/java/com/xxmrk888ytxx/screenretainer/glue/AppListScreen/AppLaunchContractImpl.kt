@@ -1,11 +1,11 @@
 package com.xxmrk888ytxx.screenretainer.glue.AppListScreen
 
-import com.xxmrk888ytxx.applistscreen.contract.AppLaunchManager
+import com.xxmrk888ytxx.applistscreen.contract.AppLaunchContract
 import javax.inject.Inject
 
-class AppLaunchManagerImpl @Inject constructor(
+class AppLaunchContractImpl @Inject constructor(
 
-) : AppLaunchManager {
+) : AppLaunchContract {
     override fun launchApp() {
         TODO("Not yet implemented")
     }
