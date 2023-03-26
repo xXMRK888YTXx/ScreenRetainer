@@ -4,4 +4,5 @@ object Project {
     const val CoreCompose = ":CoreCompose"
     const val AppListScreen = ":AppListScreen"
     const val PackageInfoProvider = ":PackageInfoProvider"
+    const val AdminReceiver = ":AdminReceiver"
 }

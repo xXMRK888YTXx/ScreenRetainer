@@ -57,6 +57,7 @@ dependencies {
     implementation(project(Project.CoreCompose))
     implementation(project(Project.AppListScreen))
     implementation(project(Project.PackageInfoProvider))
+    implementation(project(Project.AdminReceiver))
 
     //Dagger
     kapt(Deps.Dagger.DaggerKaptCompiler)

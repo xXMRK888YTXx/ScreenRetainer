@@ -18,12 +18,6 @@ object Deps {
         const val SystemUiController = "com.google.accompanist:accompanist-systemuicontroller:0.29.2-rc"
     }
 
-    object Test {
-        const val JUnit = "junit:junit:4.13.2"
-        const val Mockk = "io.mockk:mockk:$MockkVersion"
-        const val Testing = "org.testng:testng:6.9.6"
-    }
-
     object TestAndroid {
         const val AndroidJUnit = "androidx.test.ext:junit:1.1.4"
         const val Espresso = "androidx.test.espresso:espresso-core:3.5.0"
@@ -57,4 +51,21 @@ object Deps {
             const val CoroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
         }
     }
+
+    object Test {
+        const val JUnit = "junit:junit:4.13.2"
+        const val Mockk = "io.mockk:mockk:$MockkVersion"
+        const val Testing = "org.testng:testng:6.9.6"
+    }
+
+    object InstrumentalTest {
+        private const val testVersion = "1.5.0"
+        const val espresso = "androidx.test.espresso:espresso-core:3.5.0"
+        const val testRunner = "androidx.test:runner:1.5.1"
+        const val testCore = "androidx.test:core:$testVersion"
+        const val jUnit = "androidx.test.ext:junit-ktx:1.1.4"
+        const val testRules = "androidx.test:rules:$testVersion"
+    }
+
+
 }
