@@ -2,6 +2,7 @@ package com.xxmrk888ytxx.screenretainer.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Immutable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.xxmrk888ytxx.corecompose.theme.AppTheme
@@ -54,13 +55,13 @@ object Themes {
     object Dark : AppTheme {
         override val colors: Colors
             get() = Colors(
-                background = black,
-                statusBar = black,
-                navigationBar = black,
-                primaryFontColor = white,
-                secondFontColor = white.copy(0.6f),
-                iconsColor = white,
-                cardColor = cardBlack
+                background = Color(0xFF1B252D),
+                statusBar = Color(0xFF1B252D),
+                navigationBar = Color(0xFF1B252D),
+                primaryFontColor = Color(0xFFFFFFFF),
+                secondFontColor = Color.Gray,
+                iconsColor = Color(0xFFFFFFFF),
+                cardColor = Color(0xFF25313D)
             )
         override val typography: Typography
             get() = BaseValues.typography

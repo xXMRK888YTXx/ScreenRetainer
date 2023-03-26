@@ -64,7 +64,8 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     private fun provideAppTheme() : AppTheme {
-        return if(isSystemInDarkTheme()) Themes.Dark
-            else Themes.White
+        return Themes.Dark
+//        return if(isSystemInDarkTheme()) Themes.Dark
+//            else Themes.White
     }
 }
