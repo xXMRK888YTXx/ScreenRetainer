@@ -1,5 +1,6 @@
 package com.xxmrk888ytxx.corecompose.theme.StyleComponents
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -11,7 +12,7 @@ import com.xxmrk888ytxx.corecompose.theme.themeShapes
 @Composable
 fun StyleCard(
     modifier: Modifier = Modifier,
-    backgroundColor:Color = themeColors.background,
+    backgroundColor:Color = themeColors.cardColor,
     shape:Shape = themeShapes.cardShape,
     content:@Composable () -> Unit
 ) {
