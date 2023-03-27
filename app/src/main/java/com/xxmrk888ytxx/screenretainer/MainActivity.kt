@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
@@ -21,6 +22,8 @@ import com.xxmrk888ytxx.applistscreen.AppListScreen
 import com.xxmrk888ytxx.applistscreen.AppListViewModel
 import com.xxmrk888ytxx.corecompose.theme.AppTheme
 import com.xxmrk888ytxx.corecompose.theme.themeColors
+import com.xxmrk888ytxx.coredeps.SharedInterfaces.ActivityLifecycleCallback.ActivityLifecycleCallback
+import com.xxmrk888ytxx.coredeps.SharedInterfaces.ActivityLifecycleCallback.ActivityLifecycleRegister
 import com.xxmrk888ytxx.screenretainer.theme.AppTheme
 import com.xxmrk888ytxx.screenretainer.theme.Themes
 import com.xxmrk888ytxx.screenretainer.utils.appComponent
@@ -28,10 +31,13 @@ import composeViewModel
 import javax.inject.Inject
 import javax.inject.Provider
 
-class MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity(),ActivityLifecycleRegister {
 
-    @Inject lateinit var appListViewModel: Provider<AppListViewModel>
+    @Inject lateinit var appListViewModel: AppListViewModel.Factory
 
+    @Inject lateinit var activityViewModelFactory: ActivityViewModel.Factory
+
+    private val activityViewModel by viewModels<ActivityViewModel> { activityViewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +55,9 @@ class MainActivity : ComponentActivity() {
                 ) {
                     composable(Screen.AppListScreen.route) {
                         AppListScreen(
-                            appListViewModel = composeViewModel { appListViewModel.get() }
+                            appListViewModel = composeViewModel {
+                                appListViewModel.create(this@MainActivity)
+                            }
                         )
                     }
 
@@ -60,6 +68,33 @@ class MainActivity : ComponentActivity() {
 
             }
         }
+
+        activityViewModel.onCreate(this)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        activityViewModel.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activityViewModel.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        activityViewModel.onPause()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        activityViewModel.onStop()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        activityViewModel.onDestroy()
     }
 
     @Composable
@@ -67,5 +102,13 @@ class MainActivity : ComponentActivity() {
         return Themes.Dark
 //        return if(isSystemInDarkTheme()) Themes.Dark
 //            else Themes.White
+    }
+
+    override fun registerCallback(activityLifecycleCallback: ActivityLifecycleCallback) {
+        activityViewModel.registerCallback(activityLifecycleCallback,this)
+    }
+
+    override fun unregisterCallback(activityLifecycleCallback: ActivityLifecycleCallback) {
+        activityViewModel.unregisterCallback(activityLifecycleCallback)
     }
 }
