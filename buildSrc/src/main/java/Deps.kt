@@ -71,5 +71,9 @@ object Deps {
         const val coil = "io.coil-kt:coil-compose:2.2.2"
     }
 
+    object DataStore {
+        const val dataStore = "androidx.datastore:datastore-preferences:1.0.0"
+    }
+
 
 }

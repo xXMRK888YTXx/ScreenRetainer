@@ -4,6 +4,7 @@ import android.content.Context
 import com.xxmrk888ytxx.eventdevicetracker.OpenAppChangedCallback
 import com.xxmrk888ytxx.screenretainer.DI.modules.AppListProviderModule
 import com.xxmrk888ytxx.screenretainer.DI.modules.OpenAppChangedTrackerServiceModule
+import com.xxmrk888ytxx.screenretainer.DI.modules.PreferencesStorageModule
 import com.xxmrk888ytxx.screenretainer.MainActivity
 import dagger.BindsInstance
 import dagger.Component
@@ -11,7 +12,8 @@ import dagger.Component
 @Component(
     modules = [
         AppListProviderModule::class,
-        OpenAppChangedTrackerServiceModule::class
+        OpenAppChangedTrackerServiceModule::class,
+        PreferencesStorageModule::class
     ]
 )
 @AppScope

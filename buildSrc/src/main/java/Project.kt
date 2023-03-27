@@ -6,4 +6,5 @@ object Project {
     const val PackageInfoProvider = ":PackageInfoProvider"
     const val AdminReceiver = ":AdminReceiver"
     const val OpenAppChangedTrackerService = ":OpenAppChangedTrackerService"
+    const val PreferencesStorage = ":PreferencesStorage"
 }
