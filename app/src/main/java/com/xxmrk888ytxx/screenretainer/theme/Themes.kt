@@ -2,32 +2,41 @@ package com.xxmrk888ytxx.screenretainer.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Immutable
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.xxmrk888ytxx.corecompose.theme.AppTheme
-import com.xxmrk888ytxx.corecompose.theme.types.Colors
-import com.xxmrk888ytxx.corecompose.theme.types.Dimensions
-import com.xxmrk888ytxx.corecompose.theme.types.Shapes
-import com.xxmrk888ytxx.corecompose.theme.types.Typography
+import com.xxmrk888ytxx.corecompose.theme.types.*
 
 object Themes {
 
     private object BaseValues {
         val typography: Typography
             get() = Typography(
-                head = TextStyle(),
-                body = TextStyle()
+                head = TextStyle(
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.W800,
+                ),
+                body = TextStyle(
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.W600
+                )
             )
 
-        val shapes : Shapes
+        val shapes: Shapes
             get() = Shapes(
-                cardShape = RoundedCornerShape(20.dp)
+                cardShape = RoundedCornerShape(20.dp),
+                buttonShape = RoundedCornerShape(15.dp)
             )
 
-        val dimensions : Dimensions
+        val dimensions: Dimensions
             get() = Dimensions(
-                iconSize = 30.dp
+                iconSize = 30.dp,
+                inCardPadding = 10.dp,
+                outCardPadding = 10.dp
             )
     }
 
@@ -49,6 +58,8 @@ object Themes {
             get() = BaseValues.shapes
         override val dimensions: Dimensions
             get() = BaseValues.dimensions
+        override val gradients: Gradients
+            get() = TODO("Not yet implemented")
     }
 
     @Immutable
@@ -69,5 +80,21 @@ object Themes {
             get() = BaseValues.shapes
         override val dimensions: Dimensions
             get() = BaseValues.dimensions
+        override val gradients: Gradients
+            get() = Gradients(
+                primaryGradient = Brush.linearGradient(
+                    listOf(
+                        Color(0xFF5849C2),
+                        Color(0xFF4871CC)
+                    )
+                ),
+
+                disableGradient = Brush.linearGradient(
+                    listOf(
+                        Color(0xFF25313D),
+                        Color(0xFF25313D)
+                    )
+                )
+            )
     }
 }
