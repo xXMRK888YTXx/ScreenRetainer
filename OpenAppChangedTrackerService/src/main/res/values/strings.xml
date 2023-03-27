@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="Service_description">This service will be used to monitor open applications and unlock the device.\n\nThe collected data is stored locally on the device and is not transferred
-        anywhere (except in the case in which you have
-        enabled sending notifications to the Telegram messenger).</string>
+    <string name="Service_description">This service is used to get information about the currently opened application.
+     This is used when you have triggered a commit and exited the application that is being committed.
+         The data received from this service is not saved and is not transmitted anywhere.</string>
 </resources>

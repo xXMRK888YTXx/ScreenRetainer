@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Search">Search</string>
+    <string name="Required_permissions">Required Permissions</string>
+    <string name="Grant">Grant</string>
+    <string name="Granted">Granted</string>
+    <string name="Gathering_information_about_applications">Gathering information about applications</string>
+    <string name="Please_wait">Please wait</string>
+    <string name="Device_administrator">Device administrator</string>
+    <string name="Accessibility">Accessibility</string>
+</resources>

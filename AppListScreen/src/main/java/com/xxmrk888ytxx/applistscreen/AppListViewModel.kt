@@ -1,5 +1,7 @@
 package com.xxmrk888ytxx.applistscreen
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.lifecycle.ViewModel
@@ -21,12 +23,14 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class AppListViewModel @AssistedInject constructor(
+class AppListViewModel @SuppressLint("StaticFieldLeak")
+@AssistedInject constructor(
     private val appListProvideContract: AppListProvideContract,
     private val appLaunchContract: AppLaunchContract,
     private val checkPermissionContract: CheckPermissionContract,
     private val requestPermissionContract: RequestPermissionContract,
-    @Assisted private val activityLifecycleRegister: ActivityLifecycleRegister
+    @Assisted private val activityLifecycleRegister: ActivityLifecycleRegister,
+    private val context: Context
 ) : ViewModel(),ActivityLifecycleCallback {
 
     private val _screenState = MutableStateFlow<ScreenState>(ScreenState.RequestPermission)
@@ -41,7 +45,7 @@ class AppListViewModel @AssistedInject constructor(
     private val adminPermissionState = MutableStateFlow(
         NeededPermissionModel(
             isGranted = checkPermissionContract.isAdminPermissionGranted(),
-            title = "Администратор устройства",
+            title = context.getString(R.string.Device_administrator),
             onRequest = {
                 requestAdminPermissionLauncher?.let {
                     requestPermissionContract.requestAdminPermission(it)
@@ -53,7 +57,7 @@ class AppListViewModel @AssistedInject constructor(
     private val accessibilityPermissionState = MutableStateFlow(
         NeededPermissionModel(
             isGranted = checkPermissionContract.isAccessibilityPermissionGranted(),
-            title = "Специальные возможности",
+            title = context.getString(R.string.Accessibility),
             onRequest = requestPermissionContract::requestAccessibilityPermission
         )
     )

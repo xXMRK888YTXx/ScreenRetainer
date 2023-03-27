@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -84,7 +85,7 @@ internal fun SearchLine(value:String,onChangeValue:(String) -> Unit) {
         singleLine = true,
         label = {
             Text(
-                text = "Поиск",
+                text = stringResource(R.string.Search),
                 style = themeTypography.body
             )
         },
@@ -186,7 +187,7 @@ internal fun RequestPermissionState(appListViewModel: AppListViewModel) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 HeadText(
-                    text = "Требуемые разрешения",
+                    text = stringResource(R.string.Required_permissions),
                     textAlign = TextAlign.Center
                 )
 
@@ -227,9 +228,10 @@ internal fun NeededPermissionWidget(neededPermissions: List<NeededPermissionMode
                 horizontalArrangement = Arrangement.Center
             ) {
                 HeadText(
-                    text = if(!it.isGranted) "Предоставить"
-                    else "Предоставлено",
-                    color = themeColors.primaryFontColor
+                    text = if(!it.isGranted) stringResource(R.string.Grant)
+                    else stringResource(R.string.Granted),
+                    color = if(!it.isGranted) themeColors.primaryFontColor
+                    else themeColors.errorColor
                 )
             }
         }
@@ -243,11 +245,11 @@ internal fun LoadingAppListState() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        HeadText(text = "Cобираю информацию о приложениях", textAlign = TextAlign.Center)
+        HeadText(text = stringResource(R.string.Gathering_information_about_applications), textAlign = TextAlign.Center)
 
         LazySpacer(5)
 
-        BodyText(text = "Пожалуйста подождите")
+        BodyText(text = stringResource(R.string.Please_wait))
 
         LazySpacer(15)
 

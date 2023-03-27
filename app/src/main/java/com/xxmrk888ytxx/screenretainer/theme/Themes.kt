@@ -54,7 +54,8 @@ object Themes {
                 secondFontColor = black.copy(0.6f),
                 iconsColor = black,
                 cardColor = cardWhite,
-                primaryColor = Color(0xFF5849C2)
+                primaryColor = Color(0xFF5849C2),
+                errorColor = Color(0xFFC64851)
             )
         override val typography: Typography
             get() = BaseValues.typography
@@ -77,7 +78,8 @@ object Themes {
                 secondFontColor = Color.Gray,
                 iconsColor = Color(0xFFFFFFFF),
                 cardColor = Color(0xFF25313D),
-                primaryColor = Color(0xFF5849C2)
+                primaryColor = Color(0xFF5849C2),
+                errorColor =  Color(0xFFC64851)
             )
         override val typography: Typography
             get() = BaseValues.typography

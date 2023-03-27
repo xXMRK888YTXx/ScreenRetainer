@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Search">Поиск</string>
+    <string name="Required_permissions">Требуемые разрешения</string>
+    <string name="Grant">Предоставить</string>
+    <string name="Granted">Предоставлено</string>
+    <string name="Gathering_information_about_applications">Собираю информацию о приложениях</string>
+    <string name="Please_wait">Пожалуйста подождите</string>
+    <string name="Device_administrator">Администратор устройства</string>
+    <string name="Accessibility">Специальные возможности</string>
+</resources>

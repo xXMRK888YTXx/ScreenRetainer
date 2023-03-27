@@ -10,5 +10,6 @@ data class Colors(
     val secondFontColor:Color,
     val iconsColor: Color,
     val cardColor:Color,
-    val primaryColor:Color
+    val primaryColor:Color,
+    val errorColor:Color
 )
