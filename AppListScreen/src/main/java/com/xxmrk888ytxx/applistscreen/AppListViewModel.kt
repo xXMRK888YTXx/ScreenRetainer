@@ -2,13 +2,13 @@ package com.xxmrk888ytxx.applistscreen
 
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.ActivityResultRegistry
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.xxmrk888ytxx.applistscreen.contract.AppLaunchContract
 import com.xxmrk888ytxx.applistscreen.contract.AppListProvideContract
 import com.xxmrk888ytxx.applistscreen.contract.CheckPermissionContract
 import com.xxmrk888ytxx.applistscreen.contract.RequestPermissionContract
+import com.xxmrk888ytxx.applistscreen.models.AppInfoModel
 import com.xxmrk888ytxx.applistscreen.models.NeededPermissionModel
 import com.xxmrk888ytxx.applistscreen.models.ScreenState
 import com.xxmrk888ytxx.coredeps.SharedInterfaces.ActivityLifecycleCallback.ActivityLifecycleCallback
@@ -20,7 +20,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 class AppListViewModel @AssistedInject constructor(
     private val appListProvideContract: AppListProvideContract,
@@ -75,9 +74,25 @@ class AppListViewModel @AssistedInject constructor(
             listOf(admin, accessibility)
         }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    internal fun onAdminPermissionRequested() {
+    private val _appList = MutableStateFlow<List<AppInfoModel>>(emptyList())
 
+    private val _searchLineText = MutableStateFlow("")
+
+    internal val searchLineText = _searchLineText.asStateFlow()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000),"")
+
+    internal val appList = _appList.asStateFlow()
+        .combine(searchLineText) { appList, searchText ->
+            if(searchText.isEmpty()) return@combine appList
+
+            appList.filter { searchText.lowercase() in (it.appName ?: "").lowercase() }
+        }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+
+    internal fun onSearchTextUpdated(text:String) {
+        viewModelScope.launch(Dispatchers.Main) { _searchLineText.emit(text) }
     }
+
 
     private fun updatePermissionState() {
         viewModelScope.launch {
@@ -102,6 +117,15 @@ class AppListViewModel @AssistedInject constructor(
             withContext(Dispatchers.Main) {
                 _screenState.emit(ScreenState.LoadingAppList)
             }
+
+            val appList = appListProvideContract.provide()
+
+            withContext(Dispatchers.Main) {
+                _appList.emit(appList)
+                _screenState.emit(ScreenState.AppList)
+            }
+
+
         }
     }
 

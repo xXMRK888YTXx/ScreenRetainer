@@ -49,6 +49,7 @@ android {
 
 dependencies {
     implementation(project(Project.CoreCompose))
+    implementation(Deps.Coil.coil)
 
     kapt(Deps.Dagger.DaggerKaptCompiler)
 }

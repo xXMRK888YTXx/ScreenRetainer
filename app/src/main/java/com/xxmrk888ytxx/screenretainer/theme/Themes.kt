@@ -23,20 +23,23 @@ object Themes {
                 body = TextStyle(
                     fontSize = 18.sp,
                     fontWeight = FontWeight.W600
-                )
+                ),
             )
 
         val shapes: Shapes
             get() = Shapes(
                 cardShape = RoundedCornerShape(20.dp),
-                buttonShape = RoundedCornerShape(15.dp)
+                buttonShape = RoundedCornerShape(15.dp),
+                textFieldShape = RoundedCornerShape(10.dp)
             )
 
         val dimensions: Dimensions
             get() = Dimensions(
                 iconSize = 30.dp,
                 inCardPadding = 10.dp,
-                outCardPadding = 10.dp
+                outCardPadding = 10.dp,
+                appIconSize = 55.dp,
+                searchFieldPaddings = 25.dp
             )
     }
 
@@ -50,7 +53,8 @@ object Themes {
                 primaryFontColor = black,
                 secondFontColor = black.copy(0.6f),
                 iconsColor = black,
-                cardColor = cardWhite
+                cardColor = cardWhite,
+                primaryColor = Color(0xFF5849C2)
             )
         override val typography: Typography
             get() = BaseValues.typography
@@ -72,7 +76,8 @@ object Themes {
                 primaryFontColor = Color(0xFFFFFFFF),
                 secondFontColor = Color.Gray,
                 iconsColor = Color(0xFFFFFFFF),
-                cardColor = Color(0xFF25313D)
+                cardColor = Color(0xFF25313D),
+                primaryColor = Color(0xFF5849C2)
             )
         override val typography: Typography
             get() = BaseValues.typography
