@@ -13,6 +13,6 @@ class LockDeviceUseCaseImpl @Inject constructor(
             action = AdminReceiver.lockDeviceAction
         }
 
-        context.startActivity(intent)
+        context.sendBroadcast(intent)
     }
 }
