@@ -7,6 +7,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyItemScope
@@ -64,7 +65,10 @@ internal fun AppList(appListViewModel: AppListViewModel) {
 
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             itemsIndexed(appList.value) { index,item ->
-                AppItem(item,index != appList.value.lastIndex)
+                AppItem(appInfo =  item,
+                    isShowSeparateLine = index != appList.value.lastIndex,
+                    onActivateFixation = appListViewModel::activateFixation
+                )
             }
         }
     }
@@ -111,12 +115,19 @@ internal fun SearchLine(value:String,onChangeValue:(String) -> Unit) {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun LazyItemScope.AppItem(appInfo: AppInfoModel,isShowSeparateLine:Boolean) {
+fun LazyItemScope.AppItem(
+    appInfo: AppInfoModel,
+    isShowSeparateLine:Boolean,
+    onActivateFixation:(String) -> Unit
+) {
     Column(
         Modifier
             .fillMaxWidth()
             .padding(themeDimensions.outCardPadding)
-            .animateItemPlacement(),
+            .animateItemPlacement()
+            .clickable {
+                onActivateFixation(appInfo.appPackageName)
+            },
     ) {
         Row(
             Modifier

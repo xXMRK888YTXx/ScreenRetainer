@@ -8,4 +8,6 @@
     <string name="Please_wait">Пожалуйста подождите</string>
     <string name="Device_administrator">Администратор устройства</string>
     <string name="Accessibility">Специальные возможности</string>
+    <string name="Could_not_find_start_screen">Не удалось найти стартовый экран</string>
+    <string name="Application_opening_error">Ошибка открытия приложения</string>
 </resources>

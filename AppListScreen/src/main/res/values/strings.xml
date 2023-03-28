@@ -8,4 +8,6 @@
     <string name="Please_wait">Please wait</string>
     <string name="Device_administrator">Device administrator</string>
     <string name="Accessibility">Accessibility</string>
+    <string name="Could_not_find_start_screen">Could not find start screen</string>
+    <string name="Application_opening_error">Application opening error</string>
 </resources>

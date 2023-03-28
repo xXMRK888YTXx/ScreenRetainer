@@ -6,13 +6,15 @@ import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.xxmrk888ytxx.applistscreen.contract.AppLaunchContract
+import com.xxmrk888ytxx.applistscreen.Exceptions.LaunchActivityNotFoundException
+import com.xxmrk888ytxx.applistscreen.contract.AppLaunchAndActivateScreenFixationContract
 import com.xxmrk888ytxx.applistscreen.contract.AppListProvideContract
 import com.xxmrk888ytxx.applistscreen.contract.CheckPermissionContract
 import com.xxmrk888ytxx.applistscreen.contract.RequestPermissionContract
 import com.xxmrk888ytxx.applistscreen.models.AppInfoModel
 import com.xxmrk888ytxx.applistscreen.models.NeededPermissionModel
 import com.xxmrk888ytxx.applistscreen.models.ScreenState
+import com.xxmrk888ytxx.coreandroid.DepsProvider.ToastManager
 import com.xxmrk888ytxx.coredeps.SharedInterfaces.ActivityLifecycleCallback.ActivityLifecycleCallback
 import com.xxmrk888ytxx.coredeps.SharedInterfaces.ActivityLifecycleCallback.ActivityLifecycleRegister
 import dagger.assisted.Assisted
@@ -26,11 +28,12 @@ import kotlinx.coroutines.withContext
 class AppListViewModel @SuppressLint("StaticFieldLeak")
 @AssistedInject constructor(
     private val appListProvideContract: AppListProvideContract,
-    private val appLaunchContract: AppLaunchContract,
+    private val appLaunchAndActivateScreenFixationContract: AppLaunchAndActivateScreenFixationContract,
     private val checkPermissionContract: CheckPermissionContract,
     private val requestPermissionContract: RequestPermissionContract,
     @Assisted private val activityLifecycleRegister: ActivityLifecycleRegister,
-    private val context: Context
+    private val context: Context,
+    private val toastManager: ToastManager
 ) : ViewModel(),ActivityLifecycleCallback {
 
     private val _screenState = MutableStateFlow<ScreenState>(ScreenState.RequestPermission)
@@ -130,6 +133,16 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
             }
 
 
+        }
+    }
+
+    internal fun activateFixation(packageName:String) {
+        try {
+            appLaunchAndActivateScreenFixationContract.launchAppAndFixation(packageName)
+        }catch (e: LaunchActivityNotFoundException) {
+            toastManager.showToast(context.getString(R.string.Could_not_find_start_screen))
+        }catch (e:Exception) {
+            toastManager.showToast(context.getString(R.string.Application_opening_error))
         }
     }
 
