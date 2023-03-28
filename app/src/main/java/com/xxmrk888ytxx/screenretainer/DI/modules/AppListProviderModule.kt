@@ -1,10 +1,10 @@
 package com.xxmrk888ytxx.screenretainer.DI.modules
 
-import com.xxmrk888ytxx.applistscreen.contract.AppLaunchContract
+import com.xxmrk888ytxx.applistscreen.contract.AppLaunchAndActivateScreenFixationContract
 import com.xxmrk888ytxx.applistscreen.contract.AppListProvideContract
 import com.xxmrk888ytxx.applistscreen.contract.CheckPermissionContract
 import com.xxmrk888ytxx.applistscreen.contract.RequestPermissionContract
-import com.xxmrk888ytxx.screenretainer.glue.AppListScreen.AppLaunchContractImpl
+import com.xxmrk888ytxx.screenretainer.glue.AppListScreen.AppLaunchAndActivateScreenFixationContractImpl
 import com.xxmrk888ytxx.screenretainer.glue.AppListScreen.AppListProvideContractImpl
 import com.xxmrk888ytxx.screenretainer.glue.AppListScreen.CheckPermissionContractImpl
 import com.xxmrk888ytxx.screenretainer.glue.AppListScreen.RequestPermissionContractImpl
@@ -20,8 +20,8 @@ interface AppListProviderModule {
 
     @Binds
     fun bindAppLaunchManager(
-        appLaunchManagerImpl: AppLaunchContractImpl
-    ) : AppLaunchContract
+        appLaunchManagerImpl: AppLaunchAndActivateScreenFixationContractImpl
+    ) : AppLaunchAndActivateScreenFixationContract
 
     @Binds
     fun bindRequestPermissionContract(
