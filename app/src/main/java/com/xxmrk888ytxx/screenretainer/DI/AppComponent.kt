@@ -14,7 +14,8 @@ import dagger.Component
         OpenAppChangedTrackerServiceModule::class,
         PreferencesStorageModule::class,
         ShareModule::class,
-        UseCasesModule::class
+        UseCasesModule::class,
+        FixationManagerModule::class
     ]
 )
 @AppScope
