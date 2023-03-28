@@ -1,6 +1,7 @@
 package com.xxmrk888ytxx.packageinfoprovider
 
 import android.content.Context
+import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
@@ -45,7 +46,7 @@ class PackageInfoProvider @Inject constructor(
             val applicationInfo = context.packageManager.getApplicationInfo(packageName, 0)
 
             context.packageManager.getApplicationLabel(applicationInfo).toString()
-        }catch (e: PackageManager.NameNotFoundException) {
+        } catch (e: PackageManager.NameNotFoundException) {
             null
         }
     }
@@ -64,24 +65,29 @@ class PackageInfoProvider @Inject constructor(
     fun getAppIcon(packageName: String): Drawable? {
         return try {
             context.packageManager.getApplicationIcon(packageName)
-        }catch (e: PackageManager.NameNotFoundException) {
+        } catch (e: PackageManager.NameNotFoundException) {
             null
         }
     }
 
-    suspend fun getAllApplicationInfo(): List<AppInfo> = withContext(Dispatchers.Default) {
-        val packages: List<ApplicationInfo> =
-            context.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+    fun getLaunchIntent(packageName: String): Intent? =
+        context.packageManager.getLaunchIntentForPackage(packageName)
 
-        return@withContext packages.map {
-            val packageName = it.packageName
+    suspend fun getAllApplicationInfoOnlyWithLaunchActivity(): List<AppInfo> =
+        withContext(Dispatchers.Default) {
+            val packages: List<ApplicationInfo> =
+                context.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
 
-            AppInfo(
-                appName = getAppName(packageName),
-                packageName = packageName,
-                icon = getAppIcon(packageName)
-            )
+            return@withContext packages
+                .filter { getLaunchIntent(it.packageName) != null }
+                .map {
+                    val packageName = it.packageName
+                    AppInfo(
+                        appName = getAppName(packageName),
+                        packageName = packageName,
+                        icon = getAppIcon(packageName)
+                    )
+                }
         }
-    }
 
 }

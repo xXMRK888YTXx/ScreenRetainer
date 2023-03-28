@@ -9,7 +9,7 @@ import javax.inject.Inject
 class AppListProvideContractImpl @Inject constructor(
     private val packageInfoProvider: PackageInfoProvider
 ) : AppListProvideContract {
-    override suspend fun provide(): List<AppInfoModel> = packageInfoProvider.getAllApplicationInfo().map {
+    override suspend fun provide(): List<AppInfoModel> = packageInfoProvider.getAllApplicationInfoOnlyWithLaunchActivity().map {
         AppInfoModel(
             appName = it.appName,
             appPackageName = it.packageName,
