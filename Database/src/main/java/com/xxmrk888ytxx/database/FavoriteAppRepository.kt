@@ -18,7 +18,7 @@ class FavoriteAppRepository private constructor(
     }
 
     fun favoriteAppListFlow() = favoriteAppDao.getAllFavoriteAppFlow().map {
-        FavoriteAppModel(it.packageName)
+       it.map { FavoriteAppModel(it.packageName) }
     }
 
     suspend fun removeApp(packageName:String) = withContext(Dispatchers.IO) {

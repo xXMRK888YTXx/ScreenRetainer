@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -38,6 +39,7 @@ import com.xxmrk888ytxx.corecompose.theme.ShareComponents.LazySpacer
 import com.xxmrk888ytxx.corecompose.theme.StyleComponents.BodyText
 import com.xxmrk888ytxx.corecompose.theme.StyleComponents.StyleCard
 import com.xxmrk888ytxx.corecompose.theme.StyleComponents.HeadText
+import com.xxmrk888ytxx.corecompose.theme.StyleComponents.StyleIcon
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -80,10 +82,19 @@ internal fun AppList(appListViewModel: AppListViewModel) {
         LazySpacer(10)
 
         LazyColumn(modifier = Modifier.fillMaxSize()) {
-            itemsIndexed(appList.value) { index,item ->
+            itemsIndexed(appList.value,key = { index, item ->
+                item.appPackageName
+            }) { index,item ->
                 AppItem(appInfo =  item,
                     isShowSeparateLine = index != appList.value.lastIndex,
-                    onActivateFixation = appListViewModel::activateFixation
+                    onActivateFixation = appListViewModel::activateFixation,
+                    onChangeFavoriteState = {
+                        if(it) {
+                            appListViewModel.removeInFavorite(item.appPackageName)
+                        } else {
+                            appListViewModel.addInFavorite(item.appPackageName)
+                        }
+                    }
                 )
             }
         }
@@ -134,7 +145,8 @@ internal fun SearchLine(value:String,onChangeValue:(String) -> Unit) {
 fun LazyItemScope.AppItem(
     appInfo: AppInfoModel,
     isShowSeparateLine:Boolean,
-    onActivateFixation:(String) -> Unit
+    onActivateFixation:(String) -> Unit,
+    onChangeFavoriteState:(Boolean) -> Unit
 ) {
     Column(
         Modifier
@@ -165,6 +177,18 @@ fun LazyItemScope.AppItem(
                 textAlign = TextAlign.Center,
                 color = themeColors.primaryFontColor
             )
+            
+            Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterEnd) {
+                IconButton(onClick = {
+                    onChangeFavoriteState(appInfo.isFavorite)
+                }) {
+                    StyleIcon(
+                        icon = painterResource(id = R.drawable.star),
+                        tint = if(appInfo.isFavorite) themeColors.primaryColor
+                            else themeColors.secondFontColor
+                    )
+                }
+            }
         }
 
         LazySpacer(5)

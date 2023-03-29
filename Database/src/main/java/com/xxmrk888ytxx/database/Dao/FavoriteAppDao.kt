@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 internal interface FavoriteAppDao {
 
     @Query("SELECT * FROM FavoriteAppEntity")
-    fun getAllFavoriteAppFlow() : Flow<FavoriteAppEntity>
+    fun getAllFavoriteAppFlow() : Flow<List<FavoriteAppEntity>>
 
     @Insert
     suspend fun insertFavoriteApp(favoriteAppEntity: FavoriteAppEntity)

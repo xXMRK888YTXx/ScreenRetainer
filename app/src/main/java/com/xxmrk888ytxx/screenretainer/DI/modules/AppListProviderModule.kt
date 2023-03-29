@@ -1,13 +1,7 @@
 package com.xxmrk888ytxx.screenretainer.DI.modules
 
-import com.xxmrk888ytxx.applistscreen.contract.AppLaunchAndActivateScreenFixationContract
-import com.xxmrk888ytxx.applistscreen.contract.AppListProvideContract
-import com.xxmrk888ytxx.applistscreen.contract.CheckPermissionContract
-import com.xxmrk888ytxx.applistscreen.contract.RequestPermissionContract
-import com.xxmrk888ytxx.screenretainer.glue.AppListScreen.AppLaunchAndActivateScreenFixationContractImpl
-import com.xxmrk888ytxx.screenretainer.glue.AppListScreen.AppListProvideContractImpl
-import com.xxmrk888ytxx.screenretainer.glue.AppListScreen.CheckPermissionContractImpl
-import com.xxmrk888ytxx.screenretainer.glue.AppListScreen.RequestPermissionContractImpl
+import com.xxmrk888ytxx.applistscreen.contract.*
+import com.xxmrk888ytxx.screenretainer.glue.AppListScreen.*
 import dagger.Binds
 import dagger.Module
 
@@ -32,4 +26,9 @@ interface AppListProviderModule {
     fun bindCheckPermissionContract(
         CheckPermissionContract: CheckPermissionContractImpl
     ) :CheckPermissionContract
+
+    @Binds
+    fun bindManageFavoriteAppContract(
+        ManageFavoriteAppContractImpl: ManageFavoriteAppContractImpl
+    ) : ManageFavoriteAppContract
 }

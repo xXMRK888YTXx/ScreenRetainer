@@ -7,10 +7,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.xxmrk888ytxx.applistscreen.Exceptions.LaunchActivityNotFoundException
-import com.xxmrk888ytxx.applistscreen.contract.AppLaunchAndActivateScreenFixationContract
-import com.xxmrk888ytxx.applistscreen.contract.AppListProvideContract
-import com.xxmrk888ytxx.applistscreen.contract.CheckPermissionContract
-import com.xxmrk888ytxx.applistscreen.contract.RequestPermissionContract
+import com.xxmrk888ytxx.applistscreen.contract.*
 import com.xxmrk888ytxx.applistscreen.models.AppInfoModel
 import com.xxmrk888ytxx.applistscreen.models.NeededPermissionModel
 import com.xxmrk888ytxx.applistscreen.models.ScreenState
@@ -31,6 +28,7 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
     private val appLaunchAndActivateScreenFixationContract: AppLaunchAndActivateScreenFixationContract,
     private val checkPermissionContract: CheckPermissionContract,
     private val requestPermissionContract: RequestPermissionContract,
+    private val manageFavoriteAppContract: ManageFavoriteAppContract,
     @Assisted private val activityLifecycleRegister: ActivityLifecycleRegister,
     private val context: Context,
     private val toastManager: ToastManager
@@ -88,16 +86,40 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
     internal val searchLineText = _searchLineText.asStateFlow()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000),"")
 
+    private val favoriteAppList = manageFavoriteAppContract.getFavoriteAppFlow()
+
     internal val appList = _appList.asStateFlow()
         .combine(searchLineText) { appList, searchText ->
+
             if(searchText.isEmpty()) return@combine appList
 
             appList.filter { searchText.lowercase() in (it.appName ?: "").lowercase() }
+
+        }.combine(favoriteAppList) { appList, favoriteApps ->
+            appList.map {
+                return@map if(it.appPackageName in favoriteApps) {
+                    it.copy(isFavorite = true)
+                } else it
+            }
+        }.map {
+            it.sortedByDescending { it.isFavorite }
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     internal fun onSearchTextUpdated(text:String) {
         viewModelScope.launch(Dispatchers.Main) { _searchLineText.emit(text) }
+    }
+
+    internal fun addInFavorite(packageName: String) {
+        viewModelScope.launch {
+            manageFavoriteAppContract.addInFavoriteApp(packageName)
+        }
+    }
+
+    internal fun removeInFavorite(packageName: String) {
+        viewModelScope.launch {
+            manageFavoriteAppContract.removeFromFavoriteApp(packageName)
+        }
     }
 
 

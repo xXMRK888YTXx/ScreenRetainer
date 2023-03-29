@@ -7,13 +7,14 @@ import com.xxmrk888ytxx.packageinfoprovider.PackageInfoProvider
 import javax.inject.Inject
 
 class AppListProvideContractImpl @Inject constructor(
-    private val packageInfoProvider: PackageInfoProvider
+    private val packageInfoProvider: PackageInfoProvider,
 ) : AppListProvideContract {
     override suspend fun provide(): List<AppInfoModel> = packageInfoProvider.getAllApplicationInfoOnlyWithLaunchActivity().map {
         AppInfoModel(
             appName = it.appName,
             appPackageName = it.packageName,
-            appIcon = it.icon?.toBitmap()
+            appIcon = it.icon?.toBitmap(),
+            isFavorite = false
         )
     }
 }
