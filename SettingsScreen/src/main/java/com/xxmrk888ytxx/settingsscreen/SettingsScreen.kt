@@ -39,13 +39,6 @@ fun SettingsScreen(settingsViewModel: SettingsViewModel) {
         ) {
             item {
                 SettingsCategory(
-                    categoryName = "Кастомизация",
-                    settingsParams = getThemeSettings(settingsViewModel)
-                )
-            }
-
-            item {
-                SettingsCategory(
                     categoryName = "Локализация",
                     settingsParams = getLanguageSettings(settingsViewModel)
                 )

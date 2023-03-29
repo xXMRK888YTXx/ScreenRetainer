@@ -72,36 +72,6 @@ object Themes {
     }
 
     @Immutable
-    object White : AppTheme {
-        override val colors: Colors
-            get() = Colors(
-                background = Color(0xFF1B252D),
-                statusBar = Color(0xFF1B252D),
-                navigationBar = Color(0xFF1B252D),
-                primaryFontColor = Color(0xFFFFFFFF),
-                secondFontColor = Color.Gray,
-                iconsColor = Color(0xFFFFFFFF),
-                cardColor = Color(0xFF25313D),
-                primaryColor = Color(0xFF5849C2),
-                errorColor =  Color(0xFFC64851),
-                bottomBarColor = Color(0xFF1B252D),
-                bottomBarSelectedContentColor = Color(0xFF5849C2),
-                bottomBarUnselectedContentColor = Color(0x99FFFFFF),
-                disableColor = Color(0xFF303F4F),
-                cancelButtonColor = Color(0xFF303F4F),
-                yesButtonColor = Color(0xFF5849C2)
-            )
-        override val typography: Typography
-            get() = BaseValues.typography
-        override val shapes: Shapes
-            get() = BaseValues.shapes
-        override val dimensions: Dimensions
-            get() = BaseValues.dimensions
-        override val gradients: Gradients
-            get() = TODO("Not yet implemented")
-    }
-
-    @Immutable
     object Dark : AppTheme {
         override val colors: Colors
             get() = Colors(

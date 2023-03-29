@@ -126,8 +126,6 @@ class MainActivity : ComponentActivity(),ActivityLifecycleRegister {
     @Composable
     private fun provideAppTheme() : AppTheme {
         return Themes.Dark
-//        return if(isSystemInDarkTheme()) Themes.Dark
-//            else Themes.White
     }
 
     override fun registerCallback(activityLifecycleCallback: ActivityLifecycleCallback) {
