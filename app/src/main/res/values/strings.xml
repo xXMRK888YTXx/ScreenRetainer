@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">ScreenRetainer</string>
+    <string name="app_name" translatable="false">ScreenRetainer</string>
+    <string name="Applications">Applications</string>
+    <string name="Settings">Settings</string>
 </resources>

@@ -62,7 +62,7 @@ class MainActivity : ComponentActivity(),ActivityLifecycleRegister {
                         BottomBarScreen(
                             bottomBarScreens = listOf(
                                 BottomBarScreenModel(
-                                    title = "Приложения",
+                                    title = getString(R.string.Applications),
                                     icon = R.drawable.apps,
                                     content = {
                                         AppListScreen(
@@ -74,7 +74,7 @@ class MainActivity : ComponentActivity(),ActivityLifecycleRegister {
                                 ),
 
                                 BottomBarScreenModel(
-                                    title = "Настройки",
+                                    title = getString(R.string.Settings),
                                     icon = R.drawable.settings,
                                     content = {
                                         HeadText(text = "TODO")
