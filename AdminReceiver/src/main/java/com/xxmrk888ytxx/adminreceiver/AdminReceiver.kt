@@ -9,12 +9,14 @@ import android.util.Log
 
 /**
  * [Ru]
- *  * Ресивер который используется для получения информации как администратор устройства
+ *  * Ресивер который является администратором устройства, используется для блокировки экрана
+ *  устройства.
  */
 
 /**
  * [En]
- * * The receiver that is used to receive information as the device administrator
+ * The receiver who is the device administrator is used to lock the screen
+ * devices.
  */
 class AdminReceiver : DeviceAdminReceiver() {
 

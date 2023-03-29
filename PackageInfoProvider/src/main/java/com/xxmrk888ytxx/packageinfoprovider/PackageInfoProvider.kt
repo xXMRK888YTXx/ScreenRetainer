@@ -70,9 +70,31 @@ class PackageInfoProvider @Inject constructor(
         }
     }
 
+    /**
+     * [Ru]
+     * Вызвращает [Intent] для запуска приложения. Если его найти не удалось возвращает null
+     *
+     * @param packageName - Имя покета, у которого будет выполенен поиск стартого [Intent]
+     */
+
+    /**
+     * [En]
+     * Returns [Intent] to start the application. Returns null if not found
+     *
+     * @param packageName - The name of the package to search for the starting [Intent]
+     */
     fun getLaunchIntent(packageName: String): Intent? =
         context.packageManager.getLaunchIntentForPackage(packageName)
 
+    /**
+     * [Ru]
+     * Возвращает список приложений, у которых был найдет стартовый [Intent]
+     */
+
+    /**
+     * [En]
+     * Returns a list of applications that had a start [Intent]
+     */
     suspend fun getAllApplicationInfoOnlyWithLaunchActivity(): List<AppInfo> =
         withContext(Dispatchers.Default) {
             val packages: List<ApplicationInfo> =

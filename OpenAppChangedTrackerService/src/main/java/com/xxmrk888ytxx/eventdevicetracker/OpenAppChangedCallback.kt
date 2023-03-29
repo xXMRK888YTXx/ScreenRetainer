@@ -4,13 +4,11 @@ package com.xxmrk888ytxx.eventdevicetracker
  * [Ru]
  * Интерфейс для получение событий устройства таких как:
  * - Смена текущего открытого приложения
- * - разблокировка устройства
  */
 /**
  * [En]
  * Interface for receiving device events such as:
  * - Change the current open application
- * - unlock device
  */
 interface OpenAppChangedCallback {
     /**

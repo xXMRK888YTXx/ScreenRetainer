@@ -19,6 +19,19 @@ import com.xxmrk888ytxx.corecompose.theme.themeDimensions
 import com.xxmrk888ytxx.corecompose.theme.themeTypography
 import kotlinx.coroutines.launch
 
+/**
+ * [Ru]
+ * Экран для обьеденение других экранов спомошью bottomBar
+ *
+ * @param bottomBarScreens - Набор параметров, для показа bottomBar и контента для него
+ */
+
+/**
+ * [En]
+ * Screen for merging other screens with bottomBar
+ *
+ * @param bottomBarScreens - A set of parameters to show the bottomBar and content for it
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun BottomBarScreen(bottomBarScreens:List<BottomBarScreenModel>) {
