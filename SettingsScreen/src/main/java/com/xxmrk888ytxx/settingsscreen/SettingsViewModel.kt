@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.xxmrk888ytxx.settingsscreen.contracts.LanguageManageContract
 import com.xxmrk888ytxx.settingsscreen.contracts.ProvideAppInfoContract
+import com.xxmrk888ytxx.settingsscreen.contracts.StartActivityContract
 import com.xxmrk888ytxx.settingsscreen.models.AppLanguage
 import com.xxmrk888ytxx.settingsscreen.models.DialogState.DialogState
 import com.xxmrk888ytxx.settingsscreen.models.DialogState.LanguageDialogState
@@ -17,7 +18,8 @@ import javax.inject.Inject
 
 class SettingsViewModel @Inject constructor(
     private val provideAppInfoContract: ProvideAppInfoContract,
-    private val languageManageContract: LanguageManageContract
+    private val languageManageContract: LanguageManageContract,
+    private val startActivityContract: StartActivityContract
 ) : ViewModel() {
 
     internal val appVersion = provideAppInfoContract.appVersion
@@ -37,7 +39,7 @@ class SettingsViewModel @Inject constructor(
         languageManageContract.setupLanguage(currentSelectedLanguage.currentSelectedLanguage)
     }
 
-    fun showLanguageDialog() {
+    internal fun showLanguageDialog() {
         viewModelScope.launch {
             val currentLanguage = languageManageContract.currentLanguage
 
@@ -49,7 +51,7 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun hideLanguageDialog() {
+    internal fun hideLanguageDialog() {
         viewModelScope.launch {
             _dialogState.emit(
                 _dialogState.value.copy(
@@ -59,7 +61,7 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun changeCurrentSelectedLanguage(language: AppLanguage) {
+    internal fun changeCurrentSelectedLanguage(language: AppLanguage) {
         if(dialogState.value.languageDialogState !is LanguageDialogState.Showed) return
 
         viewModelScope.launch { _dialogState.emit(
@@ -68,4 +70,22 @@ class SettingsViewModel @Inject constructor(
             )
         ) }
     }
+
+    fun openSiteWithSourceCode() {
+        startActivityContract.openSiteWithSourceCode()
+    }
+
+    fun openSendEmailActivity() {
+        startActivityContract.openSendEmailActivity()
+    }
+
+    fun openSiteWithPrivacyPolicy() {
+        startActivityContract.openSiteWithPrivacyPolicy()
+    }
+
+    fun openSiteWithTermsUse() {
+        startActivityContract.openSiteWithTermsUse()
+    }
+
+
 }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.res.stringResource
 import com.xxmrk888ytxx.settingsscreen.models.SettingsParamType
 
 @SuppressLint("ResourceType")
@@ -12,7 +13,7 @@ internal fun getLanguageSettings(settingsViewModel: SettingsViewModel) : List<Se
 
     return listOf(
         SettingsParamType.Button(
-            text = "Язык приложения",
+            text = stringResource(R.string.Application_language),
             icon = R.drawable.language,
             onClick = settingsViewModel::showLanguageDialog
         )
@@ -23,44 +24,42 @@ internal fun getLanguageSettings(settingsViewModel: SettingsViewModel) : List<Se
 @Composable
 internal fun getAppInfoSettings(settingsViewModel: SettingsViewModel) : List<SettingsParamType> {
 
-    return remember {
-        listOf(
-            SettingsParamType.Label(
-                text = "Версия приложения",
-                icon = R.drawable.info,
-                secondaryText = settingsViewModel.appVersion
-            ),
+    return listOf(
+        SettingsParamType.Label(
+            text = stringResource(R.string.Application_version),
+            icon = R.drawable.info,
+            secondaryText = settingsViewModel.appVersion
+        ),
 
-            SettingsParamType.Button(
-                text = "Исходный код",
-                icon = R.drawable.code,
-                onClick = {  }
-            ),
+        SettingsParamType.Button(
+            text = stringResource(R.string.Source_code),
+            icon = R.drawable.code,
+            onClick = settingsViewModel::openSiteWithSourceCode
+        ),
 
-            SettingsParamType.Button(
-                text = "Написать разработчику",
-                icon = R.drawable.email,
-                onClick = {}
-            ),
+        SettingsParamType.Button(
+            text = stringResource(R.string.Write_to_the_developer),
+            icon = R.drawable.email,
+            onClick = settingsViewModel::openSendEmailActivity
+        ),
 
-            SettingsParamType.Button(
-                text = "Политика конфиденциальности",
-                icon = R.drawable.shield,
-                onClick = {}
-            ),
+        SettingsParamType.Button(
+            text = stringResource(R.string.Privacy_policy),
+            icon = R.drawable.shield,
+            onClick = settingsViewModel::openSiteWithPrivacyPolicy
+        ),
 
-            SettingsParamType.Button(
-                text = "Условия пользования",
-                icon = R.drawable.terms,
-                onClick = {}
-            ),
+        SettingsParamType.Button(
+            text = stringResource(R.string.Terms_of_use),
+            icon = R.drawable.terms,
+            onClick = settingsViewModel::openSiteWithTermsUse
+        ),
 
-            SettingsParamType.Button(
-                text = "Удалить приложение",
-                icon = R.drawable.delete,
-                onClick = {}
-            )
-
+        SettingsParamType.Button(
+            text = stringResource(R.string.Delete_app),
+            icon = R.drawable.delete,
+            onClick = {}
         )
-    }
+
+    )
 }

@@ -12,6 +12,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.res.stringResource
 import com.xxmrk888ytxx.corecompose.theme.ShareComponents.SelectDialog
 import com.xxmrk888ytxx.corecompose.theme.ShareComponents.models.SelectDialogModel
 import com.xxmrk888ytxx.settingsscreen.models.AppLanguage
@@ -39,14 +40,14 @@ fun SettingsScreen(settingsViewModel: SettingsViewModel) {
         ) {
             item {
                 SettingsCategory(
-                    categoryName = "Локализация",
+                    categoryName = stringResource(R.string.Localization),
                     settingsParams = getLanguageSettings(settingsViewModel)
                 )
             }
 
             item {
                 SettingsCategory(
-                    categoryName = "Об приложении",
+                    categoryName = stringResource(R.string.About_the_app),
                     settingsParams = getAppInfoSettings(settingsViewModel)
                 )
             }
