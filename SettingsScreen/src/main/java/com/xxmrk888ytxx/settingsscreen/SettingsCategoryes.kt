@@ -58,7 +58,7 @@ internal fun getAppInfoSettings(settingsViewModel: SettingsViewModel) : List<Set
         SettingsParamType.Button(
             text = stringResource(R.string.Delete_app),
             icon = R.drawable.delete,
-            onClick = {}
+            onClick = settingsViewModel::removeApp
         )
 
     )

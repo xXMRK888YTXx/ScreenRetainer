@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.xxmrk888ytxx.settingsscreen.contracts.LanguageManageContract
 import com.xxmrk888ytxx.settingsscreen.contracts.ProvideAppInfoContract
+import com.xxmrk888ytxx.settingsscreen.contracts.RemoveAppContract
 import com.xxmrk888ytxx.settingsscreen.contracts.StartActivityContract
 import com.xxmrk888ytxx.settingsscreen.models.AppLanguage
 import com.xxmrk888ytxx.settingsscreen.models.DialogState.DialogState
@@ -19,7 +20,8 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(
     private val provideAppInfoContract: ProvideAppInfoContract,
     private val languageManageContract: LanguageManageContract,
-    private val startActivityContract: StartActivityContract
+    private val startActivityContract: StartActivityContract,
+    private val removeAppContract: RemoveAppContract
 ) : ViewModel() {
 
     internal val appVersion = provideAppInfoContract.appVersion
@@ -85,6 +87,10 @@ class SettingsViewModel @Inject constructor(
 
     fun openSiteWithTermsUse() {
         startActivityContract.openSiteWithTermsUse()
+    }
+
+    fun removeApp() {
+        removeAppContract.removeApp()
     }
 
 
