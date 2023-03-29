@@ -15,5 +15,7 @@ data class Colors(
     val bottomBarColor:Color,
     val bottomBarSelectedContentColor: Color,
     val bottomBarUnselectedContentColor: Color,
-    val disableColor:Color
+    val disableColor:Color,
+    val cancelButtonColor:Color,
+    val yesButtonColor:Color
 )

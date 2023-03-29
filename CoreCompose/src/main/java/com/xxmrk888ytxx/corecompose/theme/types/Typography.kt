@@ -8,5 +8,6 @@ data class Typography(
     val body:TextStyle,
     val bottomBar:TextStyle,
     val settingCategory:TextStyle,
-    val settingsParam : TextStyle
+    val settingsParam : TextStyle,
+    val button: TextStyle
 )

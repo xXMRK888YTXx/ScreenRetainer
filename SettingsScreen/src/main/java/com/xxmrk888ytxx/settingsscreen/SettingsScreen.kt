@@ -8,14 +8,21 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLayoutDirection
+import com.xxmrk888ytxx.corecompose.theme.ShareComponents.SelectDialog
+import com.xxmrk888ytxx.corecompose.theme.ShareComponents.models.SelectDialogModel
+import com.xxmrk888ytxx.settingsscreen.models.AppLanguage
+import com.xxmrk888ytxx.settingsscreen.models.DialogState.LanguageDialogState
 import com.xxmrk888ytxx.settingsscreen.models.SettingsParamType
 
 @SuppressLint("ResourceType")
 @Composable
 fun SettingsScreen(settingsViewModel: SettingsViewModel) {
+    val dialogState = settingsViewModel.dialogState.collectAsState()
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         backgroundColor = Color.Transparent
@@ -52,4 +59,32 @@ fun SettingsScreen(settingsViewModel: SettingsViewModel) {
             }
         }
     }
+
+    if (dialogState.value.languageDialogState is LanguageDialogState.Showed) {
+        SelectLanguageDialog(
+            settingsViewModel = settingsViewModel,
+            currentSelectedLanguage = (dialogState.value.languageDialogState
+                    as LanguageDialogState.Showed).currentSelectedLanguage
+        )
+    }
+}
+
+@Composable
+internal fun SelectLanguageDialog(
+    settingsViewModel: SettingsViewModel,
+    currentSelectedLanguage: AppLanguage,
+) {
+    SelectDialog(
+        confirmButtonText = "Ок",
+        cancelButtonText = "Отмена",
+        onConfirm = settingsViewModel::changeCurrentLanguage,
+        onCancel = settingsViewModel::hideLanguageDialog,
+        items = settingsViewModel.supportedLanguage.map {
+            SelectDialogModel(
+                title = it.name,
+                isSelected = currentSelectedLanguage == it,
+                onClick = { settingsViewModel.changeCurrentSelectedLanguage(it) }
+            )
+        }
+    )
 }

@@ -8,6 +8,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.font.FontWeight.Companion.W300
 import androidx.compose.ui.text.font.FontWeight.Companion.W400
+import androidx.compose.ui.text.font.FontWeight.Companion.W500
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.xxmrk888ytxx.corecompose.theme.AppTheme
@@ -37,6 +38,10 @@ object Themes {
                 settingsParam = TextStyle(
                     fontSize = 16.sp,
                     fontWeight = W400
+                ),
+                button = TextStyle(
+                    fontSize = 15.sp,
+                    fontWeight = W500
                 )
             )
 
@@ -44,7 +49,8 @@ object Themes {
             get() = Shapes(
                 cardShape = RoundedCornerShape(20.dp),
                 buttonShape = RoundedCornerShape(15.dp),
-                textFieldShape = RoundedCornerShape(10.dp)
+                textFieldShape = RoundedCornerShape(10.dp),
+                outlineButtonShape = RoundedCornerShape(80)
             )
 
         val dimensions: Dimensions
@@ -65,19 +71,21 @@ object Themes {
     object White : AppTheme {
         override val colors: Colors
             get() = Colors(
-                background = white,
-                statusBar = white,
-                navigationBar = white,
-                primaryFontColor = black,
-                secondFontColor = black.copy(0.6f),
-                iconsColor = black,
-                cardColor = cardWhite,
+                background = Color(0xFF1B252D),
+                statusBar = Color(0xFF1B252D),
+                navigationBar = Color(0xFF1B252D),
+                primaryFontColor = Color(0xFFFFFFFF),
+                secondFontColor = Color.Gray,
+                iconsColor = Color(0xFFFFFFFF),
+                cardColor = Color(0xFF25313D),
                 primaryColor = Color(0xFF5849C2),
-                errorColor = Color(0xFFC64851),
+                errorColor =  Color(0xFFC64851),
                 bottomBarColor = Color(0xFF1B252D),
                 bottomBarSelectedContentColor = Color(0xFF5849C2),
-                bottomBarUnselectedContentColor = Color(0xFFFFFFFF),
-                disableColor = Color(0xFF303F4F)
+                bottomBarUnselectedContentColor = Color(0x99FFFFFF),
+                disableColor = Color(0xFF303F4F),
+                cancelButtonColor = Color(0xFF303F4F),
+                yesButtonColor = Color(0xFF5849C2)
             )
         override val typography: Typography
             get() = BaseValues.typography
@@ -105,7 +113,9 @@ object Themes {
                 bottomBarColor = Color(0xFF1B252D),
                 bottomBarSelectedContentColor = Color(0xFF5849C2),
                 bottomBarUnselectedContentColor = Color(0x99FFFFFF),
-                disableColor = Color(0xFF303F4F)
+                disableColor = Color(0xFF303F4F),
+                cancelButtonColor = Color(0xFF303F4F),
+                yesButtonColor = Color(0xFF5849C2)
             )
         override val typography: Typography
             get() = BaseValues.typography

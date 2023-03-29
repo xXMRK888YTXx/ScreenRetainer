@@ -25,7 +25,7 @@ internal fun getLanguageSettings(settingsViewModel: SettingsViewModel) : List<Se
         SettingsParamType.Button(
             text = "Язык приложения",
             icon = R.drawable.language,
-            onClick = {}
+            onClick = settingsViewModel::showLanguageDialog
         )
     )
 }
