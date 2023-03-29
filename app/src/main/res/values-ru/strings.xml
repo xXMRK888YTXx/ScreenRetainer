@@ -2,4 +2,5 @@
 <resources>
     <string name="Applications">Приложения</string>
     <string name="Settings">Настройки</string>
+    <string name="Choose_a_client">Выберете клиент</string>
 </resources>

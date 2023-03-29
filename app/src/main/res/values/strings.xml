@@ -2,4 +2,7 @@
     <string name="app_name" translatable="false">ScreenRetainer</string>
     <string name="Applications">Applications</string>
     <string name="Settings">Settings</string>
+    <string name="Source_code_url" translatable="false">https://github.com/xXMRK888YTXx/ScreenRetainer</string>
+    <string name="my_email" translatable="false">xxmrk888ytxx.rlc@gmail.com</string>
+    <string name="Choose_a_client">Choose a client</string>
 </resources>
