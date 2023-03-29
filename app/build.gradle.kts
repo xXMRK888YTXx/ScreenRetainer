@@ -62,6 +62,7 @@ dependencies {
     implementation(project(Project.PreferencesStorage))
     implementation(project(Project.BottomBarScreen))
     implementation(project(Project.SettingsScreen))
+    implementation(project(Project.Database))
 
     //Dagger
     kapt(Deps.Dagger.DaggerKaptCompiler)

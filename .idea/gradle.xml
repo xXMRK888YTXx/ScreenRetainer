@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/BottomBarScreen" />
             <option value="$PROJECT_DIR$/CoreAndroid" />
             <option value="$PROJECT_DIR$/CoreCompose" />
+            <option value="$PROJECT_DIR$/Database" />
             <option value="$PROJECT_DIR$/OpenAppChangedTrackerService" />
             <option value="$PROJECT_DIR$/PackageInfoProvider" />
             <option value="$PROJECT_DIR$/PreferencesStorage" />
