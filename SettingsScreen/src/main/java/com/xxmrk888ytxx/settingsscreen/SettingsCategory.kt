@@ -13,7 +13,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.xxmrk888ytxx.corecompose.theme.ShareComponents.LazySpacer
 import com.xxmrk888ytxx.corecompose.theme.StyleComponents.BodyText
+import com.xxmrk888ytxx.corecompose.theme.themeColors
 import com.xxmrk888ytxx.corecompose.theme.themeDimensions
+import com.xxmrk888ytxx.corecompose.theme.themeTypography
 import com.xxmrk888ytxx.settingsscreen.models.SettingsParamShape
 import com.xxmrk888ytxx.settingsscreen.models.SettingsParamType
 
@@ -24,7 +26,11 @@ internal fun SettingsCategory(categoryName: String, settingsParams: List<Setting
             .fillMaxWidth()
             .padding(10.dp)
     ) {
-        BodyText(text = categoryName)
+        Text(
+            text = categoryName,
+            color = themeColors.secondFontColor,
+            style = themeTypography.settingCategory
+        )
 
         LazySpacer(height = themeDimensions.paddingBetweenLabelAndSettingsField)
 

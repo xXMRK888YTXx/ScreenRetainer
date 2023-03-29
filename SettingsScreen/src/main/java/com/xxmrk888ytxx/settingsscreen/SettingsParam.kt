@@ -18,6 +18,7 @@ import com.xxmrk888ytxx.corecompose.theme.StyleComponents.StyleCard
 import com.xxmrk888ytxx.corecompose.theme.StyleComponents.StyleIcon
 import com.xxmrk888ytxx.corecompose.theme.themeColors
 import com.xxmrk888ytxx.corecompose.theme.themeDimensions
+import com.xxmrk888ytxx.corecompose.theme.themeTypography
 import com.xxmrk888ytxx.settingsscreen.models.SettingsParamShape
 import com.xxmrk888ytxx.settingsscreen.models.SettingsParamType
 
@@ -60,7 +61,10 @@ internal fun SettingsParam(
         StyleCard(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = themeDimensions.outCardPadding, end = themeDimensions.inCardPadding)
+                .padding(
+                    start = themeDimensions.outCardPadding,
+                    end = themeDimensions.inCardPadding
+                )
                 .heightIn(min = 70.dp)
                 .clickable(
                     enabled = params.isEnable,
@@ -88,13 +92,16 @@ internal fun SettingsParam(
                     LazySpacer(width = 20)
 
 
-                    BodyText(
+                    Text(
                         text = params.text,
                         color = themeColors.primaryFontColor.copy(paramsAlpha),
                         modifier = Modifier.widthIn(
                             max = 200.dp
-                        )
+                        ),
+                        style = themeTypography.settingsParam
                     )
+
+
 
                     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.CenterEnd) {
                         when (params) {
@@ -127,24 +134,21 @@ internal fun SettingsParam(
 
                                     StyleIcon(
                                         icon = painterResource(R.drawable.array),
-                                        tint = themeColors.disableColor.copy(
-                                            if (params.isEnable) 0.9f
-                                            else paramsAlpha
-                                        ),
-                                        modifier = Modifier.size(25.dp)
+                                        tint = themeColors.primaryFontColor.copy(0.9f)
                                     )
 
                                 }
                             }
 
                             is SettingsParamType.Label -> {
-                                BodyText(
-                                    params.secondaryText,
+                                Text(
+                                    text =  params.secondaryText,
                                     color = themeColors.primaryFontColor.copy(
                                         if (params.isEnable) 0.6f
                                         else paramsAlpha - 0.2f
                                     ),
-                                    modifier = Modifier.padding(end = 10.dp)
+                                    modifier = Modifier.padding(end = 10.dp),
+                                    style = themeTypography.settingsParam
                                 )
                             }
 

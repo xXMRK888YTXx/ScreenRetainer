@@ -38,7 +38,7 @@ internal fun getAppInfoSettings(settingsViewModel: SettingsViewModel) : List<Set
         SettingsParamType.Label(
             text = "Язык приложения",
             icon = R.drawable.info,
-            secondaryText = "NO"
+            secondaryText = "1.0.0r"
         )
     )
 }
