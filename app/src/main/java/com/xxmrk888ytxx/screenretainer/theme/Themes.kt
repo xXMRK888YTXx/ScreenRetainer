@@ -42,6 +42,10 @@ object Themes {
                 button = TextStyle(
                     fontSize = 15.sp,
                     fontWeight = W500
+                ),
+                selectDialog = TextStyle(
+                    fontSize = 16.sp,
+                    fontWeight = W400
                 )
             )
 

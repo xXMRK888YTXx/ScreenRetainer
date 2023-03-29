@@ -9,10 +9,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.RadioButton
 import androidx.compose.material.RadioButtonDefaults
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.xxmrk888ytxx.corecompose.theme.ShareComponents.models.SelectDialogModel
@@ -20,6 +22,7 @@ import com.xxmrk888ytxx.corecompose.theme.StyleComponents.BodyText
 import com.xxmrk888ytxx.corecompose.theme.StyleComponents.StyleCard
 import com.xxmrk888ytxx.corecompose.theme.themeColors
 import com.xxmrk888ytxx.corecompose.theme.themeDimensions
+import com.xxmrk888ytxx.corecompose.theme.themeTypography
 
 @Composable
 fun SelectDialog(
@@ -60,16 +63,17 @@ fun SelectDialog(
 
                             LazySpacer(width = 15)
 
-                            BodyText(
+                            Text(
                                 text = it.title,
-                                color = themeColors.primaryFontColor
+                                color = themeColors.primaryFontColor,
+                                style = themeTypography.selectDialog
                             )
                         }
                     }
                 }
 
                 YesNoButtons(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().padding(top = 5.dp),
                     yesButtonText = confirmButtonText,
                     noButtonText = cancelButtonText,
                     onNoButtonClick = onCancel,
