@@ -7,5 +7,6 @@ data class Dimensions(
     val inCardPadding : Dp,
     val outCardPadding : Dp,
     val appIconSize:Dp,
-    val searchFieldPaddings:Dp
+    val searchFieldPaddings:Dp,
+    val bottomIconSize:Dp
 )

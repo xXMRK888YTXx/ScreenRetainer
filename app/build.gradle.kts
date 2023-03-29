@@ -60,6 +60,7 @@ dependencies {
     implementation(project(Project.AdminReceiver))
     implementation(project(Project.OpenAppChangedTrackerService))
     implementation(project(Project.PreferencesStorage))
+    implementation(project(Project.BottomBarScreen))
 
     //Dagger
     kapt(Deps.Dagger.DaggerKaptCompiler)

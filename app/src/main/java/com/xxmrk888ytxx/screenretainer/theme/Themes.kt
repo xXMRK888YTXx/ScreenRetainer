@@ -24,6 +24,10 @@ object Themes {
                     fontSize = 18.sp,
                     fontWeight = FontWeight.W600
                 ),
+                bottomBar = TextStyle(
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.W500
+                )
             )
 
         val shapes: Shapes
@@ -39,7 +43,8 @@ object Themes {
                 inCardPadding = 10.dp,
                 outCardPadding = 10.dp,
                 appIconSize = 55.dp,
-                searchFieldPaddings = 25.dp
+                searchFieldPaddings = 25.dp,
+                bottomIconSize = 25.dp
             )
     }
 
@@ -55,7 +60,10 @@ object Themes {
                 iconsColor = black,
                 cardColor = cardWhite,
                 primaryColor = Color(0xFF5849C2),
-                errorColor = Color(0xFFC64851)
+                errorColor = Color(0xFFC64851),
+                bottomBarColor = Color(0xFF1B252D),
+                bottomBarSelectedContentColor = Color(0xFF5849C2),
+                bottomBarUnselectedContentColor = Color(0xFFFFFFFF)
             )
         override val typography: Typography
             get() = BaseValues.typography
@@ -79,7 +87,10 @@ object Themes {
                 iconsColor = Color(0xFFFFFFFF),
                 cardColor = Color(0xFF25313D),
                 primaryColor = Color(0xFF5849C2),
-                errorColor =  Color(0xFFC64851)
+                errorColor =  Color(0xFFC64851),
+                bottomBarColor = Color(0xFF1B252D),
+                bottomBarSelectedContentColor = Color(0xFF5849C2),
+                bottomBarUnselectedContentColor = Color(0x99FFFFFF)
             )
         override val typography: Typography
             get() = BaseValues.typography

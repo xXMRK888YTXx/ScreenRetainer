@@ -11,5 +11,8 @@ data class Colors(
     val iconsColor: Color,
     val cardColor:Color,
     val primaryColor:Color,
-    val errorColor:Color
+    val errorColor:Color,
+    val bottomBarColor:Color,
+    val bottomBarSelectedContentColor: Color,
+    val bottomBarUnselectedContentColor: Color
 )

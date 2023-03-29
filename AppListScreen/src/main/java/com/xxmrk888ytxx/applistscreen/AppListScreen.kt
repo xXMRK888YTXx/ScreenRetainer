@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -43,11 +44,26 @@ import com.xxmrk888ytxx.corecompose.theme.StyleComponents.HeadText
 fun AppListScreen(appListViewModel: AppListViewModel) {
     val screenState = appListViewModel.screenState.collectAsState()
 
-    AnimatedContent(targetState = screenState.value) { state ->
-        when (state) {
-            is ScreenState.RequestPermission -> RequestPermissionState(appListViewModel)
-            is ScreenState.LoadingAppList -> LoadingAppListState()
-            is ScreenState.AppList -> AppList(appListViewModel)
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        backgroundColor = Color.Transparent
+    ) {
+        AnimatedContent(
+            targetState = screenState.value,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(
+                    start = it.calculateStartPadding(LocalLayoutDirection.current),
+                    end = it.calculateEndPadding(LocalLayoutDirection.current),
+                    top = it.calculateTopPadding(),
+                    bottom = it.calculateBottomPadding()
+                )
+        ) { state ->
+            when (state) {
+                is ScreenState.RequestPermission -> RequestPermissionState(appListViewModel)
+                is ScreenState.LoadingAppList -> LoadingAppListState()
+                is ScreenState.AppList -> AppList(appListViewModel)
+            }
         }
     }
 }

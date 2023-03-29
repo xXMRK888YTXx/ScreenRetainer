@@ -1,5 +1,6 @@
 package com.xxmrk888ytxx.screenretainer
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -20,7 +21,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.xxmrk888ytxx.applistscreen.AppListScreen
 import com.xxmrk888ytxx.applistscreen.AppListViewModel
+import com.xxmrk888ytxx.bottombarscreen.BottomBarScreen
+import com.xxmrk888ytxx.bottombarscreen.models.BottomBarScreenModel
 import com.xxmrk888ytxx.corecompose.theme.AppTheme
+import com.xxmrk888ytxx.corecompose.theme.StyleComponents.HeadText
 import com.xxmrk888ytxx.corecompose.theme.themeColors
 import com.xxmrk888ytxx.coredeps.SharedInterfaces.ActivityLifecycleCallback.ActivityLifecycleCallback
 import com.xxmrk888ytxx.coredeps.SharedInterfaces.ActivityLifecycleCallback.ActivityLifecycleRegister
@@ -39,6 +43,7 @@ class MainActivity : ComponentActivity(),ActivityLifecycleRegister {
 
     private val activityViewModel by viewModels<ActivityViewModel> { activityViewModelFactory }
 
+    @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         appComponent.inject(this)
@@ -48,21 +53,35 @@ class MainActivity : ComponentActivity(),ActivityLifecycleRegister {
                 val navController = rememberNavController()
                 NavHost(
                     navController = navController,
-                    startDestination = Screen.AppListScreen.route,
+                    startDestination = Screen.BottomBarScreen.route,
                     modifier = Modifier
                         .fillMaxSize()
                         .background(themeColors.background)
                 ) {
-                    composable(Screen.AppListScreen.route) {
-                        AppListScreen(
-                            appListViewModel = composeViewModel {
-                                appListViewModel.create(this@MainActivity)
-                            }
+                    composable(Screen.BottomBarScreen.route) {
+                        BottomBarScreen(
+                            bottomBarScreens = listOf(
+                                BottomBarScreenModel(
+                                    title = "Приложения",
+                                    icon = R.drawable.apps,
+                                    content = {
+                                        AppListScreen(
+                                            appListViewModel = composeViewModel {
+                                                appListViewModel.create(this@MainActivity)
+                                            }
+                                        )
+                                    }
+                                ),
+
+                                BottomBarScreenModel(
+                                    title = "Настройки",
+                                    icon = R.drawable.settings,
+                                    content = {
+                                        HeadText(text = "TODO")
+                                    }
+                                )
+                            )
                         )
-                    }
-
-                    composable(Screen.SettingsScreen.route) {
-
                     }
                 }
 
