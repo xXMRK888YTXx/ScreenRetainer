@@ -15,7 +15,8 @@ import dagger.Component
         PreferencesStorageModule::class,
         ShareModule::class,
         UseCasesModule::class,
-        FixationManagerModule::class
+        FixationManagerModule::class,
+        SettingsScreenModule::class
     ]
 )
 @AppScope
