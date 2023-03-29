@@ -8,4 +8,5 @@ object Project {
     const val OpenAppChangedTrackerService = ":OpenAppChangedTrackerService"
     const val PreferencesStorage = ":PreferencesStorage"
     const val BottomBarScreen = ":BottomBarScreen"
+    const val SettingsScreen = ":SettingsScreen"
 }

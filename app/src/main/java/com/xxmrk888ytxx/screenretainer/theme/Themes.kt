@@ -44,7 +44,10 @@ object Themes {
                 outCardPadding = 10.dp,
                 appIconSize = 55.dp,
                 searchFieldPaddings = 25.dp,
-                bottomIconSize = 25.dp
+                bottomIconSize = 25.dp,
+                settingsParamShape = 10.dp,
+                categoryPadding = 15.dp,
+                paddingBetweenLabelAndSettingsField = 10.dp
             )
     }
 
@@ -63,7 +66,8 @@ object Themes {
                 errorColor = Color(0xFFC64851),
                 bottomBarColor = Color(0xFF1B252D),
                 bottomBarSelectedContentColor = Color(0xFF5849C2),
-                bottomBarUnselectedContentColor = Color(0xFFFFFFFF)
+                bottomBarUnselectedContentColor = Color(0xFFFFFFFF),
+                disableColor = Color(0xFF303F4F)
             )
         override val typography: Typography
             get() = BaseValues.typography
@@ -90,7 +94,8 @@ object Themes {
                 errorColor =  Color(0xFFC64851),
                 bottomBarColor = Color(0xFF1B252D),
                 bottomBarSelectedContentColor = Color(0xFF5849C2),
-                bottomBarUnselectedContentColor = Color(0x99FFFFFF)
+                bottomBarUnselectedContentColor = Color(0x99FFFFFF),
+                disableColor = Color(0xFF303F4F)
             )
         override val typography: Typography
             get() = BaseValues.typography

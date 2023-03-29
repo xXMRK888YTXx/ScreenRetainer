@@ -31,6 +31,8 @@ import com.xxmrk888ytxx.coredeps.SharedInterfaces.ActivityLifecycleCallback.Acti
 import com.xxmrk888ytxx.screenretainer.theme.AppTheme
 import com.xxmrk888ytxx.screenretainer.theme.Themes
 import com.xxmrk888ytxx.screenretainer.utils.appComponent
+import com.xxmrk888ytxx.settingsscreen.SettingsScreen
+import com.xxmrk888ytxx.settingsscreen.SettingsViewModel
 import composeViewModel
 import javax.inject.Inject
 import javax.inject.Provider
@@ -38,6 +40,7 @@ import javax.inject.Provider
 class MainActivity : ComponentActivity(),ActivityLifecycleRegister {
 
     @Inject lateinit var appListViewModel: AppListViewModel.Factory
+    @Inject lateinit var settingsViewModel: Provider<SettingsViewModel>
 
     @Inject lateinit var activityViewModelFactory: ActivityViewModel.Factory
 
@@ -77,7 +80,11 @@ class MainActivity : ComponentActivity(),ActivityLifecycleRegister {
                                     title = getString(R.string.Settings),
                                     icon = R.drawable.settings,
                                     content = {
-                                        HeadText(text = "TODO")
+                                       SettingsScreen(
+                                           settingsViewModel = composeViewModel {
+                                               settingsViewModel.get()
+                                           }
+                                       )
                                     }
                                 )
                             )
