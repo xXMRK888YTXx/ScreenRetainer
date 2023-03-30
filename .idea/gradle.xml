@@ -19,6 +19,7 @@
             <option value="$PROJECT_DIR$/OpenAppChangedTrackerService" />
             <option value="$PROJECT_DIR$/PackageInfoProvider" />
             <option value="$PROJECT_DIR$/PreferencesStorage" />
+            <option value="$PROJECT_DIR$/QuickSettingsButtonService" />
             <option value="$PROJECT_DIR$/SettingsScreen" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/buildSrc" />

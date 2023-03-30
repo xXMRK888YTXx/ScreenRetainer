@@ -2,6 +2,7 @@ package com.xxmrk888ytxx.screenretainer.DI
 
 import android.content.Context
 import com.xxmrk888ytxx.eventdevicetracker.OpenAppChangedCallback
+import com.xxmrk888ytxx.quicksettingsservice.LockCurrentAppButtonClickedCallback
 import com.xxmrk888ytxx.screenretainer.DI.modules.*
 import com.xxmrk888ytxx.screenretainer.DI.modules.ShareModule
 import com.xxmrk888ytxx.screenretainer.MainActivity
@@ -17,7 +18,9 @@ import dagger.Component
         UseCasesModule::class,
         FixationManagerModule::class,
         SettingsScreenModule::class,
-        FavoriteAppRepositoryModule::class
+        FavoriteAppRepositoryModule::class,
+        LockCurrentAppButtonClickedCallbackModule::class,
+        PermissionManagerModule::class
     ]
 )
 @AppScope
@@ -30,4 +33,6 @@ interface AppComponent {
     }
 
     val openAppChangedCallback: OpenAppChangedCallback
+
+    val lockCurrentAppButtonClickedCallback: LockCurrentAppButtonClickedCallback
 }

@@ -49,6 +49,7 @@ fun AppListScreen(appListViewModel: AppListViewModel) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         backgroundColor = Color.Transparent
+
     ) {
         AnimatedContent(
             targetState = screenState.value,

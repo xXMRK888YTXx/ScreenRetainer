@@ -10,4 +10,5 @@ object Project {
     const val BottomBarScreen = ":BottomBarScreen"
     const val SettingsScreen = ":SettingsScreen"
     const val Database = ":Database"
+    const val QuickSettingsButtonService = ":QuickSettingsButtonService"
 }

@@ -48,4 +48,8 @@ interface FixationManager {
      * Disables screen lock
      */
     suspend fun disableFixation()
+
+    companion object {
+        const val ANY = "ANY"
+    }
 }

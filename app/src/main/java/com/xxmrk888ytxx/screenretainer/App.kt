@@ -14,7 +14,8 @@ class App : Application(),DepsProvider {
 
     private val depsMap:Map<KClass<*>,() -> Any> by lazy {
         mapOf(
-            appComponent.openAppChangedCallback.toProvidedDeps()
+            appComponent.openAppChangedCallback.toProvidedDeps(),
+            appComponent.lockCurrentAppButtonClickedCallback.toProvidedDeps()
         )
     }
 

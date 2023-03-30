@@ -63,6 +63,7 @@ dependencies {
     implementation(project(Project.BottomBarScreen))
     implementation(project(Project.SettingsScreen))
     implementation(project(Project.Database))
+    implementation(project(Project.QuickSettingsButtonService))
 
     //Dagger
     kapt(Deps.Dagger.DaggerKaptCompiler)
