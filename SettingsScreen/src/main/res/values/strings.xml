@@ -9,4 +9,6 @@
     <string name="Delete_app">Delete app</string>
     <string name="Localization">Localization</string>
     <string name="About_the_app">About the app</string>
+    <string name="Ok">Ok</string>
+    <string name="Cancel">Cancel</string>
 </resources>

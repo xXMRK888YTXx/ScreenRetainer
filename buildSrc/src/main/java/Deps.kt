@@ -85,5 +85,11 @@ object Deps {
         }
     }
 
+    object AppCompat {
+        private const val version = "1.6.1"
+        const val appCompat = "androidx.appcompat:appcompat:$version"
+        const val appCompatRes = "androidx.appcompat:appcompat-resources:$version"
+    }
+
 
 }

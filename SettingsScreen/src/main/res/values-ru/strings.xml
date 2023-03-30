@@ -9,4 +9,6 @@
     <string name="Delete_app">Удалить приложение</string>
     <string name="Localization">Локализация</string>
     <string name="About_the_app">Об приложении</string>
+    <string name="Ok">Ок</string>
+    <string name="Cancel">Отмена</string>
 </resources>

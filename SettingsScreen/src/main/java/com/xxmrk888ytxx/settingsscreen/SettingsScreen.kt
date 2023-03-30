@@ -69,8 +69,8 @@ internal fun SelectLanguageDialog(
     currentSelectedLanguage: AppLanguage,
 ) {
     SelectDialog(
-        confirmButtonText = "Ок",
-        cancelButtonText = "Отмена",
+        confirmButtonText = stringResource(R.string.Ok),
+        cancelButtonText = stringResource(R.string.Cancel),
         onConfirm = settingsViewModel::changeCurrentLanguage,
         onCancel = settingsViewModel::hideLanguageDialog,
         items = settingsViewModel.supportedLanguage.map {

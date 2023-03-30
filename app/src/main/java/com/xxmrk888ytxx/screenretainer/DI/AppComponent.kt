@@ -20,7 +20,8 @@ import dagger.Component
         SettingsScreenModule::class,
         FavoriteAppRepositoryModule::class,
         LockCurrentAppButtonClickedCallbackModule::class,
-        PermissionManagerModule::class
+        PermissionManagerModule::class,
+        LocalizationManagerModule::class
     ]
 )
 @AppScope

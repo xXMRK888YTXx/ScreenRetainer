@@ -71,4 +71,6 @@ dependencies {
     //Compose
     implementation(Deps.Compose.Navigation)
     implementation(Deps.Compose.SystemUiController)
+    implementation(Deps.AppCompat.appCompat)
+    implementation(Deps.AppCompat.appCompatRes)
 }

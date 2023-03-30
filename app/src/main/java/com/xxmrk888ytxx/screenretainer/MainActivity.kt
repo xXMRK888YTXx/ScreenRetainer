@@ -6,6 +6,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
@@ -16,6 +18,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.os.LocaleListCompat
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -34,10 +37,11 @@ import com.xxmrk888ytxx.screenretainer.utils.appComponent
 import com.xxmrk888ytxx.settingsscreen.SettingsScreen
 import com.xxmrk888ytxx.settingsscreen.SettingsViewModel
 import composeViewModel
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Provider
 
-class MainActivity : ComponentActivity(),ActivityLifecycleRegister {
+class MainActivity : AppCompatActivity(),ActivityLifecycleRegister {
 
     @Inject lateinit var appListViewModel: AppListViewModel.Factory
     @Inject lateinit var settingsViewModel: Provider<SettingsViewModel>
@@ -50,7 +54,6 @@ class MainActivity : ComponentActivity(),ActivityLifecycleRegister {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         appComponent.inject(this)
-
         setContent {
             AppTheme(appTheme = provideAppTheme()) {
                 val navController = rememberNavController()
