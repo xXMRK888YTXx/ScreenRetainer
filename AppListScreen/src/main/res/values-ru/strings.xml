@@ -10,4 +10,6 @@
     <string name="Accessibility">Специальные возможности</string>
     <string name="Could_not_find_start_screen">Не удалось найти стартовый экран</string>
     <string name="Application_opening_error">Ошибка открытия приложения</string>
+    <string name="Some_permissions_have_been_withdrawn">Некоторые разрешения были отозваны. Необходимо предоствить их снова.</string>
+    <string name="Screen_lock_activated">Фиксация экрана активирована</string>
 </resources>

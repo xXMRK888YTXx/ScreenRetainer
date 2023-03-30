@@ -10,4 +10,6 @@
     <string name="Accessibility">Accessibility</string>
     <string name="Could_not_find_start_screen">Could not find start screen</string>
     <string name="Application_opening_error">Application opening error</string>
+    <string name="Some_permissions_have_been_withdrawn">Some permissions have been withdrawn. It is necessary to grant them again.</string>
+    <string name="Screen_lock_activated">Screen lock activated</string>
 </resources>

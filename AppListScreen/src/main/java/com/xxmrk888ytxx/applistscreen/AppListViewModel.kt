@@ -31,7 +31,7 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
     private val manageFavoriteAppContract: ManageFavoriteAppContract,
     @Assisted private val activityLifecycleRegister: ActivityLifecycleRegister,
     private val context: Context,
-    private val toastManager: ToastManager
+    private val toastManager: ToastManager,
 ) : ViewModel(),ActivityLifecycleCallback {
 
     private val _screenState = MutableStateFlow<ScreenState>(ScreenState.RequestPermission)
@@ -158,9 +158,24 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
         }
     }
 
+    @SuppressLint("ResourceType")
     internal fun activateFixation(packageName:String) {
+        if(!checkPermissionContract.isAdminPermissionGranted() ||
+            !checkPermissionContract.isAccessibilityPermissionGranted()) {
+            toastManager.showToast(R.string.Some_permissions_have_been_withdrawn)
+
+            viewModelScope.launch {
+                _screenState.emit(ScreenState.RequestPermission)
+
+                updatePermissionState()
+            }
+
+            return
+        }
+
         try {
             appLaunchAndActivateScreenFixationContract.launchAppAndFixation(packageName)
+            toastManager.showToast(R.string.Screen_lock_activated)
         }catch (e: LaunchActivityNotFoundException) {
             toastManager.showToast(context.getString(R.string.Could_not_find_start_screen))
         }catch (e:Exception) {
