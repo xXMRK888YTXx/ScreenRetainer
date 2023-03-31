@@ -91,5 +91,9 @@ object Deps {
         const val appCompatRes = "androidx.appcompat:appcompat-resources:$version"
     }
 
+    object AdMob {
+        const val adMob = "com.google.android.gms:play-services-ads:21.4.0"
+    }
+
 
 }

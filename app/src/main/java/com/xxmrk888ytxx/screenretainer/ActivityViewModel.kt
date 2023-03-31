@@ -8,6 +8,7 @@ import com.xxmrk888ytxx.coredeps.SharedInterfaces.ActivityLifecycleCallback.Acti
 import com.xxmrk888ytxx.coredeps.SharedInterfaces.ActivityLifecycleCallback.ActivityLifecycleRegister
 import com.xxmrk888ytxx.screenretainer.UseCases.OpenPrivatePolicySiteUseCase.OpenPrivatePolicySiteUseCase
 import com.xxmrk888ytxx.screenretainer.UseCases.OpenTermsOfUseSiteUseCase.OpenTermsOfUseSiteUseCase
+import com.xxmrk888ytxx.screenretainer.domain.AdManager.AdManager
 import com.xxmrk888ytxx.screenretainer.domain.AgreeDialogManager.AgreeDialogManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
@@ -20,7 +21,8 @@ import javax.inject.Provider
 class ActivityViewModel @Inject constructor(
     private val agreeDialogManager: AgreeDialogManager,
     private val openTermsOfUseSiteUseCase: OpenTermsOfUseSiteUseCase,
-    private val openPrivatePolicySiteUseCase: OpenPrivatePolicySiteUseCase
+    private val openPrivatePolicySiteUseCase: OpenPrivatePolicySiteUseCase,
+    private val adManager: AdManager
 ) : ViewModel() {
 
     class Factory @Inject constructor(
@@ -79,6 +81,14 @@ class ActivityViewModel @Inject constructor(
 
     fun openPrivacyPolicy() {
         openPrivatePolicySiteUseCase.execute()
+    }
+
+    fun initAdService() {
+        adManager.initAdService()
+    }
+
+    fun showStartAd(activity: Activity) {
+        adManager.showStartInterstitialAd(activity)
     }
 
 }

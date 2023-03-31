@@ -22,7 +22,8 @@ import dagger.Component
         LockCurrentAppButtonClickedCallbackModule::class,
         PermissionManagerModule::class,
         LocalizationManagerModule::class,
-        AgreeDialogManagerModule::class
+        AgreeDialogManagerModule::class,
+        AdManagerModule::class
     ]
 )
 @AppScope

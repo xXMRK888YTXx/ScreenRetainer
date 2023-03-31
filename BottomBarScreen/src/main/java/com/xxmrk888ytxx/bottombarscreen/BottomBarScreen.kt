@@ -34,20 +34,28 @@ import kotlinx.coroutines.launch
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun BottomBarScreen(bottomBarScreens:List<BottomBarScreenModel>) {
+fun BottomBarScreen(
+    bottomBarScreens:List<BottomBarScreenModel>,
+    bannerAd: @Composable (() -> Unit)? = null
+) {
     val pager = rememberPagerState()
     val scope = rememberCoroutineScope()
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         backgroundColor = Color.Transparent,
-        bottomBar = { BottomBar(
-            bottomBarScreens = bottomBarScreens,
-            currentPage = pager.currentPage,
-            onScrollPage = {
-                scope.launch { pager.animateScrollToPage(it) }
+        bottomBar = {
+            Column(Modifier.fillMaxWidth()) {
+                BottomBar(
+                    bottomBarScreens = bottomBarScreens,
+                    currentPage = pager.currentPage,
+                    onScrollPage = {
+                        scope.launch { pager.animateScrollToPage(it) }
+                    })
+
+                bannerAd?.invoke()
             }
-        ) }
+        }
     ) {
         HorizontalPager(
             pageCount = bottomBarScreens.size,
