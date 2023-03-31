@@ -16,8 +16,10 @@ class OpenTermsOfUseSiteUseCaseImpl @Inject constructor(
         val url = context.getString(R.string.Terms)
 
         try {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-            context.startActivity(browserIntent)
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            }
+            context.startActivity(intent)
         }catch (e:Exception) {
             Log.e(StartActivityContractImpl.LOG_TAG,"Exception when try send ACTION_VIEW intent ${e.stackTraceToString()}")
         }

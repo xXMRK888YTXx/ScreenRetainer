@@ -15,7 +15,9 @@ class OpenPrivatePolicySiteUseCaseImpl @Inject constructor(
     override fun execute() {
         val url = context.getString(R.string.Privacy)
         try {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            }
             context.startActivity(browserIntent)
         }catch (e:Exception) {
             Log.e(StartActivityContractImpl.LOG_TAG,"Exception when try send ACTION_VIEW intent ${e.stackTraceToString()}")

@@ -18,7 +18,9 @@ class StartActivityContractImpl @Inject constructor(
 
     private fun openSite(url:String) {
         try {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            }
             context.startActivity(browserIntent)
         }catch (e:Exception) {
             Log.e(LOG_TAG,"Exception when try send ACTION_VIEW intent ${e.stackTraceToString()}")
@@ -36,7 +38,10 @@ class StartActivityContractImpl @Inject constructor(
             val chooserDescription = context.getString(R.string.Choose_a_client)
 
             val emailIntent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:$email"))
-            context.startActivity(Intent.createChooser(emailIntent,chooserDescription))
+            val chooserIntent = Intent.createChooser(emailIntent,chooserDescription).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            }
+            context.startActivity(chooserIntent)
         }catch (e:Exception) {
             Log.e(LOG_TAG,"Exception when try send ACTION_SENDTO intent ${e.stackTraceToString()}")
         }
