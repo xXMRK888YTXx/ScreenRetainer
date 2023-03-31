@@ -32,6 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.xxmrk888ytxx.applistscreen.models.AppInfoModel
+import com.xxmrk888ytxx.applistscreen.models.DialogStates.WarmingAccessibilityPermissionDialogState
 import com.xxmrk888ytxx.applistscreen.models.DialogStates.WarmingAdminPermissionDialogState
 import com.xxmrk888ytxx.applistscreen.models.NeededPermissionModel
 import com.xxmrk888ytxx.applistscreen.models.ScreenState
@@ -74,9 +75,33 @@ fun AppListScreen(appListViewModel: AppListViewModel) {
         }
     }
 
-    if(dialogState.value.warmingAdminPermissionDialogState is WarmingAdminPermissionDialogState.Visible) {
+    if (dialogState.value.warmingAdminPermissionDialogState is WarmingAdminPermissionDialogState.Visible) {
         WarmingAdminPermissionDialog(appListViewModel)
     }
+
+    if (dialogState.value.warmingAccessibilityPermissionDialogState is WarmingAccessibilityPermissionDialogState.Visible) {
+        WarmingAccessibilityPermissionDialog(appListViewModel)
+    }
+}
+
+@Composable
+fun WarmingAccessibilityPermissionDialog(appListViewModel: AppListViewModel) {
+    YesNoDialog(
+        text = buildString {
+            append(stringResource(R.string.First_part_Accessibility_permission_description) + "\n\n")
+            append(stringResource(R.string.This_permission_will_be_used) + "\n\n")
+            append(stringResource(R.string.first_item) + "\n\n")
+            append(stringResource(R.string.The_information_collected_is_not_saved))
+            append(stringResource(R.string.For_the_application_to_work_you_must_agree))
+        },
+        confirmButtonText = stringResource(R.string.OK),
+        cancelButtonText = stringResource(R.string.Cancel),
+        onCancel = appListViewModel::hideWarmingAccessibilityPermissionDialog,
+        onConfirm = {
+            appListViewModel.requestAccessibilityPermission()
+            appListViewModel.hideWarmingAccessibilityPermissionDialog()
+        }
+    )
 }
 
 @Composable
@@ -108,14 +133,14 @@ internal fun AppList(appListViewModel: AppListViewModel) {
         LazySpacer(10)
 
         LazyColumn(modifier = Modifier.fillMaxSize()) {
-            itemsIndexed(appList.value,key = { index, item ->
+            itemsIndexed(appList.value, key = { index, item ->
                 item.appPackageName
-            }) { index,item ->
-                AppItem(appInfo =  item,
+            }) { index, item ->
+                AppItem(appInfo = item,
                     isShowSeparateLine = index != appList.value.lastIndex,
                     onActivateFixation = appListViewModel::activateFixation,
                     onChangeFavoriteState = {
-                        if(it) {
+                        if (it) {
                             appListViewModel.removeInFavorite(item.appPackageName)
                         } else {
                             appListViewModel.addInFavorite(item.appPackageName)
@@ -128,7 +153,7 @@ internal fun AppList(appListViewModel: AppListViewModel) {
 }
 
 @Composable
-internal fun SearchLine(value:String,onChangeValue:(String) -> Unit) {
+internal fun SearchLine(value: String, onChangeValue: (String) -> Unit) {
     val focusManager = LocalFocusManager.current
     OutlinedTextField(
         value = value,
@@ -170,9 +195,9 @@ internal fun SearchLine(value:String,onChangeValue:(String) -> Unit) {
 @Composable
 fun LazyItemScope.AppItem(
     appInfo: AppInfoModel,
-    isShowSeparateLine:Boolean,
-    onActivateFixation:(String) -> Unit,
-    onChangeFavoriteState:(Boolean) -> Unit
+    isShowSeparateLine: Boolean,
+    onActivateFixation: (String) -> Unit,
+    onChangeFavoriteState: (Boolean) -> Unit,
 ) {
     Column(
         Modifier
@@ -203,15 +228,15 @@ fun LazyItemScope.AppItem(
                 textAlign = TextAlign.Center,
                 color = themeColors.primaryFontColor
             )
-            
+
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterEnd) {
                 IconButton(onClick = {
                     onChangeFavoriteState(appInfo.isFavorite)
                 }) {
                     StyleIcon(
                         icon = painterResource(id = R.drawable.star),
-                        tint = if(appInfo.isFavorite) themeColors.primaryColor
-                            else themeColors.secondFontColor
+                        tint = if (appInfo.isFavorite) themeColors.primaryColor
+                        else themeColors.secondFontColor
                     )
                 }
             }
@@ -219,11 +244,13 @@ fun LazyItemScope.AppItem(
 
         LazySpacer(5)
 
-        if(isShowSeparateLine) {
-            Spacer(modifier = Modifier
-                .fillMaxWidth()
-                .background(Color.White)
-                .height(1.dp))
+        if (isShowSeparateLine) {
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.White)
+                    .height(1.dp)
+            )
         }
     }
 }
@@ -290,7 +317,7 @@ internal fun NeededPermissionWidget(neededPermissions: List<NeededPermissionMode
         )
 
         GradientButton(
-            backgroundGradient = if(!it.isGranted) themeGradients.primaryGradient
+            backgroundGradient = if (!it.isGranted) themeGradients.primaryGradient
             else themeGradients.disableGradient,
             onClick = it.onRequest,
             enabled = !it.isGranted,
@@ -310,9 +337,9 @@ internal fun NeededPermissionWidget(neededPermissions: List<NeededPermissionMode
                 horizontalArrangement = Arrangement.Center
             ) {
                 HeadText(
-                    text = if(!it.isGranted) stringResource(R.string.Grant)
+                    text = if (!it.isGranted) stringResource(R.string.Grant)
                     else stringResource(R.string.Granted),
-                    color = if(!it.isGranted) themeColors.primaryFontColor
+                    color = if (!it.isGranted) themeColors.primaryFontColor
                     else themeColors.errorColor
                 )
             }
@@ -327,7 +354,10 @@ internal fun LoadingAppListState() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        HeadText(text = stringResource(R.string.Gathering_information_about_applications), textAlign = TextAlign.Center)
+        HeadText(
+            text = stringResource(R.string.Gathering_information_about_applications),
+            textAlign = TextAlign.Center
+        )
 
         LazySpacer(5)
 

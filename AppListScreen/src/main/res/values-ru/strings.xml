@@ -16,4 +16,9 @@
     <string name="Cancel">Отмена</string>
     <string name="Warning">Предупреждение</string>
     <string name="Admin_permission_warming">Если вы предоставите права администратора моему приложению, то его не нельзя будет удалить обычным способом. Это ограничение системы, и к сожалению я нечего не могу с этим сделать. Поэтому для удаления приложения вам необходимо вручную отозвать права администратора или перейти в настройки приложения и найти кнопку для его удаления</string>
+    <string name="First_part_Accessibility_permission_description">"Согласно политике Google Play, нам необходимо уведомить вас для чего мы запрашиваем Accessibility разрешения."</string>
+    <string name="This_permission_will_be_used">Данное разрешение будет использоваться для:</string>
+    <string name="first_item">1. Для получение информации, когда текущее приложение на экране изменено.</string>
+    <string name="The_information_collected_is_not_saved">Собраная информация не сохраняется и будет удалена после использования.</string>
+    <string name="For_the_application_to_work_you_must_agree">Для работы приложения, необходимо согласиться со сбором этих данных и предоставить разрешение в настройках устройства.</string>
 </resources>

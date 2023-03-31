@@ -10,6 +10,7 @@ import com.xxmrk888ytxx.applistscreen.Exceptions.LaunchActivityNotFoundException
 import com.xxmrk888ytxx.applistscreen.contract.*
 import com.xxmrk888ytxx.applistscreen.models.AppInfoModel
 import com.xxmrk888ytxx.applistscreen.models.DialogStates.DialogState
+import com.xxmrk888ytxx.applistscreen.models.DialogStates.WarmingAccessibilityPermissionDialogState
 import com.xxmrk888ytxx.applistscreen.models.DialogStates.WarmingAdminPermissionDialogState
 import com.xxmrk888ytxx.applistscreen.models.NeededPermissionModel
 import com.xxmrk888ytxx.applistscreen.models.ScreenState
@@ -49,9 +50,7 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
         NeededPermissionModel(
             isGranted = checkPermissionContract.isAdminPermissionGranted(),
             title = R.string.Device_administrator,
-            onRequest = {
-                showWarmingAdminPermissionDialog()
-            }
+            onRequest = ::showWarmingAdminPermissionDialog
         )
     )
 
@@ -60,7 +59,7 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
         NeededPermissionModel(
             isGranted = checkPermissionContract.isAccessibilityPermissionGranted(),
             title = R.string.Accessibility,
-            onRequest = requestPermissionContract::requestAccessibilityPermission
+            onRequest = ::showWarmingAccessibilityPermissionDialog
         )
     )
 
@@ -115,6 +114,32 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
     internal fun requestAdminPermission() {
         requestAdminPermissionLauncher?.let {
             requestPermissionContract.requestAdminPermission(it)
+        }
+    }
+
+    internal fun requestAccessibilityPermission() {
+        requestPermissionContract.requestAccessibilityPermission()
+    }
+
+    internal fun showWarmingAccessibilityPermissionDialog() {
+        viewModelScope.launch {
+            _dialogState.emit(
+                dialogState.value.copy(
+                    warmingAccessibilityPermissionDialogState
+                    = WarmingAccessibilityPermissionDialogState.Visible
+                )
+            )
+        }
+    }
+
+    internal fun hideWarmingAccessibilityPermissionDialog() {
+        viewModelScope.launch {
+            _dialogState.emit(
+                dialogState.value.copy(
+                    warmingAccessibilityPermissionDialogState
+                    = WarmingAccessibilityPermissionDialogState.Hidden
+                )
+            )
         }
     }
 
