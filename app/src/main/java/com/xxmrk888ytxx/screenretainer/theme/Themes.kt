@@ -9,6 +9,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.font.FontWeight.Companion.W300
 import androidx.compose.ui.text.font.FontWeight.Companion.W400
 import androidx.compose.ui.text.font.FontWeight.Companion.W500
+import androidx.compose.ui.text.font.FontWeight.Companion.W600
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.xxmrk888ytxx.corecompose.theme.AppTheme
@@ -46,6 +47,10 @@ object Themes {
                 selectDialog = TextStyle(
                     fontSize = 16.sp,
                     fontWeight = W400
+                ),
+                yesNoDialog = TextStyle(
+                    fontSize = 17.sp,
+                    fontWeight = W500
                 )
             )
 
