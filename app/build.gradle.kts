@@ -2,6 +2,8 @@ plugins {
     id ("com.android.application")
     id ("org.jetbrains.kotlin.android")
     id (Deps.Dagger.DaggerKaptPlugin)
+    id ("com.google.gms.google-services")
+    id ("com.google.firebase.crashlytics")
 }
 
 android {
@@ -73,4 +75,7 @@ dependencies {
     implementation(Deps.Compose.SystemUiController)
     implementation(Deps.AppCompat.appCompat)
     implementation(Deps.AppCompat.appCompatRes)
+    implementation (platform("com.google.firebase:firebase-bom:31.3.0"))
+    implementation ("com.google.firebase:firebase-crashlytics-ktx")
+    implementation ("com.google.firebase:firebase-analytics-ktx")
 }

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "654893756169",
+    "project_id": "screenretainer",
+    "storage_bucket": "screenretainer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:654893756169:android:63e26513d9626637b7add8",
+        "android_client_info": {
+          "package_name": "com.xxmrk888ytxx.screenretainer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "654893756169-2utt1j1qs2i0hf035gkjloa8amubb5mv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.xxmrk888ytxx.screenretainer",
+            "certificate_hash": "26e7d4664d5f3844c4fafce5412bbd79ee034d20"
+          }
+        },
+        {
+          "client_id": "654893756169-iaja1ppf2mcqn27tmc19b4mts8iut2jp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAirgqq-U1HY_umdWz3WuIrY5OlFE5iW7c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "654893756169-iaja1ppf2mcqn27tmc19b4mts8iut2jp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
