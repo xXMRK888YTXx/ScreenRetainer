@@ -39,11 +39,13 @@ class StartActivityContractImpl @Inject constructor(
     }
 
     override fun openSiteWithPrivacyPolicy() {
-
+        val url = context.getString(R.string.Privacy)
+        openSite(url)
     }
 
     override fun openSiteWithTermsUse() {
-
+        val url = context.getString(R.string.Terms)
+        openSite(url)
     }
 
     companion object {
