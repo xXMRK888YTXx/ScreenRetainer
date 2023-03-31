@@ -12,4 +12,8 @@
     <string name="Application_opening_error">Ошибка открытия приложения</string>
     <string name="Some_permissions_have_been_withdrawn">Некоторые разрешения были отозваны. Необходимо предоствить их снова.</string>
     <string name="Screen_lock_activated">Фиксация экрана активирована</string>
+    <string name="OK">Ок</string>
+    <string name="Cancel">Отмена</string>
+    <string name="Warning">Предупреждение</string>
+    <string name="Admin_permission_warming">Если вы предоставите права администратора моему приложению, то его не нельзя будет удалить обычным способом. Это ограничение системы, и к сожалению я нечего не могу с этим сделать. Поэтому для удаления приложения вам необходимо вручную отозвать права администратора или перейти в настройки приложения и найти кнопку для его удаления</string>
 </resources>

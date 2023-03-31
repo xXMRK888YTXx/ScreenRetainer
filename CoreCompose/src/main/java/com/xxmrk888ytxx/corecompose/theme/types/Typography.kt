@@ -10,5 +10,6 @@ data class Typography(
     val settingCategory:TextStyle,
     val settingsParam : TextStyle,
     val button: TextStyle,
-    val selectDialog:TextStyle
+    val selectDialog:TextStyle,
+    val yesNoDialog:TextStyle
 )

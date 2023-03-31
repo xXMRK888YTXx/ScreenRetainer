@@ -12,4 +12,9 @@
     <string name="Application_opening_error">Application opening error</string>
     <string name="Some_permissions_have_been_withdrawn">Some permissions have been withdrawn. It is necessary to grant them again.</string>
     <string name="Screen_lock_activated">Screen lock activated</string>
+    <string name="OK">OK</string>
+    <string name="Cancel">Cancel</string>
+    <string name="Warning">Warning</string>
+    <string name="Admin_permission_warming">If you grant administrator rights to my application, then it cannot be uninstalled in the usual way. This is a limitation of the system, and unfortunately there is nothing I can do about it. Therefore, in order to remove the application, you need to manually revoke administrator rights or go to the application settings and find the button to remove it.</string>
+
 </resources>

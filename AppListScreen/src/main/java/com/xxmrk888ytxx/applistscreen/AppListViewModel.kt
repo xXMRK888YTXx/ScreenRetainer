@@ -9,6 +9,8 @@ import androidx.lifecycle.viewModelScope
 import com.xxmrk888ytxx.applistscreen.Exceptions.LaunchActivityNotFoundException
 import com.xxmrk888ytxx.applistscreen.contract.*
 import com.xxmrk888ytxx.applistscreen.models.AppInfoModel
+import com.xxmrk888ytxx.applistscreen.models.DialogStates.DialogState
+import com.xxmrk888ytxx.applistscreen.models.DialogStates.WarmingAdminPermissionDialogState
 import com.xxmrk888ytxx.applistscreen.models.NeededPermissionModel
 import com.xxmrk888ytxx.applistscreen.models.ScreenState
 import com.xxmrk888ytxx.coreandroid.DepsProvider.ToastManager
@@ -48,9 +50,7 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
             isGranted = checkPermissionContract.isAdminPermissionGranted(),
             title = R.string.Device_administrator,
             onRequest = {
-                requestAdminPermissionLauncher?.let {
-                    requestPermissionContract.requestAdminPermission(it)
-                }
+                showWarmingAdminPermissionDialog()
             }
         )
     )
@@ -106,6 +106,38 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
             it.sortedByDescending { it.isFavorite }
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+
+    private val _dialogState = MutableStateFlow(DialogState())
+
+    internal val dialogState = _dialogState.asStateFlow()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), DialogState())
+
+    internal fun requestAdminPermission() {
+        requestAdminPermissionLauncher?.let {
+            requestPermissionContract.requestAdminPermission(it)
+        }
+    }
+
+
+    internal fun showWarmingAdminPermissionDialog() {
+        viewModelScope.launch {
+            _dialogState.emit(
+                dialogState.value.copy(
+                    warmingAdminPermissionDialogState = WarmingAdminPermissionDialogState.Visible
+                )
+            )
+        }
+    }
+
+    internal fun hideWarmingAdminPermissionDialog() {
+        viewModelScope.launch {
+            _dialogState.emit(
+                dialogState.value.copy(
+                    warmingAdminPermissionDialogState = WarmingAdminPermissionDialogState.Hidden
+                )
+            )
+        }
+    }
 
     internal fun onSearchTextUpdated(text:String) {
         viewModelScope.launch(Dispatchers.Main) { _searchLineText.emit(text) }

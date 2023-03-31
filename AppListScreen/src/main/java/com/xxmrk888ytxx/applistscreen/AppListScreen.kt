@@ -32,11 +32,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.xxmrk888ytxx.applistscreen.models.AppInfoModel
+import com.xxmrk888ytxx.applistscreen.models.DialogStates.WarmingAdminPermissionDialogState
 import com.xxmrk888ytxx.applistscreen.models.NeededPermissionModel
 import com.xxmrk888ytxx.applistscreen.models.ScreenState
 import com.xxmrk888ytxx.corecompose.theme.*
 import com.xxmrk888ytxx.corecompose.theme.ShareComponents.GradientButton
 import com.xxmrk888ytxx.corecompose.theme.ShareComponents.LazySpacer
+import com.xxmrk888ytxx.corecompose.theme.ShareComponents.YesNoDialog
 import com.xxmrk888ytxx.corecompose.theme.StyleComponents.BodyText
 import com.xxmrk888ytxx.corecompose.theme.StyleComponents.StyleCard
 import com.xxmrk888ytxx.corecompose.theme.StyleComponents.HeadText
@@ -46,6 +48,7 @@ import com.xxmrk888ytxx.corecompose.theme.StyleComponents.StyleIcon
 @Composable
 fun AppListScreen(appListViewModel: AppListViewModel) {
     val screenState = appListViewModel.screenState.collectAsState()
+    val dialogState = appListViewModel.dialogState.collectAsState()
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -70,6 +73,27 @@ fun AppListScreen(appListViewModel: AppListViewModel) {
             }
         }
     }
+
+    if(dialogState.value.warmingAdminPermissionDialogState is WarmingAdminPermissionDialogState.Visible) {
+        WarmingAdminPermissionDialog(appListViewModel)
+    }
+}
+
+@Composable
+fun WarmingAdminPermissionDialog(appListViewModel: AppListViewModel) {
+    YesNoDialog(
+        text = buildString {
+            append(stringResource(R.string.Warning) + "\n\n")
+            append(stringResource(R.string.Admin_permission_warming))
+        },
+        confirmButtonText = stringResource(R.string.OK),
+        cancelButtonText = stringResource(R.string.Cancel),
+        onCancel = appListViewModel::hideWarmingAdminPermissionDialog,
+        onConfirm = {
+            appListViewModel.requestAdminPermission()
+            appListViewModel.hideWarmingAdminPermissionDialog()
+        }
+    )
 }
 
 @Composable
