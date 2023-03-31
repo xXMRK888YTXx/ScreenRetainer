@@ -5,11 +5,15 @@ import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import com.xxmrk888ytxx.screenretainer.R
+import com.xxmrk888ytxx.screenretainer.UseCases.OpenPrivatePolicySiteUseCase.OpenPrivatePolicySiteUseCase
+import com.xxmrk888ytxx.screenretainer.UseCases.OpenTermsOfUseSiteUseCase.OpenTermsOfUseSiteUseCase
 import com.xxmrk888ytxx.settingsscreen.contracts.StartActivityContract
 import javax.inject.Inject
 
 class StartActivityContractImpl @Inject constructor(
-    private val context: Context
+    private val context: Context,
+    private val openPrivatePolicySiteUseCase: OpenPrivatePolicySiteUseCase,
+    private val openTermsOfUseSiteUseCase: OpenTermsOfUseSiteUseCase
 ) : StartActivityContract {
 
     private fun openSite(url:String) {
@@ -39,13 +43,11 @@ class StartActivityContractImpl @Inject constructor(
     }
 
     override fun openSiteWithPrivacyPolicy() {
-        val url = context.getString(R.string.Privacy)
-        openSite(url)
+        openPrivatePolicySiteUseCase.execute()
     }
 
     override fun openSiteWithTermsUse() {
-        val url = context.getString(R.string.Terms)
-        openSite(url)
+        openTermsOfUseSiteUseCase.execute()
     }
 
     companion object {

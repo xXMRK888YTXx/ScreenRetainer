@@ -16,6 +16,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.os.LocaleListCompat
@@ -27,6 +28,7 @@ import com.xxmrk888ytxx.applistscreen.AppListViewModel
 import com.xxmrk888ytxx.bottombarscreen.BottomBarScreen
 import com.xxmrk888ytxx.bottombarscreen.models.BottomBarScreenModel
 import com.xxmrk888ytxx.corecompose.theme.AppTheme
+import com.xxmrk888ytxx.corecompose.theme.ShareComponents.AgreeDialog
 import com.xxmrk888ytxx.corecompose.theme.StyleComponents.HeadText
 import com.xxmrk888ytxx.corecompose.theme.themeColors
 import com.xxmrk888ytxx.coredeps.SharedInterfaces.ActivityLifecycleCallback.ActivityLifecycleCallback
@@ -55,6 +57,7 @@ class MainActivity : AppCompatActivity(),ActivityLifecycleRegister {
         super.onCreate(savedInstanceState)
         appComponent.inject(this)
         setContent {
+            val agreeDialogState = activityViewModel.isNeedShowAgreeDialog.collectAsState()
             AppTheme(appTheme = provideAppTheme()) {
                 val navController = rememberNavController()
                 NavHost(
@@ -95,6 +98,14 @@ class MainActivity : AppCompatActivity(),ActivityLifecycleRegister {
                     }
                 }
 
+                if(agreeDialogState.value) {
+                    AgreeDialog(
+                        openPrivacyPolicySite = activityViewModel::openPrivacyPolicy,
+                        openTermsOfUseSite = activityViewModel::openTermsOfUse,
+                        onConfirm = activityViewModel::hideAgreeDialogForever,
+                        onCancel = this::finish
+                    )
+                }
             }
         }
 
