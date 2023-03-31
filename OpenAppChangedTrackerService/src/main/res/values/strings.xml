@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Service_description">This service is used to get information about the currently opened application.
+     This is used when you have triggered a commit and exited the application that is being committed.
+         The data received from this service is not saved and is not transmitted anywhere.</string>
+</resources>

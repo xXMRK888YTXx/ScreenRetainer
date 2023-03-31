@@ -1,3 +1,16 @@
 <resources>
-    <string name="app_name">ScreenRetainer</string>
+    <string name="app_name" translatable="false">ScreenRetainer</string>
+    <string name="Applications">Applications</string>
+    <string name="Settings">Settings</string>
+    <string name="Source_code_url" translatable="false">https://github.com/xXMRK888YTXx/ScreenRetainer</string>
+    <string name="my_email" translatable="false">xxmrk888ytxx.rlc@gmail.com</string>
+    <string name="Choose_a_client">Choose a client</string>
+    <string name="Permission_is_not_granted">Permission is not granted. Go to the application and grant them.</string>
+    <string name="The_screen_lock_is_already_activated">The screen lock is already activated</string>
+    <string name="Fixation_activated">Fixation activated</string>
+    <string name="System">System</string>
+    <string name="English">English</string>
+    <string name="Russian">Русский</string>
+    <string name="Privacy" translatable="false">https://xxmrk888ytxx.github.io/screenretainer_privacy.htm</string>
+    <string name="Terms" translatable="false">https://xxmrk888ytxx.github.io/screenretainer_terms.htm</string>
 </resources>

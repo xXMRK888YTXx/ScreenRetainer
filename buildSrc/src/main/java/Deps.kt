@@ -18,12 +18,6 @@ object Deps {
         const val SystemUiController = "com.google.accompanist:accompanist-systemuicontroller:0.29.2-rc"
     }
 
-    object Test {
-        const val JUnit = "junit:junit:4.13.2"
-        const val Mockk = "io.mockk:mockk:$MockkVersion"
-        const val Testing = "org.testng:testng:6.9.6"
-    }
-
     object TestAndroid {
         const val AndroidJUnit = "androidx.test.ext:junit:1.1.4"
         const val Espresso = "androidx.test.espresso:espresso-core:3.5.0"
@@ -57,4 +51,45 @@ object Deps {
             const val CoroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
         }
     }
+
+    object Test {
+        const val JUnit = "junit:junit:4.13.2"
+        const val Mockk = "io.mockk:mockk:$MockkVersion"
+        const val Testing = "org.testng:testng:6.9.6"
+    }
+
+    object InstrumentalTest {
+        private const val testVersion = "1.5.0"
+        const val espresso = "androidx.test.espresso:espresso-core:3.5.0"
+        const val testRunner = "androidx.test:runner:1.5.1"
+        const val testCore = "androidx.test:core:$testVersion"
+        const val jUnit = "androidx.test.ext:junit-ktx:1.1.4"
+        const val testRules = "androidx.test:rules:$testVersion"
+    }
+
+    object Coil {
+        const val coil = "io.coil-kt:coil-compose:2.2.2"
+    }
+
+    object DataStore {
+        const val dataStore = "androidx.datastore:datastore-preferences:1.0.0"
+    }
+
+    object Room {
+        private const val version = "2.5.0"
+        const val RoomRuntime =  "androidx.room:room-runtime:$version"
+        const val KaptCompiler = "androidx.room:room-compiler:$version"
+        const val RoomKTX = "androidx.room:room-ktx:$version"
+        object Test {
+            const val RoomTest = "androidx.room:room-testing:$version"
+        }
+    }
+
+    object AppCompat {
+        private const val version = "1.6.1"
+        const val appCompat = "androidx.appcompat:appcompat:$version"
+        const val appCompatRes = "androidx.appcompat:appcompat-resources:$version"
+    }
+
+
 }

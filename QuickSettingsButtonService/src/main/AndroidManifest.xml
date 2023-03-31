@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <service
+            android:name=".LockCurrentAppQuickButtonService"
+            android:label="@string/Lock_on_the_current_application"
+            android:icon="@drawable/screen_lock"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+
+            <meta-data android:name="android.service.quicksettings.ACTIVE_TILE"
+                android:value="true" />
+        </service>
+    </application>
+</manifest>

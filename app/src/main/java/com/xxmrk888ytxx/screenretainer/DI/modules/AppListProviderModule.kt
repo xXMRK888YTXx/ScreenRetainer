@@ -1,9 +1,7 @@
 package com.xxmrk888ytxx.screenretainer.DI.modules
 
-import com.xxmrk888ytxx.applistscreen.contract.AppLaunchManager
-import com.xxmrk888ytxx.applistscreen.contract.AppListProvider
-import com.xxmrk888ytxx.screenretainer.glue.AppListScreen.AppLaunchManagerImpl
-import com.xxmrk888ytxx.screenretainer.glue.AppListScreen.AppListProviderImpl
+import com.xxmrk888ytxx.applistscreen.contract.*
+import com.xxmrk888ytxx.screenretainer.glue.AppListScreen.*
 import dagger.Binds
 import dagger.Module
 
@@ -11,11 +9,26 @@ import dagger.Module
 interface AppListProviderModule {
     @Binds
     fun bindAppListProvider(
-        appListProvider: AppListProviderImpl
-    ) : AppListProvider
+        appListProvider: AppListProvideContractImpl
+    ) : AppListProvideContract
 
     @Binds
     fun bindAppLaunchManager(
-        appLaunchManagerImpl: AppLaunchManagerImpl
-    ) : AppLaunchManager
+        appLaunchManagerImpl: AppLaunchAndActivateScreenFixationContractImpl
+    ) : AppLaunchAndActivateScreenFixationContract
+
+    @Binds
+    fun bindRequestPermissionContract(
+        RequestPermissionContract: RequestPermissionContractImpl
+    ) : RequestPermissionContract
+
+    @Binds
+    fun bindCheckPermissionContract(
+        CheckPermissionContract: CheckPermissionContractImpl
+    ) :CheckPermissionContract
+
+    @Binds
+    fun bindManageFavoriteAppContract(
+        ManageFavoriteAppContractImpl: ManageFavoriteAppContractImpl
+    ) : ManageFavoriteAppContract
 }

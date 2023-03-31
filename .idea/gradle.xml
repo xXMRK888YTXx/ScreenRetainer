@@ -10,9 +10,17 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/AdminReceiver" />
             <option value="$PROJECT_DIR$/AppListScreen" />
+            <option value="$PROJECT_DIR$/BottomBarScreen" />
             <option value="$PROJECT_DIR$/CoreAndroid" />
             <option value="$PROJECT_DIR$/CoreCompose" />
+            <option value="$PROJECT_DIR$/Database" />
+            <option value="$PROJECT_DIR$/OpenAppChangedTrackerService" />
+            <option value="$PROJECT_DIR$/PackageInfoProvider" />
+            <option value="$PROJECT_DIR$/PreferencesStorage" />
+            <option value="$PROJECT_DIR$/QuickSettingsButtonService" />
+            <option value="$PROJECT_DIR$/SettingsScreen" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/buildSrc" />
           </set>

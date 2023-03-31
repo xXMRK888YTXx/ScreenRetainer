@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Application_language">Application language</string>
+    <string name="Application_version">Application version</string>
+    <string name="Source_code">Source code</string>
+    <string name="Write_to_the_developer">Write to the developer</string>
+    <string name="Privacy_policy">Privacy Policy</string>
+    <string name="Terms_of_use">Terms of use</string>
+    <string name="Delete_app">Delete app</string>
+    <string name="Localization">Localization</string>
+    <string name="About_the_app">About the app</string>
+    <string name="Ok">OK</string>
+    <string name="Cancel">Cancel</string>
+</resources>

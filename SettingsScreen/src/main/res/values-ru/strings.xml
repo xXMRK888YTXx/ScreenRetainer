@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Application_language">Язык приложения</string>
+    <string name="Application_version">Версия приложения</string>
+    <string name="Source_code">Исходный код</string>
+    <string name="Write_to_the_developer">Написать разработчику</string>
+    <string name="Privacy_policy">Политика конфиденциальности</string>
+    <string name="Terms_of_use">Условия пользования</string>
+    <string name="Delete_app">Удалить приложение</string>
+    <string name="Localization">Локализация</string>
+    <string name="About_the_app">Об приложении</string>
+    <string name="Ok">Ок</string>
+    <string name="Cancel">Отмена</string>
+</resources>

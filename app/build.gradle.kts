@@ -56,6 +56,14 @@ dependencies {
     //Project
     implementation(project(Project.CoreCompose))
     implementation(project(Project.AppListScreen))
+    implementation(project(Project.PackageInfoProvider))
+    implementation(project(Project.AdminReceiver))
+    implementation(project(Project.OpenAppChangedTrackerService))
+    implementation(project(Project.PreferencesStorage))
+    implementation(project(Project.BottomBarScreen))
+    implementation(project(Project.SettingsScreen))
+    implementation(project(Project.Database))
+    implementation(project(Project.QuickSettingsButtonService))
 
     //Dagger
     kapt(Deps.Dagger.DaggerKaptCompiler)
@@ -63,4 +71,6 @@ dependencies {
     //Compose
     implementation(Deps.Compose.Navigation)
     implementation(Deps.Compose.SystemUiController)
+    implementation(Deps.AppCompat.appCompat)
+    implementation(Deps.AppCompat.appCompatRes)
 }
