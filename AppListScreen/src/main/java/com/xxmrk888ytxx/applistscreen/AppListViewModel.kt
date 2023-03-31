@@ -30,7 +30,6 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
     private val requestPermissionContract: RequestPermissionContract,
     private val manageFavoriteAppContract: ManageFavoriteAppContract,
     @Assisted private val activityLifecycleRegister: ActivityLifecycleRegister,
-    private val context: Context,
     private val toastManager: ToastManager,
 ) : ViewModel(),ActivityLifecycleCallback {
 
@@ -43,10 +42,11 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
             ScreenState.RequestPermission
         )
 
+    @SuppressLint("ResourceType")
     private val adminPermissionState = MutableStateFlow(
         NeededPermissionModel(
             isGranted = checkPermissionContract.isAdminPermissionGranted(),
-            title = context.getString(R.string.Device_administrator),
+            title = R.string.Device_administrator,
             onRequest = {
                 requestAdminPermissionLauncher?.let {
                     requestPermissionContract.requestAdminPermission(it)
@@ -55,10 +55,11 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
         )
     )
 
+    @SuppressLint("ResourceType")
     private val accessibilityPermissionState = MutableStateFlow(
         NeededPermissionModel(
             isGranted = checkPermissionContract.isAccessibilityPermissionGranted(),
-            title = context.getString(R.string.Accessibility),
+            title = R.string.Accessibility,
             onRequest = requestPermissionContract::requestAccessibilityPermission
         )
     )
@@ -177,9 +178,9 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
             appLaunchAndActivateScreenFixationContract.launchAppAndFixation(packageName)
             toastManager.showToast(R.string.Screen_lock_activated)
         }catch (e: LaunchActivityNotFoundException) {
-            toastManager.showToast(context.getString(R.string.Could_not_find_start_screen))
+            toastManager.showToast(R.string.Could_not_find_start_screen)
         }catch (e:Exception) {
-            toastManager.showToast(context.getString(R.string.Application_opening_error))
+            toastManager.showToast(R.string.Application_opening_error)
         }
     }
 

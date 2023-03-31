@@ -1,5 +1,6 @@
 package com.xxmrk888ytxx.applistscreen
 
+import android.annotation.SuppressLint
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedContent
@@ -253,11 +254,16 @@ internal fun RequestPermissionState(appListViewModel: AppListViewModel) {
     }
 }
 
+@SuppressLint("ResourceType")
 @Composable
 internal fun NeededPermissionWidget(neededPermissions: List<NeededPermissionModel>) {
     neededPermissions.forEach {
 
-        BodyText(text = it.title, textAlign = TextAlign.Center,color = themeColors.primaryFontColor)
+        BodyText(
+            text = stringResource(id = it.title),
+            textAlign = TextAlign.Center,
+            color = themeColors.primaryFontColor
+        )
 
         GradientButton(
             backgroundGradient = if(!it.isGranted) themeGradients.primaryGradient
