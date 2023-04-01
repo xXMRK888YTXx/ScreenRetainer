@@ -12,6 +12,6 @@ class PreferencesStorageModule {
     @Provides
     @AppScope
     fun providePreferencesStorage(context: Context) : PreferencesStorage {
-        return PreferencesStorage.Builder(preferencesFileName,context).build()
+        return PreferencesStorage.Factory().create(preferencesFileName,context)
     }
 }

@@ -13,17 +13,13 @@ import org.junit.runner.RunWith
 import org.junit.Assert.*
 import org.junit.Before
 
-/**
- * Instrumented test, which will execute on an Android device.
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
+
 @RunWith(AndroidJUnit4::class)
 class PreferencesStorageTest {
 
     object PreferencesStorageHolder {
         private val context by lazy {InstrumentationRegistry.getInstrumentation().targetContext}
-        val preferencesStorage:PreferencesStorage = PreferencesStorage(context,"test")
+        val preferencesStorage: PreferencesStorage = PreferencesStorage.Factory().create("test", context)
     }
 
     private val testKey = stringPreferencesKey("test")
