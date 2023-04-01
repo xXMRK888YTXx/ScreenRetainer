@@ -36,6 +36,24 @@ Module for getting information about installed packages on the device.
 ## [PreferencesStorage]
 Module for managing user preferences
 
+## [AdmobManager]
+Module containing the ad serving tools.
+
+## [BottomBarScreen]
+Module containing widget for integrating other displays with pager and bottom bar
+
+## [Database]
+Module that holds the database and the repositories to manage that data
+
+## [PreferencesStorage]
+Module containing the instrins for managing user preferences
+
+## [QuickSettingsButtonService]
+Module containing the service for the display of the quickSettingsButton
+
+## [SettingsScreen]
+Module with the application settings screen
+
 
 
 
@@ -75,4 +93,19 @@ Module for managing user preferences
 
 ## [PreferencesStorage]
 Модуль для управления пользовательскими предпочениями
+
+## [AdmobManager]
+Модуль в котором находтся инструменты для показа рекламы.
+
+## [BottomBarScreen]
+Модуль в котором находтся виджет для обьеденения других экраном с помощью pager и bottom bar
+
+## [Database]
+Модуль в котором находтся база данных и репозитории для управления этими данными
+
+## [QuickSettingsButtonService]
+Модуль в котором находтся service для показа кнопки быстрых настроек
+
+## [SettingsScreen]
+Модуль с экраном настроек приложения
 
