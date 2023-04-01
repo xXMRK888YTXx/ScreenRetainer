@@ -6,9 +6,12 @@ import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
+import android.os.PowerManager
 import android.provider.Settings
 import android.view.accessibility.AccessibilityManager
 import androidx.activity.result.ActivityResultLauncher
+import androidx.core.content.getSystemService
 import com.xxmrk888ytxx.adminreceiver.AdminReceiver
 import javax.inject.Inject
 
@@ -61,5 +64,23 @@ class PermissionManagerImpl @Inject constructor(
         context.startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK
         })
+    }
+
+    override fun requestIgnoreBatteryOptimization() {
+        try {
+            val intent = Intent().apply {
+                action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+                data = Uri.parse("package:${context.packageName}")
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            }
+            context.startActivity(intent)
+        }catch (e:Exception) {
+
+        }
+    }
+
+    override fun isIgnoreBatteryOptimizationEnable(): Boolean {
+        return context.getSystemService<PowerManager>()
+            ?.isIgnoringBatteryOptimizations(context.packageName) ?: false
     }
 }

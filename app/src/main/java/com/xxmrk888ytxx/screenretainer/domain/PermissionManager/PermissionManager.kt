@@ -12,4 +12,8 @@ interface PermissionManager {
     fun requestAdminPermission(activityLauncher: ActivityResultLauncher<Intent>)
 
     fun requestAccessibilityPermission()
+
+    fun requestIgnoreBatteryOptimization()
+
+    fun isIgnoreBatteryOptimizationEnable(): Boolean
 }
