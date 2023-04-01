@@ -56,6 +56,7 @@ object Deps {
         const val JUnit = "junit:junit:4.13.2"
         const val Mockk = "io.mockk:mockk:$MockkVersion"
         const val Testing = "org.testng:testng:6.9.6"
+        const val MockkJMVAgent = "io.mockk:mockk-agent-jvm:1.12.5"
     }
 
     object InstrumentalTest {

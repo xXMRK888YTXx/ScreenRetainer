@@ -9,7 +9,6 @@ import com.xxmrk888ytxx.settingsscreen.contracts.StartActivityContract
 import com.xxmrk888ytxx.settingsscreen.models.AppLanguage
 import com.xxmrk888ytxx.settingsscreen.models.DialogState.DialogState
 import com.xxmrk888ytxx.settingsscreen.models.DialogState.LanguageDialogState
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
@@ -24,7 +23,7 @@ class SettingsViewModel @Inject constructor(
     private val removeAppContract: RemoveAppContract
 ) : ViewModel() {
 
-    internal val appVersion = provideAppInfoContract.appVersion
+    internal fun getAppVersion() = provideAppInfoContract.appVersion
 
     internal val supportedLanguage = languageManageContract.supportedLanguage
 

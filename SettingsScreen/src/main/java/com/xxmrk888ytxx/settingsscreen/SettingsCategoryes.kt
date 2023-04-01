@@ -2,8 +2,6 @@ package com.xxmrk888ytxx.settingsscreen
 
 import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
 import com.xxmrk888ytxx.settingsscreen.models.SettingsParamType
 
@@ -28,7 +26,7 @@ internal fun getAppInfoSettings(settingsViewModel: SettingsViewModel) : List<Set
         SettingsParamType.Label(
             text = stringResource(R.string.Application_version),
             icon = R.drawable.info,
-            secondaryText = settingsViewModel.appVersion
+            secondaryText = settingsViewModel.getAppVersion()
         ),
 
         SettingsParamType.Button(
