@@ -14,10 +14,25 @@ class AdMobManager @Inject constructor(
     private val context:Context
 ) {
 
+    /**
+     * [Ru]
+     * Инициализация admob сервисов
+     */
+
+    /** * [En] * Initializing admob services */
     fun initAdmob() {
         MobileAds.initialize(context)
     }
 
+    /**
+     * [Ru]
+     * Показ межстраничной рекламы
+     */
+
+    /**
+     * [En]
+     * Show interstitial ads
+     */
     fun showInterstitialAd(key:String,activity: Activity) {
 
         InterstitialAd.load(

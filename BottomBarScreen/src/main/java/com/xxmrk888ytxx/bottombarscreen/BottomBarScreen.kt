@@ -24,6 +24,7 @@ import kotlinx.coroutines.launch
  * Экран для обьеденение других экранов спомошью bottomBar
  *
  * @param bottomBarScreens - Набор параметров, для показа bottomBar и контента для него
+ * @param bannerAd - Баннер рекламмы, если нужен
  */
 
 /**
@@ -31,6 +32,7 @@ import kotlinx.coroutines.launch
  * Screen for merging other screens with bottomBar
  *
  * @param bottomBarScreens - A set of parameters to show the bottomBar and content for it
+ * @param bannerAd - Ad banner if needed
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
