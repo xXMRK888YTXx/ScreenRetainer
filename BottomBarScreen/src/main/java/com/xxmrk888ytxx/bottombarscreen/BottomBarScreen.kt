@@ -24,6 +24,7 @@ import kotlinx.coroutines.launch
  * Экран для обьеденение других экранов спомошью bottomBar
  *
  * @param bottomBarScreens - Набор параметров, для показа bottomBar и контента для него
+ * @param bannerAd - Баннер рекламмы, если нужен
  */
 
 /**
@@ -31,23 +32,32 @@ import kotlinx.coroutines.launch
  * Screen for merging other screens with bottomBar
  *
  * @param bottomBarScreens - A set of parameters to show the bottomBar and content for it
+ * @param bannerAd - Ad banner if needed
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun BottomBarScreen(bottomBarScreens:List<BottomBarScreenModel>) {
+fun BottomBarScreen(
+    bottomBarScreens:List<BottomBarScreenModel>,
+    bannerAd: @Composable (() -> Unit)? = null
+) {
     val pager = rememberPagerState()
     val scope = rememberCoroutineScope()
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         backgroundColor = Color.Transparent,
-        bottomBar = { BottomBar(
-            bottomBarScreens = bottomBarScreens,
-            currentPage = pager.currentPage,
-            onScrollPage = {
-                scope.launch { pager.animateScrollToPage(it) }
+        bottomBar = {
+            Column(Modifier.fillMaxWidth()) {
+                BottomBar(
+                    bottomBarScreens = bottomBarScreens,
+                    currentPage = pager.currentPage,
+                    onScrollPage = {
+                        scope.launch { pager.animateScrollToPage(it) }
+                    })
+
+                bannerAd?.invoke()
             }
-        ) }
+        }
     ) {
         HorizontalPager(
             pageCount = bottomBarScreens.size,

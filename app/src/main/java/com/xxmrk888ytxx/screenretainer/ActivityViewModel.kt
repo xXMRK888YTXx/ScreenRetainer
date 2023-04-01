@@ -3,14 +3,26 @@ package com.xxmrk888ytxx.screenretainer
 import android.app.Activity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.xxmrk888ytxx.coredeps.SharedInterfaces.ActivityLifecycleCallback.ActivityLifecycleCallback
 import com.xxmrk888ytxx.coredeps.SharedInterfaces.ActivityLifecycleCallback.ActivityLifecycleRegister
+import com.xxmrk888ytxx.screenretainer.UseCases.OpenPrivatePolicySiteUseCase.OpenPrivatePolicySiteUseCase
+import com.xxmrk888ytxx.screenretainer.UseCases.OpenTermsOfUseSiteUseCase.OpenTermsOfUseSiteUseCase
+import com.xxmrk888ytxx.screenretainer.domain.AdManager.AdManager
+import com.xxmrk888ytxx.screenretainer.domain.AgreeDialogManager.AgreeDialogManager
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Provider
 
 @Suppress("UNCHECKED_CAST")
 class ActivityViewModel @Inject constructor(
-
+    private val agreeDialogManager: AgreeDialogManager,
+    private val openTermsOfUseSiteUseCase: OpenTermsOfUseSiteUseCase,
+    private val openPrivatePolicySiteUseCase: OpenPrivatePolicySiteUseCase,
+    private val adManager: AdManager
 ) : ViewModel() {
 
     class Factory @Inject constructor(
@@ -54,6 +66,29 @@ class ActivityViewModel @Inject constructor(
 
     fun onDestroy() {
         activityLifecycleCallbacks.forEach { it.onDestroy() }
+    }
+
+    internal val isNeedShowAgreeDialog = agreeDialogManager.isNeedShowDialog
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000),false)
+
+    fun hideAgreeDialogForever() {
+        viewModelScope.launch { agreeDialogManager.hideForever() }
+    }
+
+    fun openTermsOfUse() {
+        openTermsOfUseSiteUseCase.execute()
+    }
+
+    fun openPrivacyPolicy() {
+        openPrivatePolicySiteUseCase.execute()
+    }
+
+    fun initAdService() {
+        adManager.initAdService()
+    }
+
+    fun showStartAd(activity: Activity) {
+        adManager.showStartInterstitialAd(activity)
     }
 
 }

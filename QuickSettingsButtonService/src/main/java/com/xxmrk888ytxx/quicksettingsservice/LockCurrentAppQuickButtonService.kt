@@ -7,6 +7,14 @@ import android.service.quicksettings.TileService
 import androidx.annotation.RequiresApi
 import com.xxmrk888ytxx.coredeps.DepsProvider.getDepsByApplication
 
+/**
+ * [Ru]
+ *  Сервис для добавление кнопки в панель быстрых настоек
+ */
+/**
+ * [En]
+ * Service for adding a button to the quick settings panel
+ */
 @RequiresApi(Build.VERSION_CODES.N)
 class LockCurrentAppQuickButtonService : TileService() {
 

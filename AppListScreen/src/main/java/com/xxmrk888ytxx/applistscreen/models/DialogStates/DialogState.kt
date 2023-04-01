@@ -4,5 +4,7 @@ internal data class DialogState(
     val warmingAdminPermissionDialogState: WarmingAdminPermissionDialogState
         = WarmingAdminPermissionDialogState.Hidden,
     val warmingAccessibilityPermissionDialogState: WarmingAccessibilityPermissionDialogState
-        = WarmingAccessibilityPermissionDialogState.Hidden
+        = WarmingAccessibilityPermissionDialogState.Hidden,
+    val batteryIgnoreOptimizationDialogState: BatteryIgnoreOptimizationDialogState
+        = BatteryIgnoreOptimizationDialogState.Hidden
 )

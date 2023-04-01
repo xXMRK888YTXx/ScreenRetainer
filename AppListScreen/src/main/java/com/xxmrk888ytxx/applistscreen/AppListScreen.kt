@@ -1,6 +1,7 @@
 package com.xxmrk888ytxx.applistscreen
 
 import android.annotation.SuppressLint
+import android.inputmethodservice.Keyboard.Row
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedContent
@@ -16,10 +17,8 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,6 +31,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.xxmrk888ytxx.applistscreen.models.AppInfoModel
+import com.xxmrk888ytxx.applistscreen.models.DialogStates.BatteryIgnoreOptimizationDialogState
 import com.xxmrk888ytxx.applistscreen.models.DialogStates.WarmingAccessibilityPermissionDialogState
 import com.xxmrk888ytxx.applistscreen.models.DialogStates.WarmingAdminPermissionDialogState
 import com.xxmrk888ytxx.applistscreen.models.NeededPermissionModel
@@ -81,6 +81,10 @@ fun AppListScreen(appListViewModel: AppListViewModel) {
 
     if (dialogState.value.warmingAccessibilityPermissionDialogState is WarmingAccessibilityPermissionDialogState.Visible) {
         WarmingAccessibilityPermissionDialog(appListViewModel)
+    }
+
+    if(dialogState.value.batteryIgnoreOptimizationDialogState is BatteryIgnoreOptimizationDialogState.Visible) {
+        BatteryIgnoreOptimizationDialog(appListViewModel)
     }
 }
 
@@ -368,5 +372,50 @@ internal fun LoadingAppListState() {
         CircularProgressIndicator(
             color = themeColors.primaryColor
         )
+    }
+}
+
+@Composable
+fun BatteryIgnoreOptimizationDialog(appListViewModel: AppListViewModel) {
+    val notShowInFuture = rememberSaveable {
+        mutableStateOf(false)
+    }
+
+    YesNoDialog(
+        confirmButtonText = stringResource(R.string.OK),
+        cancelButtonText = stringResource(R.string.Cancel),
+        onCancel = { appListViewModel.hideBatteryIgnoreOptimizationDialog(notShowInFuture.value) },
+        onConfirm = {
+            appListViewModel.openIgnoreBatteryOptimizationSettings()
+            appListViewModel.hideBatteryIgnoreOptimizationDialog(notShowInFuture.value)
+        }
+    ) {
+        Text(
+            text = stringResource(R.string.Ignore_battery_dialog_text),
+            color = themeColors.primaryFontColor,
+            style = themeTypography.yesNoDialog,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center
+        )
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Checkbox(
+                checked = notShowInFuture.value,
+                onCheckedChange = { notShowInFuture.value = it },
+                colors = CheckboxDefaults.colors(
+                    checkedColor = themeColors.primaryColor,
+                    uncheckedColor = themeColors.primaryColor
+                )
+            )
+
+            Text(
+                text = stringResource(R.string.Dont_show_any_more),
+                color = themeColors.primaryFontColor,
+                style = themeTypography.yesNoDialog,
+            )
+        }
     }
 }

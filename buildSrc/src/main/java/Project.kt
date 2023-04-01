@@ -11,4 +11,5 @@ object Project {
     const val SettingsScreen = ":SettingsScreen"
     const val Database = ":Database"
     const val QuickSettingsButtonService = ":QuickSettingsButtonService"
+    const val AdmobManager = ":AdmobManager"
 }

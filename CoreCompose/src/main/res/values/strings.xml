@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="I_agree">I agree</string>
+    <string name="I_accept">I accept</string>
+    <string name="I_dont_accept">I dont accept</string>
+    <string name="Terms_of_Use">Terms of Use</string>
+    <string name="Privacy_policy">Privacy policy</string>
+</resources>

@@ -16,17 +16,21 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.os.LocaleListCompat
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.xxmrk888ytxx.admobmanager.AdMobBanner
 import com.xxmrk888ytxx.applistscreen.AppListScreen
 import com.xxmrk888ytxx.applistscreen.AppListViewModel
+import com.xxmrk888ytxx.applistscreen.contract.ShowAdContract
 import com.xxmrk888ytxx.bottombarscreen.BottomBarScreen
 import com.xxmrk888ytxx.bottombarscreen.models.BottomBarScreenModel
 import com.xxmrk888ytxx.corecompose.theme.AppTheme
+import com.xxmrk888ytxx.corecompose.theme.ShareComponents.AgreeDialog
 import com.xxmrk888ytxx.corecompose.theme.StyleComponents.HeadText
 import com.xxmrk888ytxx.corecompose.theme.themeColors
 import com.xxmrk888ytxx.coredeps.SharedInterfaces.ActivityLifecycleCallback.ActivityLifecycleCallback
@@ -41,7 +45,7 @@ import java.util.*
 import javax.inject.Inject
 import javax.inject.Provider
 
-class MainActivity : AppCompatActivity(),ActivityLifecycleRegister {
+class MainActivity : AppCompatActivity(),ActivityLifecycleRegister,ShowAdContract {
 
     @Inject lateinit var appListViewModel: AppListViewModel.Factory
     @Inject lateinit var settingsViewModel: Provider<SettingsViewModel>
@@ -54,7 +58,9 @@ class MainActivity : AppCompatActivity(),ActivityLifecycleRegister {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         appComponent.inject(this)
+        activityViewModel.initAdService()
         setContent {
+            val agreeDialogState = activityViewModel.isNeedShowAgreeDialog.collectAsState()
             AppTheme(appTheme = provideAppTheme()) {
                 val navController = rememberNavController()
                 NavHost(
@@ -73,7 +79,10 @@ class MainActivity : AppCompatActivity(),ActivityLifecycleRegister {
                                     content = {
                                         AppListScreen(
                                             appListViewModel = composeViewModel {
-                                                appListViewModel.create(this@MainActivity)
+                                                appListViewModel.create(
+                                                    activityResultRegistry = this@MainActivity,
+                                                    showAdContract = this@MainActivity
+                                                )
                                             }
                                         )
                                     }
@@ -90,11 +99,25 @@ class MainActivity : AppCompatActivity(),ActivityLifecycleRegister {
                                        )
                                     }
                                 )
-                            )
+                            ),
+                            bannerAd = {
+                                AdMobBanner(
+                                    adMobKey = getString(R.string.BottomBarBanner),
+                                    background = themeColors.background
+                                )
+                            }
                         )
                     }
                 }
 
+                if(agreeDialogState.value) {
+                    AgreeDialog(
+                        openPrivacyPolicySite = activityViewModel::openPrivacyPolicy,
+                        openTermsOfUseSite = activityViewModel::openTermsOfUse,
+                        onConfirm = activityViewModel::hideAgreeDialogForever,
+                        onCancel = this::finish
+                    )
+                }
             }
         }
 
@@ -137,5 +160,9 @@ class MainActivity : AppCompatActivity(),ActivityLifecycleRegister {
 
     override fun unregisterCallback(activityLifecycleCallback: ActivityLifecycleCallback) {
         activityViewModel.unregisterCallback(activityLifecycleCallback)
+    }
+
+    override fun showAd() {
+        activityViewModel.showStartAd(this)
     }
 }

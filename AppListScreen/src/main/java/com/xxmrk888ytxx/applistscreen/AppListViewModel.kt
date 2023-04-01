@@ -1,7 +1,6 @@
 package com.xxmrk888ytxx.applistscreen
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.lifecycle.ViewModel
@@ -9,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.xxmrk888ytxx.applistscreen.Exceptions.LaunchActivityNotFoundException
 import com.xxmrk888ytxx.applistscreen.contract.*
 import com.xxmrk888ytxx.applistscreen.models.AppInfoModel
+import com.xxmrk888ytxx.applistscreen.models.DialogStates.BatteryIgnoreOptimizationDialogState
 import com.xxmrk888ytxx.applistscreen.models.DialogStates.DialogState
 import com.xxmrk888ytxx.applistscreen.models.DialogStates.WarmingAccessibilityPermissionDialogState
 import com.xxmrk888ytxx.applistscreen.models.DialogStates.WarmingAdminPermissionDialogState
@@ -34,9 +34,13 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
     private val manageFavoriteAppContract: ManageFavoriteAppContract,
     @Assisted private val activityLifecycleRegister: ActivityLifecycleRegister,
     private val toastManager: ToastManager,
+    @Assisted private val showAdContract: ShowAdContract,
+    private val ignoreBatteryDialogManageContract: IgnoreBatteryDialogManageContract
 ) : ViewModel(),ActivityLifecycleCallback {
 
     private val _screenState = MutableStateFlow<ScreenState>(ScreenState.RequestPermission)
+
+    private var isIgnoreBatteryDialogHasBeenShowed = false
 
     internal val screenState = _screenState.asStateFlow()
         .stateIn(
@@ -164,6 +168,34 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
         }
     }
 
+    internal fun showBatteryIgnoreOptimizationDialog() {
+        viewModelScope.launch {
+            _dialogState.emit(
+                dialogState.value.copy(
+                    batteryIgnoreOptimizationDialogState = BatteryIgnoreOptimizationDialogState.Visible
+                )
+            )
+        }
+    }
+
+    internal fun hideBatteryIgnoreOptimizationDialog(isHideDialogForever:Boolean) {
+        viewModelScope.launch {
+            if(isHideDialogForever) {
+                ignoreBatteryDialogManageContract.hideDialogForever()
+            }
+
+            _dialogState.emit(
+                dialogState.value.copy(
+                    batteryIgnoreOptimizationDialogState = BatteryIgnoreOptimizationDialogState.Hidden
+                )
+            )
+        }
+    }
+
+    internal fun openIgnoreBatteryOptimizationSettings() {
+        ignoreBatteryDialogManageContract.openBatterySettings()
+    }
+
     internal fun onSearchTextUpdated(text:String) {
         viewModelScope.launch(Dispatchers.Main) { _searchLineText.emit(text) }
     }
@@ -210,6 +242,7 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
             withContext(Dispatchers.Main) {
                 _appList.emit(appList)
                 _screenState.emit(ScreenState.AppList)
+                showAdContract.showAd()
             }
 
 
@@ -231,14 +264,33 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
             return
         }
 
-        try {
-            appLaunchAndActivateScreenFixationContract.launchAppAndFixation(packageName)
-            toastManager.showToast(R.string.Screen_lock_activated)
-        }catch (e: LaunchActivityNotFoundException) {
-            toastManager.showToast(R.string.Could_not_find_start_screen)
-        }catch (e:Exception) {
-            toastManager.showToast(R.string.Application_opening_error)
+        viewModelScope.launch {
+            if(isNeedShowIgnoreBatteryDialog()) {
+                isIgnoreBatteryDialogHasBeenShowed = true
+
+                showBatteryIgnoreOptimizationDialog()
+
+                return@launch
+            }
+
+                withContext(Dispatchers.Main) {
+                    try {
+                        appLaunchAndActivateScreenFixationContract.launchAppAndFixation(packageName)
+                        toastManager.showToast(R.string.Screen_lock_activated)
+                    }catch (e: LaunchActivityNotFoundException) {
+                        toastManager.showToast(R.string.Could_not_find_start_screen)
+                    }catch (e:Exception) {
+                        toastManager.showToast(R.string.Application_opening_error)
+                    }
+                }
+
         }
+    }
+
+    private suspend fun isNeedShowIgnoreBatteryDialog(): Boolean {
+        if(isIgnoreBatteryDialogHasBeenShowed) return false
+
+        return !ignoreBatteryDialogManageContract.isDialogHiddenForever()
     }
 
     override fun onResume() {
@@ -260,6 +312,9 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
 
     @AssistedFactory
     interface Factory {
-        fun create(activityResultRegistry: ActivityLifecycleRegister) : AppListViewModel
+        fun create(
+            activityResultRegistry: ActivityLifecycleRegister,
+            showAdContract: ShowAdContract
+        ) : AppListViewModel
     }
 }

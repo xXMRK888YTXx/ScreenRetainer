@@ -31,4 +31,9 @@ interface AppListProviderModule {
     fun bindManageFavoriteAppContract(
         ManageFavoriteAppContractImpl: ManageFavoriteAppContractImpl
     ) : ManageFavoriteAppContract
+
+    @Binds
+    fun bindIgnoreBatteryDialogManageContract(
+        IgnoreBatteryDialogManageContractImpl:IgnoreBatteryDialogManageContractImpl
+    ) : IgnoreBatteryDialogManageContract
 }

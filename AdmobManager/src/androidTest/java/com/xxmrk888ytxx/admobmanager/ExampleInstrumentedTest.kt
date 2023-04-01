@@ -1,4 +1,4 @@
-package com.xxmrk888ytxx.database
+package com.xxmrk888ytxx.admobmanager
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.xxmrk888ytxx.database.test", appContext.packageName)
+        assertEquals("com.xxmrk888ytxx.admobmanager.test", appContext.packageName)
     }
 }

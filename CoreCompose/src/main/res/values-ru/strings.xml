@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="I_agree">Я соглашаюсь</string>
+    <string name="I_accept">Принимаю</string>
+    <string name="I_dont_accept">Не принимаю</string>
+    <string name="Terms_of_Use">Условия использования</string>
+    <string name="Privacy_policy">Политика кофендоциальности</string>
+</resources>

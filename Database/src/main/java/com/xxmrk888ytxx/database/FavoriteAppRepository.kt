@@ -9,7 +9,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
-class FavoriteAppRepository private constructor(
+/**
+ * [Ru]
+ * Репозиторий для управления любимими приложениями
+ */
+
+/**
+ * [En]
+ * Repository to manage your favorite apps
+ */
+class FavoriteAppRepository internal constructor(
     private val favoriteAppDao: FavoriteAppDao
 ) {
 

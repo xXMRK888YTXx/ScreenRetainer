@@ -21,4 +21,6 @@
     <string name="first_item">1. Для получение информации, когда текущее приложение на экране изменено.</string>
     <string name="The_information_collected_is_not_saved">Собраная информация не сохраняется и будет удалена после использования.</string>
     <string name="For_the_application_to_work_you_must_agree">Для работы приложения, необходимо согласиться со сбором этих данных и предоставить разрешение в настройках устройства.</string>
+    <string name="Ignore_battery_dialog_text">Для того чтобы приложение работало корректно, необходимо отключить оптимизацию батареи. Перейти в настройки?</string>
+    <string name="Dont_show_any_more">Больше не показывать</string>
 </resources>

@@ -56,6 +56,7 @@ object Deps {
         const val JUnit = "junit:junit:4.13.2"
         const val Mockk = "io.mockk:mockk:$MockkVersion"
         const val Testing = "org.testng:testng:6.9.6"
+        const val MockkJMVAgent = "io.mockk:mockk-agent-jvm:1.12.5"
     }
 
     object InstrumentalTest {
@@ -89,6 +90,10 @@ object Deps {
         private const val version = "1.6.1"
         const val appCompat = "androidx.appcompat:appcompat:$version"
         const val appCompatRes = "androidx.appcompat:appcompat-resources:$version"
+    }
+
+    object AdMob {
+        const val adMob = "com.google.android.gms:play-services-ads:21.4.0"
     }
 
 

@@ -17,12 +17,7 @@ import kotlinx.coroutines.flow.map
  * [En]
  * Class for managing user preferences
  */
-class PreferencesStorage private constructor(
-    private val context: Context,
-    private val name:String
-) {
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = name)
-
+abstract class PreferencesStorage {
     /**
      * [Ru]
      * Записывает значение по ключу
@@ -38,11 +33,7 @@ class PreferencesStorage private constructor(
      * @param key - The key by which the value will be written
      * @param value - Value to be written
      */
-    suspend fun <TYPE> writeProperty(key:Preferences.Key<TYPE>,value:TYPE) {
-        context.dataStore.edit {
-            it[key] = value
-        }
-    }
+    abstract suspend fun <TYPE> writeProperty(key:Preferences.Key<TYPE>,value:TYPE)
 
     /**
      * [Ru]
@@ -61,11 +52,7 @@ class PreferencesStorage private constructor(
      * @param defValue - Default value that will be returned if,
      * key value will not be found
      */
-    fun <TYPE> getProperty(key:Preferences.Key<TYPE>,defValue:TYPE) : Flow<TYPE> {
-        return context.dataStore.data.map {
-            it[key] ?: defValue
-        }
-    }
+    abstract fun <TYPE> getProperty(key:Preferences.Key<TYPE>,defValue:TYPE) : Flow<TYPE>
 
     /**
      * [Ru]
@@ -80,11 +67,7 @@ class PreferencesStorage private constructor(
      *
      * @param key - The key by which the value will be written
      */
-    fun <TYPE> getPropertyOrNull(key:Preferences.Key<TYPE>) : Flow<TYPE?> {
-        return context.dataStore.data.map {
-            it[key]
-        }
-    }
+    abstract fun <TYPE> getPropertyOrNull(key:Preferences.Key<TYPE>) : Flow<TYPE?>
 
     /**
      * [Ru]
@@ -99,11 +82,7 @@ class PreferencesStorage private constructor(
      *
      * @param key - The key by which the data will be deleted.
      */
-    suspend fun <TYPE> removeProperty(key:Preferences.Key<TYPE>) {
-        context.dataStore.edit {
-            it.remove(key)
-        }
-    }
+    abstract suspend fun <TYPE> removeProperty(key:Preferences.Key<TYPE>)
 
     /**
      * [Ru]
@@ -118,19 +97,11 @@ class PreferencesStorage private constructor(
      *
      * @param key - key to check
      */
-    fun <TYPE> isPropertyExist(key:Preferences.Key<TYPE>) : Flow<Boolean> {
-        return context.dataStore.data.map {
-            it.contains(key)
+    abstract fun <TYPE> isPropertyExist(key:Preferences.Key<TYPE>) : Flow<Boolean>
+
+    class Factory {
+        fun create(fileName:String,context: Context) : PreferencesStorage {
+            return AndroidDataStorePreferencesStorage(context,fileName)
         }
     }
-
-    class Builder(
-        private val fileName:String,
-        private val context: Context
-    ) {
-        fun build() : PreferencesStorage {
-            return PreferencesStorage(context,fileName)
-        }
-    }
-
 }

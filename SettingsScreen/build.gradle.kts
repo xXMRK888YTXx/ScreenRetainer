@@ -48,9 +48,16 @@ android {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
+        resources.excludes.add("META-INF/*")
     }
 }
 
 dependencies {
     implementation(project(Project.CoreCompose))
+
+    testImplementation(Deps.Test.JUnit)
+    testImplementation(Deps.Test.Mockk)
+    testImplementation(Deps.Test.Testing)
+    testImplementation(Deps.Test.MockkJMVAgent)
+    testImplementation(Deps.Coroutines.Test.CoroutinesTest)
 }
