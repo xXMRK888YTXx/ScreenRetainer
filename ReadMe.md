@@ -54,9 +54,6 @@ Module containing the service for the display of the quickSettingsButton
 ## [SettingsScreen]
 Module with the application settings screen
 
-
-
-
 # [Ru] Описание приложения
 
 Приложение ScreenRetainer предназначено для фиксации экрана на выбранном пользователем приложении.
