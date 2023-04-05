@@ -20,7 +20,7 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v2
         with:
-            sdk-version: 33
+            sdk-version: 30
 
       - name: run tests
         uses: reactivecircus/android-emulator-runner@v2.28.0
