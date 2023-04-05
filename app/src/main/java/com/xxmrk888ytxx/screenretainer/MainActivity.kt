@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity(),ActivityLifecycleRegister,ShowAdContrac
         activityViewModel.initAdService()
         setContent {
             val agreeDialogState = activityViewModel.isNeedShowAgreeDialog.collectAsState()
-            AppTheme(appTheme = provideAppTheme()) {
+            AppTheme(appTheme = Themes.Dark) {
                 val navController = rememberNavController()
                 NavHost(
                     navController = navController,
@@ -147,11 +147,6 @@ class MainActivity : AppCompatActivity(),ActivityLifecycleRegister,ShowAdContrac
     override fun onDestroy() {
         super.onDestroy()
         activityViewModel.onDestroy()
-    }
-
-    @Composable
-    private fun provideAppTheme() : AppTheme {
-        return Themes.Dark
     }
 
     override fun registerCallback(activityLifecycleCallback: ActivityLifecycleCallback) {
