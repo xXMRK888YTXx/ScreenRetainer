@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">ScreenRetainer - Фиксация экрана</string>
     <string name="Applications">Приложения</string>
     <string name="Settings">Настройки</string>
     <string name="Choose_a_client">Выберете клиент</string>
