@@ -23,7 +23,9 @@ import dagger.Component
         PermissionManagerModule::class,
         LocalizationManagerModule::class,
         AgreeDialogManagerModule::class,
-        AdManagerModule::class
+        AdManagerModule::class,
+        ButtonActiveStateControllerModule::class,
+        QuickSettingsButtonSwitcherModule::class
     ]
 )
 @AppScope
