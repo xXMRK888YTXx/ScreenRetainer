@@ -1,8 +1,11 @@
 package com.xxmrk888ytxx.quicksettingsservice
 
+import android.content.Context
 import android.content.Intent
+import android.os.Binder
 import android.os.Build
 import android.os.IBinder
+import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import androidx.annotation.RequiresApi
 import com.xxmrk888ytxx.coredeps.DepsProvider.getDepsByApplication
@@ -18,8 +21,12 @@ import com.xxmrk888ytxx.coredeps.DepsProvider.getDepsByApplication
 @RequiresApi(Build.VERSION_CODES.N)
 class LockCurrentAppQuickButtonService : TileService() {
 
-    private val callback:LockCurrentAppButtonClickedCallback by lazy {
+    private val callback: LockCurrentAppButtonClickedCallback by lazy {
         applicationContext.getDepsByApplication()
+    }
+
+    internal inner class LockCurrentAppQuickButtonBinder : Binder() {
+        val service: LockCurrentAppQuickButtonService = this@LockCurrentAppQuickButtonService
     }
 
 
@@ -28,13 +35,16 @@ class LockCurrentAppQuickButtonService : TileService() {
     }
 
     override fun onBind(intent: Intent?): IBinder? {
-        return super.onBind(intent)
+        return if (intent?.action == REQUEST_BIND_ACTION)
+            LockCurrentAppQuickButtonBinder()
+        else
+            super.onBind(intent)
     }
 
     override fun onTileAdded() {
         super.onTileAdded()
 
-        unlockAndRun {  }
+        unlockAndRun { }
     }
 
     override fun onTileRemoved() {
@@ -52,5 +62,30 @@ class LockCurrentAppQuickButtonService : TileService() {
     override fun onClick() {
         super.onClick()
         callback.onClick()
+    }
+
+    internal fun changeActiveState(isActive: Boolean) {
+        if (isActive) {
+            qsTile.state = Tile.STATE_ACTIVE
+        } else {
+            qsTile.state = Tile.STATE_INACTIVE
+        }
+
+        qsTile.updateTile()
+    }
+
+    companion object {
+        private const val REQUEST_BIND_ACTION = "REQUEST_BIND_ACTION"
+
+        internal fun getBindIntent(context: Context) =
+            Intent(context, LockCurrentAppQuickButtonService::class.java).apply {
+                action = REQUEST_BIND_ACTION
+            }
+
+        @RequiresApi(Build.VERSION_CODES.N)
+        class ButtonActiveStateControllerFactory {
+            fun create(context: Context): ButtonActiveStateController =
+                ButtonActiveStateControllerImpl(context)
+        }
     }
 }
