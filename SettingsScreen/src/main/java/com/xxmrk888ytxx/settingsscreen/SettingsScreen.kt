@@ -18,6 +18,7 @@ import com.xxmrk888ytxx.corecompose.theme.ShareComponents.models.SelectDialogMod
 import com.xxmrk888ytxx.settingsscreen.models.AppLanguage
 import com.xxmrk888ytxx.settingsscreen.models.DialogState.LanguageDialogState
 import com.xxmrk888ytxx.settingsscreen.models.SettingsParamType
+import kotlinx.collections.immutable.toImmutableList
 
 @SuppressLint("ResourceType")
 @Composable
@@ -79,6 +80,6 @@ internal fun SelectLanguageDialog(
                 isSelected = currentSelectedLanguage == it,
                 onClick = { settingsViewModel.changeCurrentSelectedLanguage(it) }
             )
-        }
+        }.toImmutableList()
     )
 }

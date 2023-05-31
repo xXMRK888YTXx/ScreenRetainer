@@ -1,7 +1,6 @@
 package com.xxmrk888ytxx.applistscreen
 
 import android.annotation.SuppressLint
-import android.inputmethodservice.Keyboard.Row
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedContent
@@ -44,6 +43,7 @@ import com.xxmrk888ytxx.corecompose.theme.StyleComponents.BodyText
 import com.xxmrk888ytxx.corecompose.theme.StyleComponents.StyleCard
 import com.xxmrk888ytxx.corecompose.theme.StyleComponents.HeadText
 import com.xxmrk888ytxx.corecompose.theme.StyleComponents.StyleIcon
+import kotlinx.collections.immutable.ImmutableList
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -261,7 +261,7 @@ fun LazyItemScope.AppItem(
 
 @Composable
 internal fun RequestPermissionState(appListViewModel: AppListViewModel) {
-    val neededPermissions = appListViewModel.neededPermissionList.collectAsState()
+    val neededPermissions by appListViewModel.neededPermissionList.collectAsState()
     val requestAdminPermissionContract = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult(),
         onResult = {}
@@ -302,7 +302,7 @@ internal fun RequestPermissionState(appListViewModel: AppListViewModel) {
                 LazySpacer(10)
 
                 NeededPermissionWidget(
-                    neededPermissions = neededPermissions.value
+                    neededPermissions = neededPermissions
                 )
             }
         }
@@ -311,9 +311,8 @@ internal fun RequestPermissionState(appListViewModel: AppListViewModel) {
 
 @SuppressLint("ResourceType")
 @Composable
-internal fun NeededPermissionWidget(neededPermissions: List<NeededPermissionModel>) {
+internal fun NeededPermissionWidget(neededPermissions: ImmutableList<NeededPermissionModel>) {
     neededPermissions.forEach {
-
         BodyText(
             text = stringResource(id = it.title),
             textAlign = TextAlign.Center,

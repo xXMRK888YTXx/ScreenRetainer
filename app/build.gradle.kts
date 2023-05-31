@@ -1,10 +1,10 @@
 plugins {
-    id ("com.android.application")
-    id ("org.jetbrains.kotlin.android")
-    id (Deps.Dagger.DaggerKaptPlugin)
-    id ("com.google.gms.google-services")
-    id ("com.google.firebase.crashlytics")
-    id ("com.guardsquare.appsweep") version("latest.release")
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id(Deps.Dagger.DaggerKaptPlugin)
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
+    id("com.guardsquare.appsweep") version ("latest.release")
 }
 
 android {
@@ -15,8 +15,8 @@ android {
         applicationId = Config.packageName
         minSdk = Config.minSdk
         targetSdk = Config.compileSdk
-        versionCode = 4
-        versionName = "1.1.0r"
+        versionCode = 5
+        versionName = "1.1.1r"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -27,12 +27,16 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = Config.isR8ProGuardEnableForRelease
-            proguardFiles("proguard-android-optimize.txt","proguard-rules.pro")
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),"proguard-rules.pro")
+            testProguardFile("test-proguard-rules.pro")
         }
 
         debug {
             isMinifyEnabled = Config.isR8ProGuardEnableForDebug
-            proguardFiles("proguard-android-optimize.txt","proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -77,7 +81,7 @@ dependencies {
     implementation(Deps.Compose.SystemUiController)
     implementation(Deps.AppCompat.appCompat)
     implementation(Deps.AppCompat.appCompatRes)
-    implementation (platform("com.google.firebase:firebase-bom:31.3.0"))
-    implementation ("com.google.firebase:firebase-crashlytics-ktx")
-    implementation ("com.google.firebase:firebase-analytics-ktx")
+    implementation(platform("com.google.firebase:firebase-bom:31.3.0"))
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
+    implementation("com.google.firebase:firebase-analytics-ktx")
 }

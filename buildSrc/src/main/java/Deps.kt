@@ -69,7 +69,7 @@ object Deps {
     }
 
     object Coil {
-        const val coil = "io.coil-kt:coil-compose:2.2.2"
+        const val coil = "io.coil-kt:coil-compose:2.4.0"
     }
 
     object DataStore {
@@ -93,7 +93,11 @@ object Deps {
     }
 
     object AdMob {
-        const val adMob = "com.google.android.gms:play-services-ads:21.4.0"
+        const val adMob = "com.google.android.gms:play-services-ads:22.1.0"
+    }
+
+    object ImmutableCollection {
+        const val collectionsImmutable = "org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.5"
     }
 
 
