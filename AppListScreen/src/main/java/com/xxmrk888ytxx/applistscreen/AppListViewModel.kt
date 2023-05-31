@@ -20,6 +20,7 @@ import com.xxmrk888ytxx.coredeps.SharedInterfaces.ActivityLifecycleCallback.Acti
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -80,8 +81,8 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
 
     internal val neededPermissionList =
         combine(adminPermissionState, accessibilityPermissionState) { admin, accessibility ->
-            listOf(admin, accessibility)
-        }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+            persistentListOf(admin, accessibility)
+        }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), persistentListOf())
 
     private val _appList = MutableStateFlow<List<AppInfoModel>>(emptyList())
 

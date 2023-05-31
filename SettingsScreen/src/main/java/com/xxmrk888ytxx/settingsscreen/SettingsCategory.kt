@@ -18,9 +18,10 @@ import com.xxmrk888ytxx.corecompose.theme.themeDimensions
 import com.xxmrk888ytxx.corecompose.theme.themeTypography
 import com.xxmrk888ytxx.settingsscreen.models.SettingsParamShape
 import com.xxmrk888ytxx.settingsscreen.models.SettingsParamType
+import kotlinx.collections.immutable.ImmutableList
 
 @Composable
-internal fun SettingsCategory(categoryName: String, settingsParams: List<SettingsParamType>) {
+internal fun SettingsCategory(categoryName: String, settingsParams: ImmutableList<SettingsParamType>) {
     Column(
         modifier = Modifier
             .fillMaxWidth()

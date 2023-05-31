@@ -96,5 +96,9 @@ object Deps {
         const val adMob = "com.google.android.gms:play-services-ads:21.4.0"
     }
 
+    object ImmutableCollection {
+        const val collectionsImmutable = "org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.5"
+    }
+
 
 }

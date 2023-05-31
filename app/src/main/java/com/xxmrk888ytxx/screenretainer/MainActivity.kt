@@ -41,6 +41,7 @@ import com.xxmrk888ytxx.screenretainer.utils.appComponent
 import com.xxmrk888ytxx.settingsscreen.SettingsScreen
 import com.xxmrk888ytxx.settingsscreen.SettingsViewModel
 import composeViewModel
+import kotlinx.collections.immutable.persistentListOf
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Provider
@@ -72,7 +73,7 @@ class MainActivity : AppCompatActivity(),ActivityLifecycleRegister,ShowAdContrac
                 ) {
                     composable(Screen.BottomBarScreen.route) {
                         BottomBarScreen(
-                            bottomBarScreens = listOf(
+                            bottomBarScreens = persistentListOf(
                                 BottomBarScreenModel(
                                     title = getString(R.string.Applications),
                                     icon = R.drawable.apps,

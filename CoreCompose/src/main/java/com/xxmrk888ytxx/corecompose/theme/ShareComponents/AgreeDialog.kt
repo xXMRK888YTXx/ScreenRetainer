@@ -8,8 +8,10 @@ import androidx.compose.material.Checkbox
 import androidx.compose.material.CheckboxDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -26,11 +28,11 @@ fun AgreeDialog(
     onConfirm:() -> Unit,
     onCancel:() -> Unit
 ) {
-    val isPrivacyPolicyAgreed = rememberSaveable() {
+    var isPrivacyPolicyAgreed by rememberSaveable() {
         mutableStateOf(false)
     }
 
-    val isTermsOfUseAgreed = rememberSaveable() {
+    var isTermsOfUseAgreed by rememberSaveable() {
         mutableStateOf(false)
     }
 
@@ -41,7 +43,7 @@ fun AgreeDialog(
         cancelButtonText = stringResource(R.string.I_dont_accept),
         onCancel = onCancel,
         onConfirm = onConfirm,
-        isConfirmButtonEnabled = isPrivacyPolicyAgreed.value && isTermsOfUseAgreed.value,
+        isConfirmButtonEnabled = isPrivacyPolicyAgreed && isTermsOfUseAgreed,
         dialogProperties = DialogProperties(
             dismissOnBackPress = false,
             dismissOnClickOutside = false
@@ -53,8 +55,8 @@ fun AgreeDialog(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Checkbox(
-                checked = isTermsOfUseAgreed.value,
-                onCheckedChange = { isTermsOfUseAgreed.value = it },
+                checked = isTermsOfUseAgreed,
+                onCheckedChange = { isTermsOfUseAgreed = it },
                 colors = CheckboxDefaults.colors(
                     checkedColor = themeColors.primaryColor,
                     uncheckedColor = themeColors.primaryColor
@@ -91,9 +93,9 @@ fun AgreeDialog(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Checkbox(
-                checked = isPrivacyPolicyAgreed.value,
+                checked = isPrivacyPolicyAgreed,
                 onCheckedChange = {
-                    isPrivacyPolicyAgreed.value = it
+                    isPrivacyPolicyAgreed = it
                 },
                 colors = CheckboxDefaults.colors(
                     checkedColor = themeColors.primaryColor,
