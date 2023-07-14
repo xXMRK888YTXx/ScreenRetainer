@@ -1,9 +1,11 @@
 package com.xxmrk888ytxx.screenretainer
 
 import android.app.Activity
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.xxmrk888ytxx.admobmanager.ConsentFormLoader
 import com.xxmrk888ytxx.coredeps.SharedInterfaces.ActivityLifecycleCallback.ActivityLifecycleCallback
 import com.xxmrk888ytxx.coredeps.SharedInterfaces.ActivityLifecycleCallback.ActivityLifecycleRegister
 import com.xxmrk888ytxx.screenretainer.UseCases.OpenPrivatePolicySiteUseCase.OpenPrivatePolicySiteUseCase
@@ -17,26 +19,68 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Provider
 
+
 @Suppress("UNCHECKED_CAST")
 class ActivityViewModel @Inject constructor(
     private val agreeDialogManager: AgreeDialogManager,
     private val openTermsOfUseSiteUseCase: OpenTermsOfUseSiteUseCase,
     private val openPrivatePolicySiteUseCase: OpenPrivatePolicySiteUseCase,
-    private val adManager: AdManager
+    private val adManager: AdManager,
 ) : ViewModel() {
 
     class Factory @Inject constructor(
-        private val activityViewModel: Provider<ActivityViewModel>
+        private val activityViewModel: Provider<ActivityViewModel>,
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return activityViewModel.get() as T
         }
     }
 
-    private val activityLifecycleCallbacks:MutableSet<ActivityLifecycleCallback> = mutableSetOf()
+    private var isConsentChecked:Boolean = false
 
-    fun registerCallback(activityLifecycleCallback: ActivityLifecycleCallback,activity: Activity) {
-        if(activityLifecycleCallbacks.add(activityLifecycleCallback))
+    fun loadConsentForm(activity: Activity) {
+        if(isConsentChecked) return
+
+        isConsentChecked = true
+
+        val logTag = "ConsentFormLoader"
+
+        val loader = ConsentFormLoader.create(
+            activity,
+            BuildConfig.DEBUG,
+            true
+        )
+
+        loader.checkFormState(
+            onFormPrepared = {
+                Log.i(logTag, "onFormPrepared")
+
+                loader.loadAndShowForm(
+                    onSuccessLoad = {
+                        Log.i(logTag, "onSuccessLoad")
+                    },
+                    onLoadError = {
+                        Log.e(logTag, "onLoadError")
+
+                    },
+                    onDismissed = {
+                        Log.i(logTag, "onDismissed")
+                    }
+                )
+            },
+            onFormNotAvailable = {
+                Log.e(logTag, "onFormNotAvailable")
+            },
+            onError = {
+                Log.e(logTag, "onError")
+            }
+        )
+    }
+
+    private val activityLifecycleCallbacks: MutableSet<ActivityLifecycleCallback> = mutableSetOf()
+
+    fun registerCallback(activityLifecycleCallback: ActivityLifecycleCallback, activity: Activity) {
+        if (activityLifecycleCallbacks.add(activityLifecycleCallback))
             activityLifecycleCallback.onRegister(activity)
     }
 
@@ -69,7 +113,7 @@ class ActivityViewModel @Inject constructor(
     }
 
     internal val isNeedShowAgreeDialog = agreeDialogManager.isNeedShowDialog
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000),false)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
 
     fun hideAgreeDialogForever() {
         viewModelScope.launch { agreeDialogManager.hideForever() }

@@ -1,25 +1,14 @@
 package com.xxmrk888ytxx.screenretainer
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.os.LocaleListCompat
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -29,9 +18,7 @@ import com.xxmrk888ytxx.applistscreen.AppListViewModel
 import com.xxmrk888ytxx.applistscreen.contract.ShowAdContract
 import com.xxmrk888ytxx.bottombarscreen.BottomBarScreen
 import com.xxmrk888ytxx.bottombarscreen.models.BottomBarScreenModel
-import com.xxmrk888ytxx.corecompose.theme.AppTheme
 import com.xxmrk888ytxx.corecompose.theme.ShareComponents.AgreeDialog
-import com.xxmrk888ytxx.corecompose.theme.StyleComponents.HeadText
 import com.xxmrk888ytxx.corecompose.theme.themeColors
 import com.xxmrk888ytxx.coredeps.SharedInterfaces.ActivityLifecycleCallback.ActivityLifecycleCallback
 import com.xxmrk888ytxx.coredeps.SharedInterfaces.ActivityLifecycleCallback.ActivityLifecycleRegister
@@ -60,6 +47,7 @@ class MainActivity : AppCompatActivity(),ActivityLifecycleRegister,ShowAdContrac
         super.onCreate(savedInstanceState)
         appComponent.inject(this)
         activityViewModel.initAdService()
+        activityViewModel.loadConsentForm(this)
         setContent {
             val agreeDialogState = activityViewModel.isNeedShowAgreeDialog.collectAsState()
             AppTheme(appTheme = Themes.Dark) {
