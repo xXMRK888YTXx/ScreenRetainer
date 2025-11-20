@@ -207,7 +207,7 @@ fun LazyItemScope.AppItem(
         Modifier
             .fillMaxWidth()
             .padding(themeDimensions.outCardPadding)
-            .animateItemPlacement()
+            .animateItem()
             .clickable {
                 onActivateFixation(appInfo.appPackageName)
             },

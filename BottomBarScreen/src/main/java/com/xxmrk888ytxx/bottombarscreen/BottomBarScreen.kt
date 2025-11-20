@@ -41,7 +41,7 @@ fun BottomBarScreen(
     bottomBarScreens:ImmutableList<BottomBarScreenModel>,
     bannerAd: @Composable (() -> Unit)? = null
 ) {
-    val pager = rememberPagerState()
+    val pager = rememberPagerState { bottomBarScreens.size }
     val scope = rememberCoroutineScope()
 
     Scaffold(
@@ -61,7 +61,6 @@ fun BottomBarScreen(
         }
     ) {
         HorizontalPager(
-            pageCount = bottomBarScreens.size,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(
