@@ -1,7 +1,8 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id(Deps.Dagger.DaggerKaptPlugin)
+    id(Deps.Dagger.KspPlugin)
+    id(Deps.Room.PluginName)
 }
 
 android {
@@ -13,6 +14,10 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
+        room {
+            schemaDirectory("$projectDir/schemas")
+        }
     }
 
     buildTypes {
@@ -30,11 +35,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-        }
-    }
-    kapt {
-        arguments {
-            arg("room.schemaLocation","$projectDir/schemas")
         }
     }
     compileOptions {
@@ -55,8 +55,8 @@ dependencies {
     implementation(Deps.Room.RoomKTX)
     implementation(Deps.Room.RoomRuntime)
 
-    kapt (Deps.Room.KaptCompiler)
-    kapt (Deps.Dagger.DaggerKaptCompiler)
+    ksp (Deps.Room.KaptCompiler)
+    ksp (Deps.Dagger.DaggerKaptCompiler)
 
     //Instrumental Test
     androidTestImplementation (Deps.InstrumentalTest.espresso)

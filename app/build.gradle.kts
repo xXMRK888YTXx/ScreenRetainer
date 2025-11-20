@@ -1,10 +1,11 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id(Deps.Dagger.DaggerKaptPlugin)
+    id(Deps.Dagger.KspPlugin)
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
     id("com.guardsquare.appsweep") version ("latest.release")
+    id(Deps.Compose.PluginName) version Deps.Compose.PluginVersion
 }
 
 android {
@@ -50,9 +51,6 @@ android {
         compose = true
         buildConfig = true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = Deps.Compose.ComposeKotlinCompiler
-    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -75,14 +73,14 @@ dependencies {
     implementation(project(Project.AdmobManager))
 
     //Dagger
-    kapt(Deps.Dagger.DaggerKaptCompiler)
+    ksp(Deps.Dagger.DaggerKaptCompiler)
 
     //Compose
     implementation(Deps.Compose.Navigation)
     implementation(Deps.Compose.SystemUiController)
     implementation(Deps.AppCompat.appCompat)
     implementation(Deps.AppCompat.appCompatRes)
-    implementation(platform("com.google.firebase:firebase-bom:31.3.0"))
-    implementation("com.google.firebase:firebase-crashlytics-ktx")
-    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation(platform("com.google.firebase:firebase-bom:34.6.0"))
+    implementation("com.google.firebase:firebase-crashlytics-ktx:19.4.4")
+    implementation("com.google.firebase:firebase-analytics-ktx:22.5.0")
 }

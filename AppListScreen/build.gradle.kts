@@ -1,7 +1,8 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id(Deps.Dagger.DaggerKaptPlugin)
+    id(Deps.Dagger.KspPlugin)
+    id(Deps.Compose.PluginName) version Deps.Compose.PluginVersion
 }
 
 android {
@@ -42,14 +43,11 @@ android {
     buildFeatures {
         compose = true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = Deps.Compose.ComposeKotlinCompiler
-    }
 }
 
 dependencies {
     implementation(project(Project.CoreCompose))
     implementation(Deps.Coil.coil)
 
-    kapt(Deps.Dagger.DaggerKaptCompiler)
+    ksp(Deps.Dagger.DaggerKaptCompiler)
 }

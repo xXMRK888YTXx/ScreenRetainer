@@ -1,7 +1,7 @@
 import org.gradle.api.JavaVersion
 
 object Config {
-    const val compileSdk = 33
+    const val compileSdk = 36
     const val minSdk = 23
     const val packageName = "com.xxmrk888ytxx.screenretainer"
     const val isR8ProGuardEnableForRelease = true
