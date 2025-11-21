@@ -3,10 +3,13 @@ package com.xxmrk888ytxx.screenretainer
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
@@ -45,6 +48,7 @@ class MainActivity : AppCompatActivity(),ActivityLifecycleRegister,ShowAdContrac
     @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         appComponent.inject(this)
         activityViewModel.initAdService()
         activityViewModel.loadConsentForm(this)
@@ -52,50 +56,57 @@ class MainActivity : AppCompatActivity(),ActivityLifecycleRegister,ShowAdContrac
             val agreeDialogState = activityViewModel.isNeedShowAgreeDialog.collectAsState()
             AppTheme(appTheme = Themes.Dark) {
                 val navController = rememberNavController()
-                NavHost(
-                    navController = navController,
-                    startDestination = Screen.BottomBarScreen.route,
+
+                Box(
                     modifier = Modifier
                         .fillMaxSize()
                         .background(themeColors.background)
                 ) {
-                    composable(Screen.BottomBarScreen.route) {
-                        BottomBarScreen(
-                            bottomBarScreens = persistentListOf(
-                                BottomBarScreenModel(
-                                    title = getString(R.string.Applications),
-                                    icon = R.drawable.apps,
-                                    content = {
-                                        AppListScreen(
-                                            appListViewModel = composeViewModel {
-                                                appListViewModel.create(
-                                                    activityResultRegistry = this@MainActivity,
-                                                    showAdContract = this@MainActivity
-                                                )
-                                            }
-                                        )
-                                    }
-                                ),
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screen.BottomBarScreen.route,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .systemBarsPadding()
+                    ) {
+                        composable(Screen.BottomBarScreen.route) {
+                            BottomBarScreen(
+                                bottomBarScreens = persistentListOf(
+                                    BottomBarScreenModel(
+                                        title = getString(R.string.Applications),
+                                        icon = R.drawable.apps,
+                                        content = {
+                                            AppListScreen(
+                                                appListViewModel = composeViewModel {
+                                                    appListViewModel.create(
+                                                        activityResultRegistry = this@MainActivity,
+                                                        showAdContract = this@MainActivity
+                                                    )
+                                                }
+                                            )
+                                        }
+                                    ),
 
-                                BottomBarScreenModel(
-                                    title = getString(R.string.Settings),
-                                    icon = R.drawable.settings,
-                                    content = {
-                                       SettingsScreen(
-                                           settingsViewModel = composeViewModel {
-                                               settingsViewModel.get()
-                                           }
-                                       )
-                                    }
-                                )
-                            ),
-                            bannerAd = {
-                                AdMobBanner(
-                                    adMobKey = getString(R.string.BottomBarBanner),
-                                    background = themeColors.background
-                                )
-                            }
-                        )
+                                    BottomBarScreenModel(
+                                        title = getString(R.string.Settings),
+                                        icon = R.drawable.settings,
+                                        content = {
+                                            SettingsScreen(
+                                                settingsViewModel = composeViewModel {
+                                                    settingsViewModel.get()
+                                                }
+                                            )
+                                        }
+                                    )
+                                ),
+                                bannerAd = {
+                                    AdMobBanner(
+                                        adMobKey = getString(R.string.BottomBarBanner),
+                                        background = themeColors.background
+                                    )
+                                }
+                            )
+                        }
                     }
                 }
 
