@@ -36,4 +36,9 @@ interface AppListProviderModule {
     fun bindIgnoreBatteryDialogManageContract(
         IgnoreBatteryDialogManageContractImpl:IgnoreBatteryDialogManageContractImpl
     ) : IgnoreBatteryDialogManageContract
+
+    @Binds
+    fun bindAddQuickButtonToNotificationBarContract(
+        AddQuickButtonToNotificationBarContractImpl: AddQuickButtonToNotificationBarContractImpl
+    ) : AddQuickButtonToNotificationBarContract
 }

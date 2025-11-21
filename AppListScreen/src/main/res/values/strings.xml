@@ -23,4 +23,5 @@
     <string name="For_the_application_to_work_you_must_agree">For the application to work, you must agree to the collection of this data and grant permission in the device settings.</string>
     <string name="Ignore_battery_dialog_text">For the application to work correctly, you must turn off battery optimization. Go to settings?</string>
     <string name="Dont_show_any_more">Don\'t show any more</string>
+    <string name="for_faster_access_to_the_lock_function_you_can_add_a_quick_lock_button_to_the_notification_bar_when_you_click_on_it_the_application_you_are_currently_in_will_be_fixed_would_you_like_to_try_it">For faster access to the lock function, you can add a quick lock button to the notification bar. When you click on it, the application you are currently in will be fixed. Would you like to try it?</string>
 </resources>

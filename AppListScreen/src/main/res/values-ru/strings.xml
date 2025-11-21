@@ -23,4 +23,5 @@
     <string name="For_the_application_to_work_you_must_agree">Для работы приложения, необходимо согласиться со сбором этих данных и предоставить разрешение в настройках устройства.</string>
     <string name="Ignore_battery_dialog_text">Для того чтобы приложение работало корректно, необходимо отключить оптимизацию батареи. Перейти в настройки?</string>
     <string name="Dont_show_any_more">Больше не показывать</string>
+    <string name="for_faster_access_to_the_lock_function_you_can_add_a_quick_lock_button_to_the_notification_bar_when_you_click_on_it_the_application_you_are_currently_in_will_be_fixed_would_you_like_to_try_it">Для более быстрого доступа к функции фиксации вы можете добавить кнопку быстрой блокировки в панель уведомлений. При нажатии на неё приложение в котором вы сейчас находитесь будет зафиксировано. Хотите попробовать?</string>
 </resources>

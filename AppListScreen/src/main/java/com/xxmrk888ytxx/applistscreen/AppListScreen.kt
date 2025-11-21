@@ -30,6 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.xxmrk888ytxx.applistscreen.models.AppInfoModel
+import com.xxmrk888ytxx.applistscreen.models.DialogStates.AddQuickButtonDialogState
 import com.xxmrk888ytxx.applistscreen.models.DialogStates.BatteryIgnoreOptimizationDialogState
 import com.xxmrk888ytxx.applistscreen.models.DialogStates.WarmingAccessibilityPermissionDialogState
 import com.xxmrk888ytxx.applistscreen.models.DialogStates.WarmingAdminPermissionDialogState
@@ -86,6 +87,10 @@ fun AppListScreen(appListViewModel: AppListViewModel) {
     if(dialogState.value.batteryIgnoreOptimizationDialogState is BatteryIgnoreOptimizationDialogState.Visible) {
         BatteryIgnoreOptimizationDialog(appListViewModel)
     }
+
+    if (dialogState.value.addQuickButtonDialogState is AddQuickButtonDialogState.Visible) {
+        AddQuickButtonDialog(appListViewModel)
+    }
 }
 
 @Composable
@@ -129,6 +134,10 @@ fun WarmingAdminPermissionDialog(appListViewModel: AppListViewModel) {
 internal fun AppList(appListViewModel: AppListViewModel) {
     val appList = appListViewModel.appList.collectAsState()
     val searchText = appListViewModel.searchLineText.collectAsState()
+
+    LaunchedEffect(Unit) {
+        appListViewModel.showAddQuickButtonDialog()
+    }
 
     Column(Modifier.fillMaxSize()) {
 
@@ -373,6 +382,54 @@ internal fun LoadingAppListState() {
         )
     }
 }
+
+
+
+@Composable
+fun AddQuickButtonDialog(appListViewModel: AppListViewModel) {
+    val notShowInFuture = rememberSaveable {
+        mutableStateOf(false)
+    }
+
+    YesNoDialog(
+        confirmButtonText = stringResource(R.string.OK),
+        cancelButtonText = stringResource(R.string.Cancel),
+        onCancel = { appListViewModel.hideAddQuickButtonDialog(notShowInFuture.value) },
+        onConfirm = {
+            appListViewModel.openAndroidDialogForAddQuickSettingsButton()
+            appListViewModel.hideAddQuickButtonDialog(true)
+        }
+    ) {
+        Text(
+            text = stringResource(R.string.for_faster_access_to_the_lock_function_you_can_add_a_quick_lock_button_to_the_notification_bar_when_you_click_on_it_the_application_you_are_currently_in_will_be_fixed_would_you_like_to_try_it),
+            color = themeColors.primaryFontColor,
+            style = themeTypography.yesNoDialog,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center
+        )
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Checkbox(
+                checked = notShowInFuture.value,
+                onCheckedChange = { notShowInFuture.value = it },
+                colors = CheckboxDefaults.colors(
+                    checkedColor = themeColors.primaryColor,
+                    uncheckedColor = themeColors.primaryColor
+                )
+            )
+
+            Text(
+                text = stringResource(R.string.Dont_show_any_more),
+                color = themeColors.primaryFontColor,
+                style = themeTypography.yesNoDialog,
+            )
+        }
+    }
+}
+
 
 @Composable
 fun BatteryIgnoreOptimizationDialog(appListViewModel: AppListViewModel) {
