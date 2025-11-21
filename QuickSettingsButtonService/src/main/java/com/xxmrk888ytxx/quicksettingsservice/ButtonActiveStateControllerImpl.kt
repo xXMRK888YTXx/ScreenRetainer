@@ -28,14 +28,14 @@ internal class ButtonActiveStateControllerImpl(
         changeState(false)
     }
 
-    private fun changeState(isActive:Boolean) {
+    private fun changeState(isActive:Boolean) = try {
         if(service != null) {
             service?.changeActiveState(isActive)
         } else {
             delayState = isActive
             bindService()
         }
-    }
+    } catch (_: Exception) {}
 
     private fun bindService() {
         try {
