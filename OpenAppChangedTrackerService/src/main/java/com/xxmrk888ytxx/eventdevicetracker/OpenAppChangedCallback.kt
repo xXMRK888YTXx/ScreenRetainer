@@ -13,6 +13,16 @@ package com.xxmrk888ytxx.eventdevicetracker
 interface OpenAppChangedCallback {
     /**
      * [Ru]
+     * Метод, вызываемый при начале отслеживания событий устройства.
+     */
+
+    /**
+     * [En]
+     * Method called when device event tracking starts.
+     */
+    fun onTrackingStarted()
+    /**
+     * [Ru]
      * Дополнительный параметры для работы трекера
      */
     /**

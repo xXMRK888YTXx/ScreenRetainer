@@ -27,6 +27,10 @@ class OpenAppChangedCallbackImpl @Inject constructor(
         }
     }
 
+    override fun onTrackingStarted() {
+        scope.launch { fixationManager.disableFixation() }
+    }
+
     override val params: OpenAppChangedTrackerParams
         get() = OpenAppChangedTrackerParams.Builder().setIgnoreList(ignoreList).build()
 

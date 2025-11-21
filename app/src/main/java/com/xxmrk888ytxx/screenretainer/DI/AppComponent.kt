@@ -6,6 +6,7 @@ import com.xxmrk888ytxx.quicksettingsservice.LockCurrentAppButtonClickedCallback
 import com.xxmrk888ytxx.screenretainer.DI.modules.*
 import com.xxmrk888ytxx.screenretainer.DI.modules.ShareModule
 import com.xxmrk888ytxx.screenretainer.MainActivity
+import com.xxmrk888ytxx.screenretainer.domain.FixationManager.FixationManager
 import dagger.BindsInstance
 import dagger.Component
 
@@ -33,10 +34,11 @@ interface AppComponent {
 
     @dagger.Component.Factory
     interface Factory {
-        fun create(@BindsInstance context: Context) : AppComponent
+        fun create(@BindsInstance context: Context): AppComponent
     }
 
     val openAppChangedCallback: OpenAppChangedCallback
 
     val lockCurrentAppButtonClickedCallback: LockCurrentAppButtonClickedCallback
+    val fixationManager: FixationManager
 }

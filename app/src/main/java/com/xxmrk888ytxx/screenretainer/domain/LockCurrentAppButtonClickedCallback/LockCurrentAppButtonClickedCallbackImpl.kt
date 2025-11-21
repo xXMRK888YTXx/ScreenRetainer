@@ -24,6 +24,7 @@ class LockCurrentAppButtonClickedCallbackImpl @Inject constructor(
         scope.launch {
             if(!permissionManager.isAdminPermissionGranted() || !permissionManager.isAccessibilityPermissionGranted()) {
                 toastManager.showToast(R.string.Permission_is_not_granted)
+                fixationManager.disableFixation()
                 return@launch
             }
 
