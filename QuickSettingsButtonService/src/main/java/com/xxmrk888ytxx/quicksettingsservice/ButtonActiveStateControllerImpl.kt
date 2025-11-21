@@ -1,10 +1,12 @@
 package com.xxmrk888ytxx.quicksettingsservice
 
+import android.app.Service
 import android.content.ComponentName
 import android.content.Context
 import android.content.ServiceConnection
 import android.os.Build
 import android.os.IBinder
+import android.service.quicksettings.TileService
 import android.util.Log
 import androidx.annotation.RequiresApi
 
@@ -36,9 +38,12 @@ internal class ButtonActiveStateControllerImpl(
     }
 
     private fun bindService() {
+        try {
+            TileService.requestListeningState(context,ComponentName(context, LockCurrentAppQuickButtonService::class.java))
+        }catch (_: Exception) {}
         context.bindService(
             LockCurrentAppQuickButtonService.getBindIntent(context),
-            this, 0
+            this, Service.BIND_AUTO_CREATE
         )
     }
 
@@ -51,7 +56,10 @@ internal class ButtonActiveStateControllerImpl(
 
     override fun onServiceDisconnected(name: ComponentName?) {
         service = null
+        bindService()
+    }
 
+    init {
         bindService()
     }
 
