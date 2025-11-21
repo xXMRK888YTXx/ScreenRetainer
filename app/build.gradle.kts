@@ -70,7 +70,6 @@ dependencies {
     implementation(project(Project.SettingsScreen))
     implementation(project(Project.Database))
     implementation(project(Project.QuickSettingsButtonService))
-    implementation(project(Project.AdmobManager))
 
     //Dagger
     ksp(Deps.Dagger.DaggerKaptCompiler)

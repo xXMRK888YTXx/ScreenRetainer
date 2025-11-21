@@ -35,7 +35,6 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
     private val manageFavoriteAppContract: ManageFavoriteAppContract,
     @Assisted private val activityLifecycleRegister: ActivityLifecycleRegister,
     private val toastManager: ToastManager,
-    @Assisted private val showAdContract: ShowAdContract,
     private val ignoreBatteryDialogManageContract: IgnoreBatteryDialogManageContract
 ) : ViewModel(),ActivityLifecycleCallback {
 
@@ -243,7 +242,6 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
             withContext(Dispatchers.Main) {
                 _appList.emit(appList)
                 _screenState.emit(ScreenState.AppList)
-                showAdContract.showAd()
             }
 
 
@@ -315,7 +313,6 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
     interface Factory {
         fun create(
             activityResultRegistry: ActivityLifecycleRegister,
-            showAdContract: ShowAdContract
         ) : AppListViewModel
     }
 }

@@ -1,18 +1,13 @@
 package com.xxmrk888ytxx.screenretainer
 
 import android.app.Activity
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.xxmrk888ytxx.admobmanager.ConsentFormLoader
 import com.xxmrk888ytxx.coredeps.SharedInterfaces.ActivityLifecycleCallback.ActivityLifecycleCallback
-import com.xxmrk888ytxx.coredeps.SharedInterfaces.ActivityLifecycleCallback.ActivityLifecycleRegister
 import com.xxmrk888ytxx.screenretainer.UseCases.OpenPrivatePolicySiteUseCase.OpenPrivatePolicySiteUseCase
 import com.xxmrk888ytxx.screenretainer.UseCases.OpenTermsOfUseSiteUseCase.OpenTermsOfUseSiteUseCase
-import com.xxmrk888ytxx.screenretainer.domain.AdManager.AdManager
 import com.xxmrk888ytxx.screenretainer.domain.AgreeDialogManager.AgreeDialogManager
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -25,7 +20,6 @@ class ActivityViewModel @Inject constructor(
     private val agreeDialogManager: AgreeDialogManager,
     private val openTermsOfUseSiteUseCase: OpenTermsOfUseSiteUseCase,
     private val openPrivatePolicySiteUseCase: OpenPrivatePolicySiteUseCase,
-    private val adManager: AdManager,
 ) : ViewModel() {
 
     class Factory @Inject constructor(
@@ -34,47 +28,6 @@ class ActivityViewModel @Inject constructor(
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return activityViewModel.get() as T
         }
-    }
-
-    private var isConsentChecked:Boolean = false
-
-    fun loadConsentForm(activity: Activity) {
-        if(isConsentChecked) return
-
-        isConsentChecked = true
-
-        val logTag = "ConsentFormLoader"
-
-        val loader = ConsentFormLoader.create(
-            activity,
-            BuildConfig.DEBUG,
-            true
-        )
-
-        loader.checkFormState(
-            onFormPrepared = {
-                Log.i(logTag, "onFormPrepared")
-
-                loader.loadAndShowForm(
-                    onSuccessLoad = {
-                        Log.i(logTag, "onSuccessLoad")
-                    },
-                    onLoadError = {
-                        Log.e(logTag, "onLoadError")
-
-                    },
-                    onDismissed = {
-                        Log.i(logTag, "onDismissed")
-                    }
-                )
-            },
-            onFormNotAvailable = {
-                Log.e(logTag, "onFormNotAvailable")
-            },
-            onError = {
-                Log.e(logTag, "onError")
-            }
-        )
     }
 
     private val activityLifecycleCallbacks: MutableSet<ActivityLifecycleCallback> = mutableSetOf()
@@ -125,14 +78,6 @@ class ActivityViewModel @Inject constructor(
 
     fun openPrivacyPolicy() {
         openPrivatePolicySiteUseCase.execute()
-    }
-
-    fun initAdService() {
-        adManager.initAdService()
-    }
-
-    fun showStartAd(activity: Activity) {
-        adManager.showStartInterstitialAd(activity)
     }
 
 }

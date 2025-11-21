@@ -15,10 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.xxmrk888ytxx.admobmanager.AdMobBanner
 import com.xxmrk888ytxx.applistscreen.AppListScreen
 import com.xxmrk888ytxx.applistscreen.AppListViewModel
-import com.xxmrk888ytxx.applistscreen.contract.ShowAdContract
 import com.xxmrk888ytxx.bottombarscreen.BottomBarScreen
 import com.xxmrk888ytxx.bottombarscreen.models.BottomBarScreenModel
 import com.xxmrk888ytxx.corecompose.theme.ShareComponents.AgreeDialog
@@ -32,11 +30,10 @@ import com.xxmrk888ytxx.settingsscreen.SettingsScreen
 import com.xxmrk888ytxx.settingsscreen.SettingsViewModel
 import composeViewModel
 import kotlinx.collections.immutable.persistentListOf
-import java.util.*
 import javax.inject.Inject
 import javax.inject.Provider
 
-class MainActivity : AppCompatActivity(),ActivityLifecycleRegister,ShowAdContract {
+class MainActivity : AppCompatActivity(),ActivityLifecycleRegister {
 
     @Inject lateinit var appListViewModel: AppListViewModel.Factory
     @Inject lateinit var settingsViewModel: Provider<SettingsViewModel>
@@ -50,8 +47,6 @@ class MainActivity : AppCompatActivity(),ActivityLifecycleRegister,ShowAdContrac
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         appComponent.inject(this)
-        activityViewModel.initAdService()
-        activityViewModel.loadConsentForm(this)
         setContent {
             val agreeDialogState = activityViewModel.isNeedShowAgreeDialog.collectAsState()
             AppTheme(appTheme = Themes.Dark) {
@@ -79,8 +74,7 @@ class MainActivity : AppCompatActivity(),ActivityLifecycleRegister,ShowAdContrac
                                             AppListScreen(
                                                 appListViewModel = composeViewModel {
                                                     appListViewModel.create(
-                                                        activityResultRegistry = this@MainActivity,
-                                                        showAdContract = this@MainActivity
+                                                        activityResultRegistry = this@MainActivity
                                                     )
                                                 }
                                             )
@@ -99,12 +93,6 @@ class MainActivity : AppCompatActivity(),ActivityLifecycleRegister,ShowAdContrac
                                         }
                                     )
                                 ),
-                                bannerAd = {
-                                    AdMobBanner(
-                                        adMobKey = getString(R.string.BottomBarBanner),
-                                        background = themeColors.background
-                                    )
-                                }
                             )
                         }
                     }
@@ -155,9 +143,5 @@ class MainActivity : AppCompatActivity(),ActivityLifecycleRegister,ShowAdContrac
 
     override fun unregisterCallback(activityLifecycleCallback: ActivityLifecycleCallback) {
         activityViewModel.unregisterCallback(activityLifecycleCallback)
-    }
-
-    override fun showAd() {
-        activityViewModel.showStartAd(this)
     }
 }
