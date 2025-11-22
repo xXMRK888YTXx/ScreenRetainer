@@ -48,9 +48,6 @@ mockk-agent-jvm = { module = "io.mockk:mockk-agent-jvm", version.ref = "mockk" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 compose-material = { module = "androidx.compose.material:material", version.ref = "compose-material" }
-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
 navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
 compose-ui-text-google-fonts = { module = "androidx.compose.ui:ui-text-google-fonts", version.ref = "compose" }
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist-systemuicontroller" }
@@ -100,9 +97,6 @@ room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
 # AppCompat
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 appcompat-resources = { module = "androidx.appcompat:appcompat-resources", version.ref = "appcompat" }
-
-# AdMob
-admob = { module = "com.google.android.gms:play-services-ads", version.ref = "admob" }
 
 # ImmutableCollection
 kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinx-collections-immutable" }
