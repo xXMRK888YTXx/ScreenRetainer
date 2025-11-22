@@ -15,8 +15,8 @@ android {
         applicationId = "com.xxmrk888ytxx.screenretainer"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.compileSdk.get().toInt()
-        versionCode = 6
-        versionName = "1.1.2r"
+        versionCode = 7
+        versionName = "1.2.0r"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
