@@ -78,7 +78,6 @@ dependencies {
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.appcompat)
     implementation(libs.appcompat.resources)
-    implementation(platform("com.google.firebase:firebase-bom:34.6.0"))
-    implementation("com.google.firebase:firebase-crashlytics-ktx:19.4.4")
-    implementation("com.google.firebase:firebase-analytics-ktx:22.5.0")
+    implementation(libs.firebase.crashlytics.ktx)
+    implementation(libs.firebase.analytics.ktx)
 }

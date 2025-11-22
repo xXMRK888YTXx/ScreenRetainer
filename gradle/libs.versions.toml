@@ -1,5 +1,7 @@
 
 [versions]
+firebaseAnalyticsKtx = "22.5.0"
+firebaseCrashlyticsKtx = "19.4.4"
 mockk = "1.14.6"
 composePlugin = "2.2.21"
 compose = "1.9.5"
@@ -36,6 +38,8 @@ isMinifyEnabledDebug = "false"
 
 [libraries]
 # Mockk
+firebase-analytics-ktx = { module = "com.google.firebase:firebase-analytics-ktx", version.ref = "firebaseAnalyticsKtx" }
+firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics-ktx", version.ref = "firebaseCrashlyticsKtx" }
 mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
 mockk-agent = { module = "io.mockk:mockk-agent", version.ref = "mockk" }
 mockk-junit = { module = "io.mockk:mockk", version.ref = "mockk" }
