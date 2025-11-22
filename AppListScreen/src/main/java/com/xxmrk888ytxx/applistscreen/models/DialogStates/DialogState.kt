@@ -2,9 +2,11 @@ package com.xxmrk888ytxx.applistscreen.models.DialogStates
 
 internal data class DialogState(
     val warmingAdminPermissionDialogState: WarmingAdminPermissionDialogState
-        = WarmingAdminPermissionDialogState.Hidden,
+    = WarmingAdminPermissionDialogState.Hidden,
     val warmingAccessibilityPermissionDialogState: WarmingAccessibilityPermissionDialogState
-        = WarmingAccessibilityPermissionDialogState.Hidden,
+    = WarmingAccessibilityPermissionDialogState.Hidden,
     val batteryIgnoreOptimizationDialogState: BatteryIgnoreOptimizationDialogState
-        = BatteryIgnoreOptimizationDialogState.Hidden
+    = BatteryIgnoreOptimizationDialogState.Hidden,
+    val addQuickButtonDialogState: AddQuickButtonDialogState = AddQuickButtonDialogState.Hidden
+
 )

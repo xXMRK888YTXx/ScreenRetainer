@@ -1,22 +1,22 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id(Deps.Dagger.DaggerKaptPlugin)
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
-    id("com.guardsquare.appsweep") version ("latest.release")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
-    namespace = Config.packageName
-    compileSdk = Config.compileSdk
+    namespace = "com.xxmrk888ytxx.screenretainer"
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = Config.packageName
-        minSdk = Config.minSdk
-        targetSdk = Config.compileSdk
-        versionCode = 6
-        versionName = "1.1.2r"
+        applicationId = "com.xxmrk888ytxx.screenretainer"
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.compileSdk.get().toInt()
+        versionCode = 7
+        versionName = "1.2.0r"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -26,13 +26,15 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = Config.isR8ProGuardEnableForRelease
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),"proguard-rules.pro")
             testProguardFile("test-proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("debug")
         }
 
         debug {
-            isMinifyEnabled = Config.isR8ProGuardEnableForDebug
+            isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -40,18 +42,15 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = Config.sourceCompatibility
-        targetCompatibility = Config.targetCompatibility
+        sourceCompatibility = JavaVersion.toVersion(libs.versions.jvmTarget.get())
+        targetCompatibility = JavaVersion.toVersion(libs.versions.jvmTarget.get())
     }
     kotlinOptions {
-        jvmTarget = Config.jvmTarget
+        jvmTarget = libs.versions.jvmTarget.get()
     }
     buildFeatures {
         compose = true
         buildConfig = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = Deps.Compose.ComposeKotlinCompiler
     }
     packaging {
         resources {
@@ -62,27 +61,25 @@ android {
 
 dependencies {
     //Project
-    implementation(project(Project.CoreCompose))
-    implementation(project(Project.AppListScreen))
-    implementation(project(Project.PackageInfoProvider))
-    implementation(project(Project.AdminReceiver))
-    implementation(project(Project.OpenAppChangedTrackerService))
-    implementation(project(Project.PreferencesStorage))
-    implementation(project(Project.BottomBarScreen))
-    implementation(project(Project.SettingsScreen))
-    implementation(project(Project.Database))
-    implementation(project(Project.QuickSettingsButtonService))
-    implementation(project(Project.AdmobManager))
+    implementation(project(":CoreCompose"))
+    implementation(project(":AppListScreen"))
+    implementation(project(":PackageInfoProvider"))
+    implementation(project(":AdminReceiver"))
+    implementation(project(":OpenAppChangedTrackerService"))
+    implementation(project(":PreferencesStorage"))
+    implementation(project(":BottomBarScreen"))
+    implementation(project(":SettingsScreen"))
+    implementation(project(":Database"))
+    implementation(project(":QuickSettingsButtonService"))
 
     //Dagger
-    kapt(Deps.Dagger.DaggerKaptCompiler)
+    ksp(libs.dagger.compiler)
 
     //Compose
-    implementation(Deps.Compose.Navigation)
-    implementation(Deps.Compose.SystemUiController)
-    implementation(Deps.AppCompat.appCompat)
-    implementation(Deps.AppCompat.appCompatRes)
-    implementation(platform("com.google.firebase:firebase-bom:31.3.0"))
-    implementation("com.google.firebase:firebase-crashlytics-ktx")
-    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation(libs.navigation.compose)
+    implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.appcompat)
+    implementation(libs.appcompat.resources)
+    implementation(libs.firebase.crashlytics.ktx)
+    implementation(libs.firebase.analytics.ktx)
 }

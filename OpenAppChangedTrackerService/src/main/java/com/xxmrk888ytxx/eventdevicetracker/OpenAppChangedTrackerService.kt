@@ -3,10 +3,12 @@
 package com.xxmrk888ytxx.eventdevicetracker
 
 import android.accessibilityservice.AccessibilityService
+import android.annotation.SuppressLint
 import android.content.*
 import android.view.accessibility.AccessibilityEvent
 import com.xxmrk888ytxx.coredeps.DepsProvider.getDepsByApplication
 
+@SuppressLint("AccessibilityPolicy")
 internal class OpenAppChangedTrackerService : AccessibilityService() {
 
     private var lastTrackedPackageName = ""
@@ -17,6 +19,7 @@ internal class OpenAppChangedTrackerService : AccessibilityService() {
 
     override fun onCreate() {
         super.onCreate()
+        openAppChangedCallback.onTrackingStarted()
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent) {

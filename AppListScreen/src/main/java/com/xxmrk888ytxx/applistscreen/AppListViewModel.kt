@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.xxmrk888ytxx.applistscreen.Exceptions.LaunchActivityNotFoundException
 import com.xxmrk888ytxx.applistscreen.contract.*
 import com.xxmrk888ytxx.applistscreen.models.AppInfoModel
+import com.xxmrk888ytxx.applistscreen.models.DialogStates.AddQuickButtonDialogState
 import com.xxmrk888ytxx.applistscreen.models.DialogStates.BatteryIgnoreOptimizationDialogState
 import com.xxmrk888ytxx.applistscreen.models.DialogStates.DialogState
 import com.xxmrk888ytxx.applistscreen.models.DialogStates.WarmingAccessibilityPermissionDialogState
@@ -26,7 +27,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class AppListViewModel @SuppressLint("StaticFieldLeak")
+class AppListViewModel
 @AssistedInject constructor(
     private val appListProvideContract: AppListProvideContract,
     private val appLaunchAndActivateScreenFixationContract: AppLaunchAndActivateScreenFixationContract,
@@ -35,11 +36,13 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
     private val manageFavoriteAppContract: ManageFavoriteAppContract,
     @Assisted private val activityLifecycleRegister: ActivityLifecycleRegister,
     private val toastManager: ToastManager,
-    @Assisted private val showAdContract: ShowAdContract,
-    private val ignoreBatteryDialogManageContract: IgnoreBatteryDialogManageContract
-) : ViewModel(),ActivityLifecycleCallback {
+    private val ignoreBatteryDialogManageContract: IgnoreBatteryDialogManageContract,
+    private val addQuickButtonToNotificationBarContract: AddQuickButtonToNotificationBarContract
+) : ViewModel(), ActivityLifecycleCallback {
 
     private val _screenState = MutableStateFlow<ScreenState>(ScreenState.RequestPermission)
+
+    private var isNeedShowAddQuickButtonDialogInCurrentSession = true
 
     private var isIgnoreBatteryDialogHasBeenShowed = false
 
@@ -89,20 +92,20 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
     private val _searchLineText = MutableStateFlow("")
 
     internal val searchLineText = _searchLineText.asStateFlow()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000),"")
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), "")
 
     private val favoriteAppList = manageFavoriteAppContract.getFavoriteAppFlow()
 
     internal val appList = _appList.asStateFlow()
         .combine(searchLineText) { appList, searchText ->
 
-            if(searchText.isEmpty()) return@combine appList
+            if (searchText.isEmpty()) return@combine appList
 
             appList.filter { searchText.lowercase() in (it.appName ?: "").lowercase() }
 
         }.combine(favoriteAppList) { appList, favoriteApps ->
             appList.map {
-                return@map if(it.appPackageName in favoriteApps) {
+                return@map if (it.appPackageName in favoriteApps) {
                     it.copy(isFavorite = true)
                 } else it
             }
@@ -179,9 +182,9 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
         }
     }
 
-    internal fun hideBatteryIgnoreOptimizationDialog(isHideDialogForever:Boolean) {
+    internal fun hideBatteryIgnoreOptimizationDialog(isHideDialogForever: Boolean) {
         viewModelScope.launch {
-            if(isHideDialogForever) {
+            if (isHideDialogForever) {
                 ignoreBatteryDialogManageContract.hideDialogForever()
             }
 
@@ -197,7 +200,7 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
         ignoreBatteryDialogManageContract.openBatterySettings()
     }
 
-    internal fun onSearchTextUpdated(text:String) {
+    internal fun onSearchTextUpdated(text: String) {
         viewModelScope.launch(Dispatchers.Main) { _searchLineText.emit(text) }
     }
 
@@ -226,8 +229,8 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
                 )
             }
 
-            if(adminState && accessibilityState) {
-               loadAppList()
+            if (adminState && accessibilityState) {
+                loadAppList()
             }
         }
     }
@@ -243,7 +246,6 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
             withContext(Dispatchers.Main) {
                 _appList.emit(appList)
                 _screenState.emit(ScreenState.AppList)
-                showAdContract.showAd()
             }
 
 
@@ -251,9 +253,10 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
     }
 
     @SuppressLint("ResourceType")
-    internal fun activateFixation(packageName:String) {
-        if(!checkPermissionContract.isAdminPermissionGranted() ||
-            !checkPermissionContract.isAccessibilityPermissionGranted()) {
+    internal fun activateFixation(packageName: String) {
+        if (!checkPermissionContract.isAdminPermissionGranted() ||
+            !checkPermissionContract.isAccessibilityPermissionGranted()
+        ) {
             toastManager.showToast(R.string.Some_permissions_have_been_withdrawn)
 
             viewModelScope.launch {
@@ -266,7 +269,7 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
         }
 
         viewModelScope.launch {
-            if(isNeedShowIgnoreBatteryDialog()) {
+            if (isNeedShowIgnoreBatteryDialog()) {
                 isIgnoreBatteryDialogHasBeenShowed = true
 
                 showBatteryIgnoreOptimizationDialog()
@@ -274,35 +277,56 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
                 return@launch
             }
 
-                withContext(Dispatchers.Main) {
-                    try {
-                        appLaunchAndActivateScreenFixationContract.launchAppAndFixation(packageName)
-                        toastManager.showToast(R.string.Screen_lock_activated)
-                    }catch (e: LaunchActivityNotFoundException) {
-                        toastManager.showToast(R.string.Could_not_find_start_screen)
-                    }catch (e:Exception) {
-                        toastManager.showToast(R.string.Application_opening_error)
-                    }
+            withContext(Dispatchers.Main) {
+                try {
+                    appLaunchAndActivateScreenFixationContract.launchAppAndFixation(packageName)
+                    toastManager.showToast(R.string.Screen_lock_activated)
+                } catch (e: LaunchActivityNotFoundException) {
+                    toastManager.showToast(R.string.Could_not_find_start_screen)
+                } catch (e: Exception) {
+                    toastManager.showToast(R.string.Application_opening_error)
                 }
+            }
 
         }
     }
 
     private suspend fun isNeedShowIgnoreBatteryDialog(): Boolean {
-        if(isIgnoreBatteryDialogHasBeenShowed) return false
+        if (isIgnoreBatteryDialogHasBeenShowed) return false
 
         return !ignoreBatteryDialogManageContract.isDialogHiddenForever()
     }
 
     override fun onResume() {
         super.onResume()
-        if(_screenState.value is ScreenState.RequestPermission)
+        if (_screenState.value is ScreenState.RequestPermission)
             updatePermissionState()
     }
 
     override fun onCleared() {
         super.onCleared()
         activityLifecycleRegister.unregisterCallback(this)
+    }
+
+    internal fun showAddQuickButtonDialog() = viewModelScope.launch {
+        if (!addQuickButtonToNotificationBarContract.isFeatureAvailable
+            || addQuickButtonToNotificationBarContract.isAppDialogForAddQuickButtonHideForever()
+            || !isNeedShowAddQuickButtonDialogInCurrentSession
+        ) return@launch
+        _dialogState.update { it.copy(addQuickButtonDialogState = AddQuickButtonDialogState.Visible) }
+    }
+
+    internal fun hideAddQuickButtonDialog(isHideDialogForever: Boolean) {
+        _dialogState.update { it.copy(addQuickButtonDialogState = AddQuickButtonDialogState.Hidden) }
+        if (isHideDialogForever) {
+            viewModelScope.launch { addQuickButtonToNotificationBarContract.hideDialogForever() }
+        } else {
+            isNeedShowAddQuickButtonDialogInCurrentSession = false
+        }
+    }
+
+    internal fun openAndroidDialogForAddQuickSettingsButton() {
+        addQuickButtonToNotificationBarContract.openAndroidDialogForQuickButtonToNotificationBar()
     }
 
     init {
@@ -315,7 +339,6 @@ class AppListViewModel @SuppressLint("StaticFieldLeak")
     interface Factory {
         fun create(
             activityResultRegistry: ActivityLifecycleRegister,
-            showAdContract: ShowAdContract
-        ) : AppListViewModel
+        ): AppListViewModel
     }
 }
