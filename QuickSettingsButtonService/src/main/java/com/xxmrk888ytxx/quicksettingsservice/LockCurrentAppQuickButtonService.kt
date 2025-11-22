@@ -57,7 +57,6 @@ class LockCurrentAppQuickButtonService : TileService() {
 
     override fun onStopListening() {
         super.onStopListening()
-        changeActiveState(false)
     }
 
     override fun onClick() {
