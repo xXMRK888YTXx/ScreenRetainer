@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
-    id("com.guardsquare.appsweep") version ("latest.release")
     alias(libs.plugins.kotlin.compose)
 }
 
