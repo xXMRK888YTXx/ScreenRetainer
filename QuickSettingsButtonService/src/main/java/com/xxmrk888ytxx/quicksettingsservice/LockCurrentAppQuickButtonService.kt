@@ -45,18 +45,7 @@ class LockCurrentAppQuickButtonService : TileService() {
         super.onTileAdded()
 
         unlockAndRun { }
-    }
-
-    override fun onTileRemoved() {
-        super.onTileRemoved()
-    }
-
-    override fun onStartListening() {
-        super.onStartListening()
-    }
-
-    override fun onStopListening() {
-        super.onStopListening()
+        qsTile.state = Tile.STATE_INACTIVE
     }
 
     override fun onClick() {
