@@ -1,16 +1,16 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id(Deps.Dagger.KspPlugin)
-    id(Deps.Room.PluginName)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.room)
 }
 
 android {
     namespace = "com.xxmrk888ytxx.database"
-    compileSdk = Config.compileSdk
+    compileSdk = 36
 
     defaultConfig {
-        minSdk = Config.minSdk
+        minSdk = 23
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -22,7 +22,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = Config.isR8ProGuardEnableForRelease
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -30,7 +30,7 @@ android {
         }
 
         debug {
-            isMinifyEnabled = Config.isR8ProGuardEnableForDebug
+            isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -38,11 +38,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = Config.sourceCompatibility
-        targetCompatibility = Config.targetCompatibility
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = Config.jvmTarget
+        jvmTarget = "17"
     }
     packaging {
         resources.excludes.add("META-INF/*")
@@ -50,22 +50,22 @@ android {
 }
 
 dependencies {
-    implementation(project(Project.CoreAndroid))
+    implementation(project(":CoreAndroid"))
 
-    implementation(Deps.Room.RoomKTX)
-    implementation(Deps.Room.RoomRuntime)
+    implementation(libs.room.ktx)
+    implementation(libs.room.runtime)
 
-    ksp (Deps.Room.KaptCompiler)
-    ksp (Deps.Dagger.DaggerKaptCompiler)
+    ksp(libs.room.compiler)
+    ksp(libs.dagger.compiler)
 
     //Instrumental Test
-    androidTestImplementation (Deps.InstrumentalTest.espresso)
-    androidTestImplementation (Deps.InstrumentalTest.testRunner)
-    androidTestImplementation (Deps.InstrumentalTest.testCore)
-    androidTestImplementation (Deps.InstrumentalTest.jUnit)
-    androidTestImplementation (Deps.InstrumentalTest.testRules)
-    androidTestImplementation (Deps.TestAndroid.MockkAndroid)
-    androidTestImplementation (Deps.TestAndroid.MockkAgent)
-    androidTestImplementation (Deps.Coroutines.Test.CoroutinesTest)
-    androidTestImplementation (Deps.Room.Test.RoomTest)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.test.core)
+    androidTestImplementation(libs.androidx.test.ext.junit.ktx)
+    androidTestImplementation(libs.androidx.test.rules)
+    androidTestImplementation(libs.mockk.android)
+    androidTestImplementation(libs.mockk.agent)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.room.testing)
 }

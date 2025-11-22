@@ -1,14 +1,14 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
     namespace = "com.xxmrk888ytxx.coreandroid"
-    compileSdk = Config.compileSdk
+    compileSdk = 36
 
     defaultConfig {
-        minSdk = Config.minSdk
+        minSdk = 23
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -16,15 +16,15 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = Config.isR8ProGuardEnableForRelease
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
 
-        release {
-            isMinifyEnabled = Config.isR8ProGuardEnableForDebug
+        debug {
+            isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -32,21 +32,21 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = Config.sourceCompatibility
-        targetCompatibility = Config.targetCompatibility
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = Config.jvmTarget
+        jvmTarget = "17"
     }
 }
 
 dependencies {
-    api (Deps.AndroidX.AndroidCore)
-    api (Deps.AndroidX.LifeCycle)
-    api (Deps.AndroidX.ComposeActivity)
-    api (Deps.ViewModel.ViewModel)
-    api (Deps.ViewModel.ViewModelKotlin)
-    api (Deps.Dagger.DaggerCore)
-    api (Deps.Coroutines.CoroutinesAndroid)
-    api (Deps.ImmutableCollection.collectionsImmutable)
+    api(libs.androidx.core.ktx)
+    api(libs.androidx.lifecycle.runtime.ktx)
+    api(libs.androidx.activity.compose)
+    api(libs.androidx.lifecycle.viewmodel)
+    api(libs.androidx.lifecycle.viewmodel.ktx)
+    api(libs.dagger)
+    api(libs.kotlinx.coroutines.android)
+    api(libs.kotlinx.collections.immutable)
 }

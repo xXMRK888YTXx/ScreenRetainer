@@ -1,21 +1,21 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id(Deps.Dagger.KspPlugin)
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.firebase.crashlytics)
     id("com.guardsquare.appsweep") version ("latest.release")
-    id(Deps.Compose.PluginName) version Deps.Compose.PluginVersion
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
-    namespace = Config.packageName
-    compileSdk = Config.compileSdk
+    namespace = "com.xxmrk888ytxx.screenretainer"
+    compileSdk = 36
 
     defaultConfig {
-        applicationId = Config.packageName
-        minSdk = Config.minSdk
-        targetSdk = Config.compileSdk
+        applicationId = "com.xxmrk888ytxx.screenretainer"
+        minSdk = 23
+        targetSdk = 36
         versionCode = 6
         versionName = "1.1.2r"
 
@@ -27,13 +27,13 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = Config.isR8ProGuardEnableForRelease
+            isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),"proguard-rules.pro")
             testProguardFile("test-proguard-rules.pro")
         }
 
         debug {
-            isMinifyEnabled = Config.isR8ProGuardEnableForDebug
+            isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -41,11 +41,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = Config.sourceCompatibility
-        targetCompatibility = Config.targetCompatibility
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = Config.jvmTarget
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -60,25 +60,25 @@ android {
 
 dependencies {
     //Project
-    implementation(project(Project.CoreCompose))
-    implementation(project(Project.AppListScreen))
-    implementation(project(Project.PackageInfoProvider))
-    implementation(project(Project.AdminReceiver))
-    implementation(project(Project.OpenAppChangedTrackerService))
-    implementation(project(Project.PreferencesStorage))
-    implementation(project(Project.BottomBarScreen))
-    implementation(project(Project.SettingsScreen))
-    implementation(project(Project.Database))
-    implementation(project(Project.QuickSettingsButtonService))
+    implementation(project(":CoreCompose"))
+    implementation(project(":AppListScreen"))
+    implementation(project(":PackageInfoProvider"))
+    implementation(project(":AdminReceiver"))
+    implementation(project(":OpenAppChangedTrackerService"))
+    implementation(project(":PreferencesStorage"))
+    implementation(project(":BottomBarScreen"))
+    implementation(project(":SettingsScreen"))
+    implementation(project(":Database"))
+    implementation(project(":QuickSettingsButtonService"))
 
     //Dagger
-    ksp(Deps.Dagger.DaggerKaptCompiler)
+    ksp(libs.dagger.compiler)
 
     //Compose
-    implementation(Deps.Compose.Navigation)
-    implementation(Deps.Compose.SystemUiController)
-    implementation(Deps.AppCompat.appCompat)
-    implementation(Deps.AppCompat.appCompatRes)
+    implementation(libs.navigation.compose)
+    implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.appcompat)
+    implementation(libs.appcompat.resources)
     implementation(platform("com.google.firebase:firebase-bom:34.6.0"))
     implementation("com.google.firebase:firebase-crashlytics-ktx:19.4.4")
     implementation("com.google.firebase:firebase-analytics-ktx:22.5.0")

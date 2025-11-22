@@ -1,15 +1,15 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
     namespace = "com.xxmrk888ytxx.adminreceiver"
-    compileSdk = Config.compileSdk
+    compileSdk = 36
 
     defaultConfig {
-        minSdk =  Config.minSdk
-        targetSdk = Config.compileSdk
+        minSdk =  23
+        targetSdk = 36
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -17,22 +17,22 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = Config.isR8ProGuardEnableForRelease
+            isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro")
         }
         debug {
-            isMinifyEnabled = Config.isR8ProGuardEnableForDebug
+            isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro")
         }
     }
     compileOptions {
-        sourceCompatibility = Config.sourceCompatibility
-        targetCompatibility = Config.targetCompatibility
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = Config.jvmTarget
+        jvmTarget = "17"
     }
     packaging {
         resources.excludes.add("META-INF/*")
@@ -40,19 +40,17 @@ android {
 }
 
 dependencies {
-    implementation(project(Project.CoreAndroid))
+    implementation(project(":CoreAndroid"))
     //Test
-    testImplementation(Deps.TestAndroid.MockkAndroid)
-    testImplementation(Deps.TestAndroid.MockkAgent)
-    testImplementation(Deps.Test.Testing)
-    testImplementation(Deps.TestAndroid.MockkAndroid)
-    testImplementation(Deps.TestAndroid.MockkAgent)
+    testImplementation(libs.mockk.android)
+    testImplementation(libs.mockk.agent)
+    testImplementation(libs.testng)
     //Instrumental Test
-    androidTestImplementation (Deps.InstrumentalTest.espresso)
-    androidTestImplementation (Deps.InstrumentalTest.testRunner)
-    androidTestImplementation (Deps.InstrumentalTest.testCore)
-    androidTestImplementation (Deps.InstrumentalTest.jUnit)
-    androidTestImplementation (Deps.InstrumentalTest.testRules)
-    androidTestImplementation(Deps.TestAndroid.MockkAndroid)
-    androidTestImplementation(Deps.TestAndroid.MockkAgent)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.test.core)
+    androidTestImplementation(libs.androidx.test.ext.junit.ktx)
+    androidTestImplementation(libs.androidx.test.rules)
+    androidTestImplementation(libs.mockk.android)
+    androidTestImplementation(libs.mockk.agent)
 }

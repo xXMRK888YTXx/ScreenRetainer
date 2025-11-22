@@ -1,16 +1,16 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id(Deps.Dagger.KspPlugin)
-    id(Deps.Compose.PluginName) version Deps.Compose.PluginVersion
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
     namespace = "com.xxmrk888ytxx.applistscreen"
-    compileSdk = Config.compileSdk
+    compileSdk = 36
 
     defaultConfig {
-        minSdk = Config.minSdk
+        minSdk = 23
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -18,7 +18,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = Config.isR8ProGuardEnableForRelease
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -26,7 +26,7 @@ android {
         }
 
         debug {
-            isMinifyEnabled = Config.isR8ProGuardEnableForDebug
+            isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -34,11 +34,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = Config.sourceCompatibility
-        targetCompatibility = Config.targetCompatibility
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = Config.jvmTarget
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -46,8 +46,8 @@ android {
 }
 
 dependencies {
-    implementation(project(Project.CoreCompose))
-    implementation(Deps.Coil.coil)
+    implementation(project(":CoreCompose"))
+    implementation(libs.coil.compose)
 
-    ksp(Deps.Dagger.DaggerKaptCompiler)
+    ksp(libs.dagger.compiler)
 }
