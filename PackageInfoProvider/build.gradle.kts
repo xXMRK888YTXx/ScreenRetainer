@@ -17,13 +17,13 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = libs.versions.isMinifyEnabledRelease.get().toBoolean()
+            isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro")
         }
 
         debug {
-            isMinifyEnabled = libs.versions.isMinifyEnabledDebug.get().toBoolean()
+            isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro")
         }

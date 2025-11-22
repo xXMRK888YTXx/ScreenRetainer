@@ -32,8 +32,6 @@ firebase-crashlytics-gradle = "3.0.6"
 compileSdk = "36"
 minSdk = "23"
 jvmTarget = "17"
-isMinifyEnabledRelease = "true"
-isMinifyEnabledDebug = "false"
 
 
 [libraries]
