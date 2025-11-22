@@ -27,6 +27,11 @@ kotlin-android = "2.2.21"
 ksp = "2.2.21-2.0.4"
 google-services = "4.4.4"
 firebase-crashlytics-gradle = "3.0.6"
+compileSdk = "36"
+minSdk = "23"
+jvmTarget = "17"
+isMinifyEnabledRelease = "true"
+isMinifyEnabledDebug = "false"
 
 
 [libraries]
